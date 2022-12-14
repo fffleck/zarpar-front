@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="flex-dashboard">
+    <sidebar>
+        <div class="sidebar-title">
+            <img src="../imagens/logo+white.png" alt="">
+
+        </div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <i class="fa-solid fa-house"></i>
+                    <a href="dashboard.html" > Dashboard</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-table-list"></i>
+                    <a href="cotacoes.html" >Cotações</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-ship"></i>
+                    <a href="bookings.html" >Bookings</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                    <a href="pagamentos.html" >Pagamentos</a>
+                </li>
+                <li class="selected">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <a href="conta.html" >Conta</a>
+                </li>
+            </ul>
+
+        </div>
+    
+    </sidebar>
+     <main>
+        <header>
+            <a href="dashboard.html"> <i class="fa-solid fa-bars"></i> Dashboard</a>
+            <a href="../index.html"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </header>
+            <div class="main-content">
+
+
+                <div class="main-content-title">
+                    <h2>Conta</h2>
+                    <div class="conta-parent">
+                    <div class="conta-img"></div>
+                    <div class="conta-form">
+                     <form class="row g-3">
+                        <P></P>   
+                        <div class="col-12">
+                            <label for="name" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="inputname" placeholder="Nome Completo" required>
+                          </div>    
+                          <div class="col-md-6">
+                            <label for="inputext" class="form-label">Empresa</label>
+                                  <input type="text" class="form-control" id="inputtext" placeholder="Empresa" required>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputtext" class="form-label">CNPJ</label>
+                                  <input type="text" class="form-control" id="inputtext">
+                                </div>       
+                          
+                        <div class="col-md-6">
+                            <label for="inputEmail4" class="form-label">E-mail</label>
+                                  <input type="email" class="form-control" id="inputEmail4" placeholder="E-mail" required>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputPassword4" class="form-label">Senha</label>
+                                  <input type="password" class="form-control" id="inputPassword4"required>
+                                </div>
+                                <div class="col-12">
+                                  <label for="inputAddress" class="form-label">Endereço</label>
+                                  <input type="text" class="form-control" id="inputAddress" placeholder="Endereço"required>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <label for="inputCity" class="form-label">Cidade</label>
+                                  <input type="text" class="form-control" id="inputCity"required>
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="inputState" class="form-label">Estado</label>
+                                  <select id="inputState" class="form-select"required>
+                                    <option selected>Acre</option>
+                                    <option>Acre</option>
+                                    <option>Alagoas</option>
+                                    <option>Amapá</option>
+                                    <option>Amazonas</option>
+                                    <option>Bahia</option>
+                                    <option>Ceará</option>
+                                    <option>Distrito Federal</option>
+                                    <option>Espírito Santo</option>
+                                    <option>Goiás</option>
+                                    <option>Maranhão</option>
+                                    <option>Mato Grosso</option>
+                                    <option>Mato Grosso do Sul</option>
+                                    <option>Minas Gerais</option>
+                                    <option>Pará</option>
+                                    <option>Paraíba</option>
+                                    <option>Paraná</option>
+                                    <option>Pernambuco</option>
+                                    <option>Piauí</option>
+                                    <option>Rio de Janeiro</option>
+                                    <option>Rio Grande do Norte</option>
+                                    <option>Rio Grande do Sul</option>
+                                    <option>Rondônia</option>
+                                    <option>Roraima</option>
+                                    <option>Santa Catarina</option>
+                                    <option>São Paulo</option>
+                                    <option>Sergipe</option>
+                                    <option>Tocantins</option>
+
+                                  </select>
+                                </div>
+                                <div class="col-md-2">
+                                  <label for="inputZip" class="form-label">CEP</label>
+                                  <input type="text" class="form-control" id="inputZip"required>
+                                </div>  
+                                                             
+                                <div class="col-12">
+                                  <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                                <p></p>
+                                
+                              </form>
+                                </div>
+                              </div>
+ 
+                    </div>
+                    </div>
+                </div>
+            </div>
+          
+        </main>
+    </div>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="../plugins/fontawesome/js/all.min.js"></script>
+</body>
+</html>

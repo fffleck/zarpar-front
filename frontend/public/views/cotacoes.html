@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="flex-dashboard">
+    <sidebar>
+        <div class="sidebar-title">
+            <img src="../imagens/logo+white.png" alt="">
+
+        </div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <i class="fa-solid fa-house"></i>
+                    <a href="dashboard.html" > Dashboard</a>
+                </li>
+                <li class="selected">
+                    <i class="fa-solid fa-table-list"></i>
+                    <a href="cotacoes.html" >Cotações</a>                  
+                </li>
+                <li>
+                    <i class="fa-solid fa-ship"></i>
+                    <a href="bookings.html" >Bookings</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                    <a href="pagamentos.html" >Pagamentos</a>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-user"></i>
+                    <a href="perfil.html" >Perfil</a>
+                </li>
+            </ul>
+
+        </div>
+    
+    </sidebar>
+     <main>
+        <header>
+            <a href="dashboard.html"> <i class="fa-solid fa-bars"></i> Dashboard</a>
+            <a href="../index.html"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </header>
+            <div class="main-content">
+                <div class="main-content-title">
+                    <h2>Cotações</h2>
+                    <p></p>
+                </div>                <form class="row g-3">
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Mercadoria</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>NCM</option>
+                          
+                          <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Porto de Embarque</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>POL</option>
+                            <option>Paranaguá</option>
+                            <option>Suape</option>
+                            <option>Rio de Janeiro</option>
+                            <option>Itaguai</option>
+                            <option>Navegantes</option>
+                            <option>Itajai</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Porto de Descarga</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>POD</option>
+                          <option>Abidjan</option>
+                          <option>Abu Dhabi</option>
+                          <option>Aburatsu</option>
+                          <option>Acajutla</option>
+                          <option>Ad Dammam</option>
+                          <option>Adelaide</option>
+                          <option>Aden</option>
+                          <option>Agadir</option>
+                          <option>Ajman</option>
+                          <option>Al Hamriyah</option>
+                          <option>Al Khums (El Khoms)</option>
+                          <option>Alesund</option>
+                          <option>Alexandria El Iskandariya</option>
+                          <option>Algeciras</option>
+                          <option>Alger (Algiers)</option>
+                          <option>Aliaga</option>
+                          <option>Almeria</option>
+                          <option>Altamira</option>
+                          <option>Amsterdam</option>
+                          <option>Angola</option>
+                          <option>Anqing</option>
+                          <option>Antalya</option>
+                          <option>Antwerpen</option>
+                          <option>Apapa</option>
+                          <option>Apia</option>
+                          <option>Aqaba (El Akaba)</option>
+                          <option>Aqaba Free Zone</option>
+                          <option>Argentina</option>
+                          <option>Arhus (Aarhus)</option>
+                          <option>Arica</option>
+                          <option>Arthur (Tx)</option>
+                          <option>Arzew (Bethioua)</option>
+                          <option>Ashdod</option>
+                          <option>Auckland</option>
+                          <option>Aveiro</option>
+                          <option>Aviles</option>
+                          <option>Bagan Luar (Butterworth)</option>
+                          <option>Bahia Blanca</option>
+                          <option>Bahrain</option>
+                          <option>Balboa</option>
+                          <option>Baltimore (Md)</option>
+                          <option>Ban Map Ta Phut</option>
+                          <option>Bandar Abbas</option>
+                          <option>Bandar Khomeini</option>
+                          <option>Bandar Shahid Rajaee</option>
+                          <option>Bandirma</option>
+                          <option>Bangkok</option>
+                          <option>Bangkok Modern Terminals</option>
+                          <option>Banjul</option>
+                          <option>Banten</option>
+                          <option>Bar</option>
+                          <option>Barcadera</option>
+                          <option>Barcelona</option>
+                          <option>Barranquilla</option>
+                          <option>Basseterre  St Kitts</option>
+                          <option>Basuo</option>
+                          <option>Bata</option>
+                          <option>Batangas</option>
+                          <option>Batumi</option>
+                          <option>Bayuquan</option>
+                          <option>Beihai</option>
+                          <option>Beilun</option>
+                          <option>Beira</option>
+                          <option>Beirut</option>
+                          <option>Bejaia (Ex Bougie)</option>
+                          <option>Belawan  Sumatra</option>
+                          <option>Belfast</option>
+                          <option>Belize City</option>
+                          <option>Bergen</option>
+                          <option>Bilbao</option>
+                          <option>Bingazi(Benghazi)</option>
+                          <option>Bissau</option>
+                          <option>Bizerte</option>
+                          <option>Bonny</option>
+                          <option>Boston (Ma)</option>
+                          <option>Brake</option>
+                          <option>Bremen</option>
+                          <option>Bremerhaven</option>
+                          <option>Brest</option>
+                          <option>Bridgetown</option>
+                          <option>Brisbane</option>
+                          <option>Brunswick (Ga)</option>
+                          <option>Buenaventura</option>
+                          <option>Buenos Aires</option>
+                          <option>Burgas</option>
+                          <option>Bushehr (Bandar Bushire)</option>
+                          <option>Cabinda</option>
+                          <option>Cadiz</option>
+                          <option>Cagayan De Oro  Mindanao</option>
+                          <option>Cagliari</option>
+                          <option>Cai Lan</option>
+                          <option>Cai Mep</option>
+                          <option>Calabar</option>
+                          <option>Calcutta</option>
+                          <option>Caldera</option>
+                          <option>Callao</option>
+                          <option>Camden Park</option>
+                          <option>Canical</option>
+                          <option>Caofeidian</option>
+                          <option>Cap Haitien</option>
+                          <option>Cape Town</option>
+                          <option>Cartagena +Co</option>
+                          <option>Cartagena +Es</option>
+                          <option>Casablanca</option>
+                          <option>Castries</option>
+                          <option>Cat Lai</option>
+                          <option>Caucedo</option>
+                          <option>Cebu</option>
+                          <option>Chalmers (Dunedin Ha</option>
+                          <option>Chalna</option>
+                          <option>Changshu</option>
+                          <option>Changzhou</option>
+                          <option>Charleston (Sc)</option>
+                          <option>Chennai</option>
+                          <option>Chiba</option>
+                          <option>China</option>
+                          <option>Chittagong</option>
+                          <option>Chiwan</option>
+                          <option>Chongqing</option>
+                          <option>Chornomorsk (Ilyichevsk)</option>
+                          <option>Chuanshan</option>
+                          <option>Cienfuegos</option>
+                          <option>Cigading</option>
+                          <option>Civitavecchia</option>
+                          <option>Coatzacoalcos</option>
+                          <option>Cochin</option>
+                          <option>Coega</option>
+                          <option>Colombo</option>
+                          <option>Conakry</option>
+                          <option>Conchan</option>
+                          <option>Constanta (Constantza)</option>
+                          <option>Copenhagen (Kobenhavn)</option>
+                          <option>Corinto</option>
+                          <option>Cork</option>
+                          <option>Cotonou</option>
+                          <option>Cristobal</option>
+                          <option>Da Nang</option>
+                          <option>Daebul</option>
+                          <option>Dafeng</option>
+                          <option>Dakar</option>
+                          <option>Dalian</option>
+                          <option>Damietta</option>
+                          <option>Dandong</option>
+                          <option>Dar Es Salaam</option>
+                          <option>Darrow (La)</option>
+                          <option>Davao  Mindanao</option>
+                          <option>Degrad Des Cannes</option>
+                          <option>Djibouti</option>
+                          <option>Doha</option>
+                          <option>Dominican Republic</option>
+                          <option>Dongguan</option>
+                          <option>Dongjiangkou</option>
+                          <option>Douala</option>
+                          <option>Drammen</option>
+                          <option>Dubai</option>
+                          <option>Dublin</option>
+                          <option>Dunedin</option>
+                          <option>Dunkerque</option>
+                          <option>Dunkirk</option>
+                          <option>Durban</option>
+                          <option>Durres</option>
+                          <option>East London</option>
+                          <option>El Dekheila</option>
+                          <option>El Guamache</option>
+                          <option>El Salvador</option>
+                          <option>El Suweis (= Suez)</option>
+                          <option>Elizabeth</option>
+                          <option>Ensenada</option>
+                          <option>Escombreras</option>
+                          <option>Esmeraldas</option>
+                          <option>Esquivel</option>
+                          <option>Fangcheng</option>
+                          <option>Felixstowe</option>
+                          <option>Fort De France</option>
+                          <option>Fos Sur Mer</option>
+                          <option>Foshan</option>
+                          <option>Foynes</option>
+                          <option>Fredrikstad</option>
+                          <option>Free Bs</option>
+                          <option>Freetown</option>
+                          <option>Fremantle</option>
+                          <option>Fujairah (Al Fujairah)</option>
+                          <option>Fujin</option>
+                          <option>Fuzhou</option>
+                          <option>Gangavaram</option>
+                          <option>Gaogang</option>
+                          <option>Gavle</option>
+                          <option>Gdansk</option>
+                          <option>Gdynia</option>
+                          <option>Gebze</option>
+                          <option>Gemlik</option>
+                          <option>Genoa</option>
+                          <option>Georgetown +Gy</option>
+                          <option>Ghent</option>
+                          <option>Gibraltar</option>
+                          <option>Gijon</option>
+                          <option>Gioia Tauro</option>
+                          <option>Glendale (Az)</option>
+                          <option>Goteborg</option>
+                          <option>Great Britain</option>
+                          <option>Greenore</option>
+                          <option>Gresik  Java</option>
+                          <option>Guangzhou</option>
+                          <option>Guanta</option>
+                          <option>Guaranao Bay</option>
+                          <option>Guayaquil</option>
+                          <option>Gunsan</option>
+                          <option>Gwangyang</option>
+                          <option>Hachinohe</option>
+                          <option>Haifa (Hefa)</option>
+                          <option>Haiphong</option>
+                          <option>Hakata</option>
+                          <option>Halifax (Ns)</option>
+                          <option>Hamad</option>
+                          <option>Hamburg</option>
+                          <option>Hamina</option>
+                          <option>Harcourt</option>
+                          <option>Haydarpasa</option>
+                          <option>Helsingborg</option>
+                          <option>Helsinki</option>
+                          <option>Ho Chi Minh  Vict</option>
+                          <option>Ho Chi Minh City</option>
+                          <option>Hodeidah</option>
+                          <option>Hoek Van Holland</option>
+                          <option>Hong Kong</option>
+                          <option>Hongai</option>
+                          <option>Honolulu (Hi)</option>
+                          <option>Hopa</option>
+                          <option>Houston (Tx)</option>
+                          <option>Huanghua</option>
+                          <option>Huangpu</option>
+                          <option>Huelva</option>
+                          <option>Ichihara</option>
+                          <option>Ijmuiden</option>
+                          <option>Immingham</option>
+                          <option>Incheon</option>
+                          <option>Iquique</option>
+                          <option>Iraklion (Heraklion)</option>
+                          <option>Ishinomaki</option>
+                          <option>Iskenderun</option>
+                          <option>Izmir (Smyrna)</option>
+                          <option>Izmit</option>
+                          <option>Jacksonville (Fl)</option>
+                          <option>Jakarta  Java</option>
+                          <option>Japan</option>
+                          <option>Jebel Ali</option>
+                          <option>Jeddah</option>
+                          <option>Jiangmen</option>
+                          <option>Jiangyin</option>
+                          <option>Jinzhou</option>
+                          <option>Jiujiang</option>
+                          <option>Jorf Lasfar</option>
+                          <option>Jubail</option>
+                          <option>Kagoshima</option>
+                          <option>Kakogawa</option>
+                          <option>Kaliningrad</option>
+                          <option>Kamaishi</option>
+                          <option>Kampong Saom</option>
+                          <option>Kandla</option>
+                          <option>Kaohsiung</option>
+                          <option>Karachi</option>
+                          <option>Karlstad</option>
+                          <option>Kashima</option>
+                          <option>Keelung (Chilung)</option>
+                          <option>Khalifa Bin Salman Pt</option>
+                          <option>Khor Al Fakkan</option>
+                          <option>King Abdullah </option>
+                          <option>Kingston</option>
+                          <option>Kingstown St Vincent</option>
+                          <option>Kinuura</option>
+                          <option>Klaipeda</option>
+                          <option>Kobe</option>
+                          <option>Koh Sichang</option>
+                          <option>Koper</option>
+                          <option>Kota Kinabalu  Sabah</option>
+                          <option>Kotka</option>
+                          <option>Krishnapatnam</option>
+                          <option>Kuala Rompin</option>
+                          <option>Kuching  Sarawak</option>
+                          <option>Kum</option>
+                          <option>Kure</option>
+                          <option>Kushiro</option>
+                          <option>Kuwait</option>
+                          <option>Kwangyang</option>
+                          <option>La Coruna</option>
+                          <option>La Goulette Nord (Halquel</option>
+                          <option>La Guaira</option>
+                          <option>La Habana</option>
+                          <option>La Pallice</option>
+                          <option>La Spezia</option>
+                          <option>Lae</option>
+                          <option>Laem Chabang</option>
+                          <option>Lagos +Ng</option>
+                          <option>land (Or)</option>
+                          <option>Lanshan</option>
+                          <option>Las Palmas +Ar</option>
+                          <option>Las Palmas +Es</option>
+                          <option>Latakia</option>
+                          <option>Le Havre</option>
+                          <option>Leixoes</option>
+                          <option>Lianhuashan</option>
+                          <option>Lianyungang</option>
+                          <option>Libreville</option>
+                          <option>Liepaja</option>
+                          <option>Limassol</option>
+                          <option>Lisboa</option>
+                          <option>Liverpool</option>
+                          <option>Liverpool (Ns)</option>
+                          <option>Livorno</option>
+                          <option>Lobito</option>
+                          <option>Lome</option>
+                          <option>London</option>
+                          <option>Londonderry</option>
+                          <option>Long Beach (Ca)</option>
+                          <option>Longkou</option>
+                          <option>Lorient</option>
+                          <option>Los Angeles (Ca)</option>
+                          <option>Luanda</option>
+                          <option>Lumut</option>
+                          <option>Lushun</option>
+                          <option>Lyttelton</option>
+                          <option>Mabini, Mindanao</option>
+                          <option>Macau</option>
+                          <option>Majishan</option>
+                          <option>Malabo</option>
+                          <option>Malaga</option>
+                          <option>Malta (Valetta)</option>
+                          <option>Manatee (Fl)</option>
+                          <option>Mangalore</option>
+                          <option>Manila</option>
+                          <option>Manila North Harbour</option>
+                          <option>Manila South Harbour</option>
+                          <option>Manzanillo</option>
+                          <option>Manzanillo +Pa</option>
+                          <option>Maputo</option>
+                          <option>Mar Del Plata</option>
+                          <option>Maracaibo</option>
+                          <option>Mardas</option>
+                          <option>Marghera</option>
+                          <option>Mariel</option>
+                          <option>Marin  Pontevedra</option>
+                          <option>Marmara Ereglisi</option>
+                          <option>Marseille</option>
+                          <option>Matadi</option>
+                          <option>Matarani</option>
+                          <option>Mawei</option>
+                          <option>Mayaguez</option>
+                          <option>Melbourne</option>
+                          <option>Melilla</option>
+                          <option>Mersin</option>
+                          <option>Miami (Fl)</option>
+                          <option>Mina Khalifa Abu Dhabi</option>
+                          <option>Mindelo</option>
+                          <option>Misurata</option>
+                          <option>Mizushima</option>
+                          <option>Mobile (Al)</option>
+                          <option>Mogadishu</option>
+                          <option>Mogi</option>
+                          <option>Mohammedia</option>
+                          <option>Moin Bay (Puerto Limon)</option>
+                          <option>Moji Kitakyushu</option>
+                          <option>Mombasa</option>
+                          <option>Monrovia</option>
+                          <option>Montevideo</option>
+                          <option>Montoir De Bretagne</option>
+                          <option>Montreal</option>
+                          <option>Morocco</option>
+                          <option>Moroni</option>
+                          <option>Muhammad Bin Qasim Karach</option>
+                          <option>Mumbai(Ex Bombay)</option>
+                          <option>Mundra</option>
+                          <option>Muscat</option>
+                          <option>Muuga</option>
+                          <option>Nacala</option>
+                          <option>Nagoya</option>
+                          <option>Naha</option>
+                          <option>Namibe</option>
+                          <option>Nampo</option>
+                          <option>Nanjing</option>
+                          <option>Nansha</option>
+                          <option>Nantong</option>
+                          <option>Napoli</option>
+                          <option>Nassau</option>
+                          <option>Nemrut Bay</option>
+                          <option>New Mangalore</option>
+                          <option>New Orleans (La)</option>
+                          <option>New York (Ny)</option>
+                          <option>Nhava Sheva (Jawaharlal N</option>
+                          <option>Niigata</option>
+                          <option>Ningbo</option>
+                          <option>Norfolk (Va)</option>
+                          <option>Norrkoping</option>
+                          <option>North Pt Klang</option>
+                          <option>Nouakchott</option>
+                          <option>Novorossiysk</option>
+                          <option>Nueva Palmira</option>
+                          <option>Oakland (Ca)</option>
+                          <option>Odessa</option>
+                          <option>Oran</option>
+                          <option>Oranjestad</option>
+                          <option>Osaka</option>
+                          <option>Oslo</option>
+                          <option>Paita</option>
+                          <option>Palembang  Sumatra</option>
+                          <option>Palermo</option>
+                          <option>Palma De Mallorca</option>
+                          <option>Panama Carib</option>
+                          <option>Panama City</option>
+                          <option>Panjang</option>
+                          <option>Papeete</option>
+                          <option>Paramaribo</option>
+                          <option>Pasir Gudang  Johor</option>
+                          <option>Penang (Georgetown)</option>
+                          <option>Penrhyn</option>
+                          <option>Perth</option>
+                          <option>Philadelphia (Pa)</option>
+                          <option>Philippines</option>
+                          <option>Philipsburg</option>
+                          <option>Phu My</option>
+                          <option>Phuoc Long</option>
+                          <option>Pipavav (Victor) </option>
+                          <option>Piraeus</option>
+                          <option>Ploce</option>
+                          <option>Point Lisas</option>
+                          <option>Pointe A Pitre</option>
+                          <option>Pointe Noire</option>
+                          <option>Pori</option>
+                          <option>Pornic</option>
+                          <option>Port Au Prince</option>
+                          <option>Port Everglades (Fl)</option>
+                          <option>Port Kelang</option>
+                          <option>Port Louis (Mauritius)</option>
+                          <option>Port Of Ngqura</option>
+                          <option>Port Of Spain</option>
+                          <option>Poti</option>
+                          <option>Pozzallo</option>
+                          <option>Prai</option>
+                          <option>Praia</option>
+                          <option>Progreso +Mx</option>
+                          <option>Pto Caldera</option>
+                          <option>Puerto Barrios</option>
+                          <option>Puerto Cabello</option>
+                          <option>Puerto Cortes</option>
+                          <option>Puerto Limon</option>
+                          <option>Puerto Madero</option>
+                          <option>Puerto Madryn</option>
+                          <option>Puerto Morelos</option>
+                          <option>Puerto Plata</option>
+                          <option>Puerto Quetzal</option>
+                          <option>Punta Arenas</option>
+                          <option>Pusan (Busan)</option>
+                          <option>Pyeongtaek</option>
+                          <option>Qaboos</option>
+                          <option>Qasim International</option>
+                          <option>Qingdao</option>
+                          <option>Qinhuangdao</option>
+                          <option>Qinzhou</option>
+                          <option>Quanzhou</option>
+                          <option>Rades Tunis</option>
+                          <option>Ravenna</option>
+                          <option>Reydarfjordur</option>
+                          <option>Reykjavik</option>
+                          <option>Richards Bay</option>
+                          <option>Riga</option>
+                          <option>Rijeka</option>
+                          <option>Rio Haina</option>
+                          <option>Rizhao</option>
+                          <option>Rosario</option>
+                          <option>Roseau</option>
+                          <option>Rotterdam</option>
+                          <option>Rouen</option>
+                          <option>Said</option>
+                          <option>Saint George S</option>
+                          <option>Salalah</option>
+                          <option>Saleef </option>
+                          <option>Salerno</option>
+                          <option>San Antonio</option>
+                          <option>San Jose</option>
+                          <option>San Juan (Puerto Rico)</option>
+                          <option>San Lorenzo</option>
+                          <option>San Pedro</option>
+                          <option>San Pedro Sula</option>
+                          <option>Sanbu</option>
+                          <option>Santa Cruz De Tenerife</option>
+                          <option>Santa Marta</option>
+                          <option>Santander</option>
+                          <option>Santiago De Cuba</option>
+                          <option>Santo Tomas De Castilla</option>
+                          <option>Sao Tome Island</option>
+                          <option>Sapele</option>
+                          <option>Savannah (Ga)</option>
+                          <option>Savona</option>
+                          <option>Seattle (Wa)</option>
+                          <option>Semarang  Java</option>
+                          <option>Sendai</option>
+                          <option>Sete</option>
+                          <option>Setubal</option>
+                          <option>Sevilla</option>
+                          <option>Sfax</option>
+                          <option>Shahid Rajaee Pt Bandar A</option>
+                          <option>Shanghai</option>
+                          <option>Shantou</option>
+                          <option>Sharjah</option>
+                          <option>Shekou</option>
+                          <option>Shenzhen</option>
+                          <option>Shibushi</option>
+                          <option>Shimizu</option>
+                          <option>Shipu</option>
+                          <option>Shuaiba</option>
+                          <option>Shuidong</option>
+                          <option>Shuwaikh</option>
+                          <option>Sines</option>
+                          <option>Singapore</option>
+                          <option>Skikda (Ex Philippeville)</option>
+                          <option>Sluiskil</option>
+                          <option>Sodertalje</option>
+                          <option>Sohar</option>
+                          <option>Sokhna </option>
+                          <option>Songxia</option>
+                          <option>Sousse</option>
+                          <option>South Korea</option>
+                          <option>Spain Atlantic</option>
+                          <option>Spain Med</option>
+                          <option>St John (Nb)</option>
+                          <option>St John S</option>
+                          <option>St Petersburg (Ex Leningr</option>
+                          <option>Stockholm</option>
+                          <option>Stockton (Ca)</option>
+                          <option>Subic Bay</option>
+                          <option>Sultan</option>
+                          <option>Sunndalsora</option>
+                          <option>Surabaya</option>
+                          <option>Suva</option>
+                          <option>Sydney +Au</option>
+                          <option>Szczecin (Stettin)</option>
+                          <option>Tacoma (Wa)</option>
+                          <option>Taichung</option>
+                          <option>Taipei</option>
+                          <option>Taiwan</option>
+                          <option>Taixing</option>
+                          <option>Taizhou</option>
+                          <option>Takoradi</option>
+                          <option>Tallinn</option>
+                          <option>Tamatave (Toamasina)</option>
+                          <option>Tammisaari (Ekenas)</option>
+                          <option>Tampico</option>
+                          <option>Tangier (Tanger)</option>
+                          <option>Tangshan</option>
+                          <option>Tanjung Pelepas</option>
+                          <option>Tanjung Perak</option>
+                          <option>Tanjung Priok</option>
+                          <option>Tarragona</option>
+                          <option>Tartus</option>
+                          <option>Tauranga</option>
+                          <option>Tees</option>
+                          <option>Tegucigalpa</option>
+                          <option>Tema</option>
+                          <option>Terneuzen</option>
+                          <option>Thessaloniki (Salonica)</option>
+                          <option>Tianjin</option>
+                          <option>Tianjinxingang</option>
+                          <option>Tieshan</option>
+                          <option>Tilbury</option>
+                          <option>Tincan Lagos</option>
+                          <option>Toamasina</option>
+                          <option>Tokyo</option>
+                          <option>Tomakomai</option>
+                          <option>Toronto</option>
+                          <option>Trapani</option>
+                          <option>Trieste</option>
+                          <option>Tripoli</option>
+                          <option>Trondheim</option>
+                          <option>Tunis</option>
+                          <option>Turkey</option>
+                          <option>Tuticorin (New Tuticorin)</option>
+                          <option>Tuxpan</option>
+                          <option>ugal</option>
+                          <option>Ulsan</option>
+                          <option>Umm Qasr</option>
+                          <option>United Arab Emirates</option>
+                          <option>Us Atlantic Glakes</option>
+                          <option>Ust Luga</option>
+                          <option>Vado Ligure</option>
+                          <option>Valencia</option>
+                          <option>Valleyfield</option>
+                          <option>Valparaiso</option>
+                          <option>Vancouver (Bc)</option>
+                          <option>Varna</option>
+                          <option>Venezia</option>
+                          <option>Veracruz</option>
+                          <option>Viana Do Castelo</option>
+                          <option>Victoria</option>
+                          <option>Vietnam</option>
+                          <option>Vigo</option>
+                          <option>Villagarcia  (De Arosa)</option>
+                          <option>Visakhapatnam</option>
+                          <option>Vladivostok</option>
+                          <option>Vung Tau</option>
+                          <option>Walvis Bay</option>
+                          <option>Waterford</option>
+                          <option>Wellington</option>
+                          <option>Willemstad</option>
+                          <option>Wilmington (De)</option>
+                          <option>Wilmington (Nc)</option>
+                          <option>Wuhan</option>
+                          <option>Wuhu</option>
+                          <option>Wuzhou (Wuchow)</option>
+                          <option>Xiamen</option>
+                          <option>Xingang</option>
+                          <option>Xinhui</option>
+                          <option>Xinsha</option>
+                          <option>Xiuyu</option>
+                          <option>Yanbo</option>
+                          <option>Yangjiang</option>
+                          <option>Yangon</option>
+                          <option>Yangshan</option>
+                          <option>Yantai</option>
+                          <option>Yantian</option>
+                          <option>Yarimca</option>
+                          <option>Yingkou</option>
+                          <option>Yokkaichi</option>
+                          <option>Yokohama</option>
+                          <option>Yuzhnyy</option>
+                          <option>Zanzibar</option>
+                          <option>Zarate</option>
+                          <option>Zhangjiagang</option>
+                          <option>Zhangzhou</option>
+                          <option>Zhanjiang</option>
+                          <option>Zhenjiang</option>
+                          <option>Zhongshan</option>
+                          <option>Zhoushan</option>
+                          <option>Zhuhai</option>
+                          
+
+                        </select>
+                    </div>
+                   <div class="col-md-4">
+                        <label for="inputState" class="form-label">Tipo de Mercadoria</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>Perecivel</option>
+                            <option>Carga Geral</option>
+                            <option>Refrigerada</option>
+                        </select>
+                    </div>
+
+                      <div class="col-md-4">
+                        <label for="inputState" class="form-label">Tipo de Container</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>20'DV</option>
+                          <option>20'DV</option>
+                          <option>40'DV/HC</option>
+                          <option>40'RE</option>
+                        </select>
+                      
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Data de Embarque</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>Semana</option>
+                          <option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+<option>13</option>
+<option>14</option>
+<option>15</option>
+<option>16</option>
+<option>17</option>
+<option>18</option>
+<option>19</option>
+<option>20</option>
+<option>21</option>
+<option>22</option>
+<option>23</option>
+<option>24</option>
+<option>25</option>
+<option>26</option>
+<option>27</option>
+<option>28</option>
+<option>29</option>
+<option>30</option>
+<option>31</option>
+<option>32</option>
+<option>33</option>
+<option>34</option>
+<option>35</option>
+<option>36</option>
+<option>37</option>
+<option>38</option>
+<option>39</option>
+<option>40</option>
+<option>41</option>
+<option>42</option>
+<option>43</option>
+<option>44</option>
+<option>45</option>
+<option>46</option>
+<option>47</option>
+<option>48</option>
+<option>49</option>
+<option>50</option>
+<option>51</option>
+<option>52</option>
+
+                        </select>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                          Check me out
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Buscar Fretes</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+          
+        </main>
+
+    </div>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="../plugins/fontawesome/js/all.min.js"></script>
+</body>
+</html>

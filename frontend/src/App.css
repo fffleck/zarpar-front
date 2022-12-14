@@ -1,0 +1,208 @@
+/* @font-face {
+  font-family: 'Poppins-Thin';
+  src: url('../public/fonts/Poppins-Regular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Poppins-Thin';
+  src: url('../public/fonts/Poppins-Bold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Poppins-Thin';
+  src: url('../public/fonts/Poppins-Light.ttf');
+  font-weight: 300;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins-Thin';
+}
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: darkblue;
+}
+
+div.flex-dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+sidebar {
+  display: block;
+  height: 100%;
+  width: 240px;
+  background-color: #2a3042;
+}
+
+sidebar .sidebar-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 30px;
+  padding-top: 30px;
+}
+
+sidebar .sidebar-title img {
+  height: 50px;
+  width: 170px;
+}
+
+div.menu ul {
+  list-style-type: none;
+  }
+
+div.menu ul li {
+  padding: 15px 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: small;
+}
+
+div.menu ul li svg {
+  color:grey;
+  font-size: 15px;
+}
+
+div.menu ul li a {
+  color:grey;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+div.menu ul li a:hover {
+color:black;
+}
+
+.selected {
+  background: #f7f7f7;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+main {
+  display: block;
+  height: 100%;
+  background-color: #ccc;
+  width: calc(100% - 240px);
+}
+
+main .main-content {
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  height: calc(100% - 90px);
+  background-color: #f7f7f7;
+  overflow: auto;
+}
+
+main .main-content::-webkit-scrollbar-track
+{
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+border-radius: 10px;
+background-color: #F5F5F5;
+}
+
+main .main-content::-webkit-scrollbar
+{
+width: 12px;
+background-color: #F5F5F5;
+}
+
+main .main-content::-webkit-scrollbar-thumb
+{
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+background-color: #2a3042;
+}
+
+main .main-content{
+  padding: 30px;
+  width: 100%;
+  height: calc(100% - 90px);
+  background-color: #f7f7f7;
+  overflow: auto;
+}
+
+.main-content .panel{ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.panel-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.panel-50 {
+  width: 48%;
+}
+
+.panel-row button {
+  height: 80px;
+  background: white;
+}
+
+.panel-row button:hover {
+  transform: scale(1.01);
+  transition: 0.1s;
+}
+
+.card-body h5 {
+  font-size: large;
+  background-color: greenyellow;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 30px;
+}
+
+div.dashboard-content {
+  border: 100px solid color red;
+}
+
+.dashboard-flex-parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.dashboard.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div.main-content-title {
+  padding: 5px 0;
+}
+
+div.main-content-title h2{
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 300;
+  color: #2a3042;
+  border-bottom: 1px solid #2a3042;
+  display: inline-block;
+} */

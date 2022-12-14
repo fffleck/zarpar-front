@@ -1,0 +1,118 @@
+#root {
+    height: 100%;
+}
+
+main {
+    display: block;
+    height: 100%;
+    background-color: #ccc;
+    width: calc(100% - 240px);
+}
+
+main .main-content {
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    height: calc(100% - 90px);
+    background-color: #f7f7f7;
+    overflow: auto;
+}
+
+main .main-content::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+main .main-content::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+main .main-content::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #2a3042;
+}
+
+main .main-content{
+    padding: 30px;
+    width: 100%;
+    height: calc(100% - 90px);
+    background-color: #f7f7f7;
+    overflow: auto;
+}
+
+.main-content .panel{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+}
+  
+.panel-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.panel-50 {
+    width: 48%;
+}
+
+.panel-row button {
+    height: 80px;
+    background: white;
+}
+
+.panel-row button:hover {
+    transform: scale(1.01);
+    transition: 0.1s;
+}
+
+.card-body h5 {
+    font-size: large;
+    background-color: greenyellow;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 30px;
+}
+
+div.dashboard-content {
+    border: 100px solid color red;
+}
+
+.dashboard-flex-parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.dashboard.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:
+}
+
+div.main-content-title {
+    padding: 5px 0;
+}
+
+div.main-content-title h2{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 300;
+    color: #2a3042;
+    border-bottom: 1px solid #2a3042;
+    display: inline-block;
+}

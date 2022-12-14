@@ -1,0 +1,18 @@
+div.conta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 700px;
+    border: 1px solid red;
+    }
+
+div.conta-parent {
+    padding: 10px 0;
+    
+}
+
+div.conta-form {
+    width: 50%;
+}
+
