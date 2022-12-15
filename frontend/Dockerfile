@@ -13,10 +13,10 @@ COPY . .
 
 RUN npm run build
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+
 RUN rm -r /usr/share/nginx/html/*
 
 RUN cp -a build/. /usr/share/nginx/html
-
-ENV LISTEN_PORT 8080
-
-EXPOSE 8080
