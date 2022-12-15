@@ -17,15 +17,13 @@ import portoService from "./services/porto.service";
 import tipoContainerService from "./services/tipo_container.service";
 import tipoMercadoriaService from "./services/tipo_mercadoria.service";
 
-app.use(cors({
-   allowedOrigins: [
-       'http://localhost:80'
-   ]
-}));
+app.use(cors())
 
 app.get("/busca-fretes", async (req, res)=>{
    const { armador, data_saida, porto_embarque, porto_descarga, mercadoria, tipo_container, tipo_mercadoria } = req.query
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
 
    if( !armador || !data_saida|| !porto_embarque|| !porto_descarga|| !mercadoria|| !tipo_container|| !tipo_mercadoria ){
       res.send([]);
@@ -47,7 +45,9 @@ app.get("/busca-fretes", async (req, res)=>{
 app.get("/test", async (req, res)=>{
    console.log(req.query)
    const { data_saida, porto_embarque, porto_descarga, mercadoria, tipo_container }: any = req.query;
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    if( !data_saida|| !porto_embarque|| !porto_descarga|| !mercadoria|| !tipo_container){
       res.status(200).json({
          message: "Preencha todos os filtros para prosseguir"
@@ -81,21 +81,27 @@ async function maersk (req: any){
 }
 
 app.get("/mercadorias", async (req, res)=>{
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    console.log(req.query);
    let response = await mercadoriaService.getAll();
    res.status(200).json(response);
 })
 
 app.get("/portos_embarque", async (req, res)=>{
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    console.log(req.query);
    let response = await portoService.getAll();
    res.status(200).json(response.filter((porto)=> porto.incluiEmbarque));
 })
 
 app.get("/portos_descarga", async (req, res)=>{
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    console.log(req.query);
    let response = await portoService.getAll();
    res.status(200).json(response.filter((porto)=> porto.incluiChegada));
@@ -103,7 +109,9 @@ app.get("/portos_descarga", async (req, res)=>{
 })
 
 app.get("/tipos_container", async (req, res)=>{
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    console.log(req.query);
    let response = await tipoContainerService.getAll();
    res.status(200).json(response);
@@ -111,7 +119,9 @@ app.get("/tipos_container", async (req, res)=>{
 })
 
 app.get("/tipos_mercadoria", async (req, res)=>{
-   res.header("Access-Control-Allow-Origin", "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
    console.log(req.query);
    let response = await tipoMercadoriaService.getAll();
    res.status(200).json(response);
