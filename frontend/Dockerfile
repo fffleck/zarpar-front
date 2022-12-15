@@ -16,3 +16,7 @@ RUN npm run build
 RUN rm -r /usr/share/nginx/html/*
 
 RUN cp -a build/. /usr/share/nginx/html
+
+ENV LISTEN_PORT 8080
+
+EXPOSE 8080
