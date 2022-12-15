@@ -2,7 +2,7 @@ FROM node:16-alpine as build
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
@@ -17,7 +17,7 @@ ENV NODE_END=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm ci --only=production
 
