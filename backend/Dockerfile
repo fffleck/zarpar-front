@@ -27,6 +27,6 @@ RUN npm ci --only=production
 
 COPY --from=build /usr/src/app/dist ./dist
 
-EXPOSE 3333
+EXPOSE $PORT
 
 CMD ["node", "dist/server.js"]
