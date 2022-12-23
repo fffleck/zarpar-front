@@ -3,6 +3,7 @@ import React from "react";
 import logoMaersk from "../../../assets/imagens/maersk.png";
 import logoCMA from "../../../assets/imagens/cma.png";
 import logoMsc from "../../../assets/imagens/Imsc.png";
+import logoExalog from "../../../assets/imagens/exalog.png";
 
 type ResultadoProps = {
   id_armador: string;
@@ -30,6 +31,10 @@ const Resultado = (props: ResultadoProps) => {
     {
       idArmador: "3",
       logo: logoMsc,
+    },
+    {
+      idArmador: "4",
+      logo: logoExalog,
     },
   ];
   let logo = relLogoArmador.find(

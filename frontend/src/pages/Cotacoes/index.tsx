@@ -68,23 +68,23 @@ const Cotacoes = () => {
   });
 
   useEffect(() => {
-    api.get("api/mercadorias").then((response) => {
+    api.get("mercadorias").then((response) => {
       setMercadorias(response.data);
     });
 
-    api.get("api/portos_embarque").then((response) => {
+    api.get("portos_embarque").then((response) => {
       setPortosEmbarque(response.data);
     });
 
-    api.get("api/portos_descarga").then((response) => {
+    api.get("portos_descarga").then((response) => {
       setPortosDescarga(response.data);
     });
 
-    api.get("api/tipos_container").then((response) => {
+    api.get("tipos_container").then((response) => {
       setTiposContainer(response.data);
     });
 
-    api.get("api/tipos_mercadoria").then((response) => {
+    api.get("tipos_mercadoria").then((response) => {
       setTiposMercadoria(response.data);
     });
   }, []);
@@ -134,7 +134,7 @@ const Cotacoes = () => {
     setSearchClicked(true);
     setBtnLoading(true);
 
-    let query = `api/test?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
+    let query = `test?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
     api.get(query).then((res) => {
       setResponse(res.data);
       setBtnSearchDisabled(false);

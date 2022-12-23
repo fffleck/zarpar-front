@@ -19,7 +19,7 @@ import tipoMercadoriaService from "./services/tipo_mercadoria.service";
 
 app.use(cors())
 
-app.get("/api/busca-fretes", async (req, res)=>{
+app.get("/busca-fretes", async (req, res)=>{
    const { armador, data_saida, porto_embarque, porto_descarga, mercadoria, tipo_container, tipo_mercadoria } = req.query
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
@@ -42,7 +42,7 @@ app.get("/api/busca-fretes", async (req, res)=>{
    }
 })
 
-app.get("/api/test", async (req, res)=>{
+app.get("/test", async (req, res)=>{
    console.log(req.query)
    const { data_saida, porto_embarque, porto_descarga, mercadoria, tipo_container }: any = req.query;
    res.setHeader('Access-Control-Allow-Origin', '*');
@@ -80,7 +80,7 @@ async function maersk (req: any){
    return [];
 }
 
-app.get("/api/mercadorias", async (req, res)=>{
+app.get("/mercadorias", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -89,7 +89,7 @@ app.get("/api/mercadorias", async (req, res)=>{
    res.status(200).json(response);
 })
 
-app.get("/api/portos_embarque", async (req, res)=>{
+app.get("/portos_embarque", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -98,7 +98,7 @@ app.get("/api/portos_embarque", async (req, res)=>{
    res.status(200).json(response.filter((porto)=> porto.incluiEmbarque));
 })
 
-app.get("/api/portos_descarga", async (req, res)=>{
+app.get("/portos_descarga", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -108,7 +108,7 @@ app.get("/api/portos_descarga", async (req, res)=>{
 
 })
 
-app.get("/api/tipos_container", async (req, res)=>{
+app.get("/tipos_container", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -118,7 +118,7 @@ app.get("/api/tipos_container", async (req, res)=>{
    
 })
 
-app.get("/api/tipos_mercadoria", async (req, res)=>{
+app.get("/tipos_mercadoria", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -160,9 +160,9 @@ function converteStrToData2(dataStr: string){
    return new Date(year, month, day);
 }
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
-   console.log(`Server is listing on port ${PORT}`);
+   console.log(`Server is listening on port ${PORT}`);
  });
 server.on('error', e => console.error("Error", e));
