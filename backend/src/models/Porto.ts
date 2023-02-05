@@ -2,28 +2,44 @@ import mongoose from 'mongoose';
 
 // Document interface
 export interface IPorto extends mongoose.Document {
-    idItem: string;
-    name: string;
-    incluiEmbarque: boolean;
-    incluiChegada: boolean;
+    port_name: string,
+    port_code: string,
+    country: string,
+    lat: string,
+    lon: string,
+    lat_float: number,
+    lon_float: number
   }
 
 const PortoSchema = new mongoose.Schema({
-    idItem:{
+    port_name:{
+        type:String,
+        required:true,
+        
+    },
+    port_code:{
         type:String,
         required:true,
         unique:true
     },
-    name:{
+    country:{
         type:String,
         required:true
     },
-    incluiEmbarque:{
-        type:Boolean,
+    lat:{
+        type:String,
         required:true
     },
-    incluiChegada:{
-        type:Boolean,
+    lon:{
+        type:String,
+        required:true
+    },
+    lat_float:{
+        type:Number,
+        required:true
+    },
+    lon_float:{
+        type:Number,
         required:true
     },
 });

@@ -6,8 +6,7 @@ import logoMsc from "../../../assets/imagens/Imsc.png";
 import logoExalog from "../../../assets/imagens/exalog.png";
 
 type ResultadoProps = {
-  id_armador: string;
-  mercadoria: string;
+  armador: string;
   tipo_container: string;
   porto_embarque: string;
   porto_descarga: string;
@@ -16,37 +15,39 @@ type ResultadoProps = {
   tempo_de_transito: string;
   data_chegada: string;
   frete: string;
+  imagem_link: string;
+  shipment_id: string;
 };
 
 const Resultado = (props: ResultadoProps) => {
-  const relLogoArmador = [
-    {
-      idArmador: "1",
-      logo: logoMaersk,
-    },
-    {
-      idArmador: "2",
-      logo: logoCMA,
-    },
-    {
-      idArmador: "3",
-      logo: logoMsc,
-    },
-    {
-      idArmador: "4",
-      logo: logoExalog,
-    },
-  ];
-  let logo = relLogoArmador.find(
-    (rel) => props.id_armador === rel.idArmador
-  )?.logo;
+  // const relLogoArmador = [
+  //   {
+  //     idArmador: "1",
+  //     logo: logoMaersk,
+  //   },
+  //   {
+  //     idArmador: "2",
+  //     logo: logoCMA,
+  //   },
+  //   {
+  //     idArmador: "3",
+  //     logo: logoMsc,
+  //   },
+  //   {
+  //     idArmador: "4",
+  //     logo: logoExalog,
+  //   },
+  // ];
+  // let logo = relLogoArmador.find(
+  //   (rel) => props.id_armador === rel.idArmador
+  // )?.logo;
 
   return (
-    <tr key={props.navio}>
+    <tr key={props.shipment_id}>
       <td className="tdImg">
-        <img height={30} src={logo} alt="Logo" />
+        <img height={50} src={props.imagem_link} alt="Logo" />
       </td>
-      <td>{props.navio}</td>
+      <td>{props.armador}</td>
       <td>{props.data_embarque}</td>
       <td>{props.porto_embarque}</td>
       <td>{props.porto_descarga}</td>

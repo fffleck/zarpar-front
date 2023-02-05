@@ -4,10 +4,6 @@ import Table from "react-bootstrap/Table";
 import Resultado from "../Resultado";
 
 type ResultadoProps = {
-  mercadoria: string;
-  id_mercadoria: string;
-  tipo_mercadoria: string;
-  id_tipo_mercadoria: string;
   tipo_container: string;
   id_tipo_container: string;
   porto_embarque: string;
@@ -21,7 +17,8 @@ type ResultadoProps = {
   tempo_de_transito: string;
   data_chegada: string;
   frete: string;
-  transbordo: string;
+  imagem_link: string;
+  shipment_id: string;
 };
 
 type TabelaResultadosProps = {
@@ -33,8 +30,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th scope="col">Armadores</th>
-          <th scope="col">Navio</th>
+          <th scope="col"></th>
+          <th scope="col">Armador</th>
           <th scope="col">ETS</th>
           <th scope="col">POL</th>
           <th scope="col">POD</th>
@@ -46,16 +43,17 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
       <tbody>
         {props.response.map((resultado) => (
           <Resultado
-            id_armador={resultado.id_armador}
+            armador={resultado.armador}
             navio={resultado.navio}
             porto_embarque={resultado.porto_embarque}
             data_embarque={resultado.data_embarque}
             tempo_de_transito={resultado.tempo_de_transito}
             porto_descarga={resultado.porto_descarga}
             data_chegada={resultado.data_chegada}
-            mercadoria={resultado.mercadoria}
             tipo_container={resultado.tipo_container}
             frete={resultado.frete}
+            imagem_link={resultado.imagem_link}
+            shipment_id={resultado.shipment_id}
           />
         ))}
       </tbody>

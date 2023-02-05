@@ -7,4 +7,9 @@
 ## Instruções para deploy:
 
 - Montar a imagem
+Entrar na respectiva pasta e executar: docker build -t web .
+
+- Executar a imagem:
+FrontEnd: docker run -d -p 8080:80 web
+- Backend: docker run web
 - O deploy é feito através do método Container Registry do Heroku...siga o passo a passo apresentado na aba Deploy, clicando em Container Registry, e seguindo o passo a passo.

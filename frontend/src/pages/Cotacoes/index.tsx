@@ -6,17 +6,19 @@ import api from "../../services/api";
 import TabelaResultados from "./TabelaResultados";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import Select from "react-select";
 
 interface ItemSelect {
-  idItem: number;
+  idItem: any;
   name: string;
 }
 
+interface PortoSelect {
+  port_code: string;
+  port_name: string;
+}
+
 interface ResponseItem {
-  mercadoria: string;
-  id_mercadoria: string;
-  tipo_mercadoria: string;
-  id_tipo_mercadoria: string;
   tipo_container: string;
   id_tipo_container: string;
   porto_embarque: string;
@@ -30,7 +32,8 @@ interface ResponseItem {
   tempo_de_transito: string;
   data_chegada: string;
   frete: string;
-  transbordo: string;
+  shipment_id: string;
+  imagem_link: string;
 }
 
 function returnTableorNot(
@@ -39,7 +42,7 @@ function returnTableorNot(
 ) {
   if (response && response.length) {
     return <TabelaResultados response={response} />;
-  } else if (searchClicked) {
+  } else if (searchClicked && response) {
     return (
       <Alert key={"secondary"} variant={"secondary"}>
         Nenhum frete foi encontrado.
@@ -52,8 +55,8 @@ const Cotacoes = () => {
   const [mercadorias, setMercadorias] = useState<ItemSelect[]>([]);
   const [tiposMercadoria, setTiposMercadoria] = useState<ItemSelect[]>([]);
   const [tiposContainer, setTiposContainer] = useState<ItemSelect[]>([]);
-  const [portosEmbarque, setPortosEmbarque] = useState<ItemSelect[]>([]);
-  const [portosDescarga, setPortosDescarga] = useState<ItemSelect[]>([]);
+  const [portosEmbarque, setPortosEmbarque] = useState<PortoSelect[]>([]);
+  const [portosDescarga, setPortosDescarga] = useState<PortoSelect[]>([]);
   const [selectedMercadoria, setSelectedMercadoria] = useState("0");
   const [selectedPortoEmbarque, setSelectedPortoEmbarque] = useState("0");
   const [selectedPortoDescarga, setSelectedPortoDescarga] = useState("0");
@@ -134,7 +137,7 @@ const Cotacoes = () => {
     setSearchClicked(true);
     setBtnLoading(true);
 
-    let query = `test?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
+    let query = `searatesapi?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
     api.get(query).then((res) => {
       setResponse(res.data);
       setBtnSearchDisabled(false);
@@ -189,10 +192,10 @@ const Cotacoes = () => {
                 <option value="">Selecione...</option>
                 {portosEmbarque.map((porto_embarque) => (
                   <option
-                    key={porto_embarque.idItem}
-                    value={porto_embarque.idItem}
+                    key={porto_embarque.port_code}
+                    value={porto_embarque.port_code}
                   >
-                    {porto_embarque.name}
+                    {porto_embarque.port_name}
                   </option>
                 ))}
               </select>
@@ -212,10 +215,10 @@ const Cotacoes = () => {
                 <option value="">Selecione...</option>
                 {portosDescarga.map((porto_descarga) => (
                   <option
-                    key={porto_descarga.idItem}
-                    value={porto_descarga.idItem}
+                    key={porto_descarga.port_code}
+                    value={porto_descarga.port_code}
                   >
-                    {porto_descarga.name}
+                    {porto_descarga.port_name}
                   </option>
                 ))}
               </select>
