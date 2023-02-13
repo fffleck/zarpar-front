@@ -14,7 +14,7 @@ interface ItemSelect {
 }
 
 interface PortoSelect {
-  port_code: string;
+  port_id: string;
   port_name: string;
 }
 
@@ -36,13 +36,16 @@ interface ResponseItem {
   imagem_link: string;
 }
 
-function returnTableorNot(
-  response: Array<ResponseItem>,
-  searchClicked: boolean
-) {
-  if (response && response.length) {
+interface ResponseError {
+  message: string;
+}
+
+type ResponseAPI = Array<ResponseItem> | ResponseError;
+
+function returnTableorNot(response: ResponseAPI, searchClicked: boolean) {
+  if (response && Array.isArray(response) && response.length > 0) {
     return <TabelaResultados response={response} />;
-  } else if (searchClicked && response) {
+  } else if (searchClicked && (response as ResponseError).message) {
     return (
       <Alert key={"secondary"} variant={"secondary"}>
         Nenhum frete foi encontrado.
@@ -192,8 +195,8 @@ const Cotacoes = () => {
                 <option value="">Selecione...</option>
                 {portosEmbarque.map((porto_embarque) => (
                   <option
-                    key={porto_embarque.port_code}
-                    value={porto_embarque.port_code}
+                    key={porto_embarque.port_id}
+                    value={porto_embarque.port_id}
                   >
                     {porto_embarque.port_name}
                   </option>
@@ -215,8 +218,8 @@ const Cotacoes = () => {
                 <option value="">Selecione...</option>
                 {portosDescarga.map((porto_descarga) => (
                   <option
-                    key={porto_descarga.port_code}
-                    value={porto_descarga.port_code}
+                    key={porto_descarga.port_id}
+                    value={porto_descarga.port_id}
                   >
                     {porto_descarga.port_name}
                   </option>

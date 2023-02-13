@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 // Document interface
 export interface IPorto extends mongoose.Document {
+    port_id: string,
     port_name: string,
     port_code: string,
     country: string,
@@ -12,6 +13,11 @@ export interface IPorto extends mongoose.Document {
   }
 
 const PortoSchema = new mongoose.Schema({
+    port_id:{
+        type:String,
+        required:true,
+        unique:true
+    },
     port_name:{
         type:String,
         required:true,
@@ -20,7 +26,6 @@ const PortoSchema = new mongoose.Schema({
     port_code:{
         type:String,
         required:true,
-        unique:true
     },
     country:{
         type:String,
