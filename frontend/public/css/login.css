@@ -1,25 +1,26 @@
 .login {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: row;
 }
-    .login-form {
-        width: 50%;
-        height: 100%;
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
 
-    .banner-login {
-        width: 50%;
-        height: 100%;       
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+.login-form {
+    width: 50%;
+    height: 100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
-    }
+.banner-login {
+    width: 50%;
+    height: 100%;       
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
 
 .login-form-wrapper {
     width: 100%;
@@ -47,8 +48,4 @@
     .banner-login{
         display: none
     }
-}
-
-.login-form {
-    width: 100%;
 }
