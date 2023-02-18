@@ -68,20 +68,18 @@ const Register = (props: any) => {
   async function handleSubmitCadastrar(event: FormEvent) {
     event.preventDefault();
 
-    const usuarioNovo = {
-      nome: nomeCompleto,
-      nomeEmpresa: nomeEmpresa,
-      endereco: endereco,
-      cidade: cidade,
-      estado: estado,
-      cep: cep+"",
+    const novoUsuario = { 
+      name: nomeCompleto,
+      enterpriseName: nomeEmpresa,
+      address: endereco,
+      city: cidade,
+      state: estado,
+      zipCode: cep+"",
       email: email,
-      senha: senha+""
+      password: senha+""
     }
 
-    const json = JSON.stringify(usuarioNovo);
-    const id = await api.post('/register', json);
-
+    await api.post('/register', novoUsuario);
   }
 
   return (

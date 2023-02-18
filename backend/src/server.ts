@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 var cors = require('cors')
 import axios from "axios";
 const app = express();
-app.use(express.json);
+app.use(express.json());
 const jsonParser = bodyParser.json();
 import connectDatabase from "./database/db";
 
@@ -135,7 +135,7 @@ app.get("/tipos_mercadoria", async (req, res)=>{
 
 app.get("/searatesapi", async (req, res)=>{
    const { data_saida, porto_embarque, porto_descarga, mercadoria, tipo_container }: any = req.query;
-   res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
    if( !data_saida|| !porto_embarque|| !porto_descarga|| !mercadoria|| !tipo_container){
@@ -423,18 +423,20 @@ app.get("/searatesapi", async (req, res)=>{
 //CADASTRAR USUÁRIO
 
 app.post("/register", async (req,res)=>{
-
-   userService.create(req.body).then(id => {
-      return res.status(200).json({
-         idUser: id
+   res.setHeader('Access-Control-Allow-Origin', '*');
+   res.setHeader('Access-Control-Allow-Methods', '*');
+   res.setHeader('Access-Control-Allow-Headers', '*');
+   
+   userService.create(req.body)
+      .then((id) =>{
+         return res.status(200).json({ message: "Usuário cadastrado com sucesso."});
       })
-   }).catch (e) => {
-      res.status(200).json({
-         message: "Erro ao consultar API da Searates."
-      });
-   }
+      .catch(err => {
+         console.error(err);
+         return res.status(500).json({ message: "Problema ao cadastrar usuário"});
+      })
 
-})
+});
 
 function converteStrToData1(dataStr: string){
    let [dayStr, monthStr, yearStr] = dataStr.split("/")
