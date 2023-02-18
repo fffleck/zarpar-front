@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 var cors = require('cors')
 import axios from "axios";
 const app = express();
+app.use(express.json);
 const jsonParser = bodyParser.json();
 import connectDatabase from "./database/db";
 
@@ -16,6 +17,9 @@ import mercadoriaService from "./services/mercadoria.service";
 import portoService from "./services/porto.service";
 import tipoContainerService from "./services/tipo_container.service";
 import tipoMercadoriaService from "./services/tipo_mercadoria.service";
+import userService from "./services/user.service";
+
+
 app.use(cors())
 
 app.get("/busca-fretes", async (req, res)=>{
@@ -81,8 +85,8 @@ async function maersk (req: any){
 
 app.get("/mercadorias", async (req, res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+   res.setHeader('Access-Control-Allow-Methods', '*');
+   res.setHeader('Access-Control-Allow-Headers', '*');
 
    let response = await mercadoriaService.getAll();
    res.status(200).json(response);
@@ -414,6 +418,22 @@ app.get("/searatesapi", async (req, res)=>{
          message: "Erro ao consultar API da Searates."
       });
    }
+})
+
+//CADASTRAR USUÁRIO
+
+app.post("/register", async (req,res)=>{
+
+   userService.create(req.body).then(id => {
+      return res.status(200).json({
+         idUser: id
+      })
+   }).catch (e) => {
+      res.status(200).json({
+         message: "Erro ao consultar API da Searates."
+      });
+   }
+
 })
 
 function converteStrToData1(dataStr: string){

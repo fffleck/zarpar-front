@@ -10,7 +10,7 @@ const Login = () => {
           <div className="login-form-wrapper">
             <div className="login-title">
               <h2>Log In</h2>
-              <a href="views/register.html">Inscreva-se</a>
+              <Link to="/register">Inscreva-se</Link>
             </div>
             <form action="/dashboard">
               <div className="form-group">
