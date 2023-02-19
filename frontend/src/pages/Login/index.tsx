@@ -1,8 +1,36 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
+
 
 const Login = () => {
+
+  const [email, setEmail] = useState ('');
+  const [password, setPassword] = useState('');
+
+  function handleInputEmail(event: ChangeEvent<HTMLInputElement>){
+    const email = event.target.value;
+    
+    setEmail(email);
+  }
+
+  function handleInputPassword(event: ChangeEvent<HTMLInputElement>){
+    const password = event.target.value;
+
+    setPassword(password);
+  }
+
+  async function handleSubmitLogin(event: FormEvent){
+    event.preventDefault();
+
+    const data = {email: email, password: password};
+
+    await api.post('/login', data).catch(()=>{});
+
+  }
+
+
   return (
     <div id="login-page">
       <div className="login">
@@ -12,16 +40,19 @@ const Login = () => {
               <h2>Log In</h2>
               <Link to="/register">Inscreva-se</Link>
             </div>
-            <form action="/dashboard">
+            <form onSubmit={handleSubmitLogin}>
               <div className="form-group">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email
                 </label>
                 <input
+                  value={email}
                   type="email"
                   className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
+                  onChange={handleInputEmail}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -29,17 +60,19 @@ const Login = () => {
                   Password
                 </label>
                 <input
+                  value={password}
                   type="password"
                   className="form-control"
                   id="exampleInputPassword1"
+                  onChange={handleInputPassword}
+                  required
                 />
               </div>
-              <div className="form-group form-check"></div>
-              <Link to="/dashboard">
-                <button type="button" className="btn btn-primary">
+              <div className="form-group form-check">
+                <button type="submit" className="btn btn-primary">
                   Login
                 </button>
-              </Link>
+              </div>
             </form>
           </div>
         </div>

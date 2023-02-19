@@ -18,6 +18,7 @@ import portoService from "./services/porto.service";
 import tipoContainerService from "./services/tipo_container.service";
 import tipoMercadoriaService from "./services/tipo_mercadoria.service";
 import userService from "./services/user.service";
+import { IUser } from "./models/User";
 
 
 app.use(cors())
@@ -437,6 +438,32 @@ app.post("/register", async (req,res)=>{
       })
 
 });
+
+//PESQUISAR USUARIO
+
+app.post("/login", async (req,res)=>{
+   res.setHeader('Access-Control-Allow-Origin', '*');
+   res.setHeader('Access-Control-Allow-Methods', '*');
+   res.setHeader('Access-Control-Allow-Headers', '*');
+
+   const email= req.body.email;
+   const senha = req.body.password;
+
+   const user = await userService.getByEmail(email);
+
+   if (user.length === 0){
+      return res.status(500).json({ message: "Usuário ou senha inválidos" });
+   }else{
+      const usuarioLocalizado = user[0];
+         
+      if(senha === usuarioLocalizado.password){
+         return res.status(200).json({ message: "Usuário logado."});
+      }else{
+         return res.status(500).json({ message: "Usuário ou senha inválidos"});
+      }
+   }
+   
+  });
 
 function converteStrToData1(dataStr: string){
    let [dayStr, monthStr, yearStr] = dataStr.split("/")

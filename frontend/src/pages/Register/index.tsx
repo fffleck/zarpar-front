@@ -3,7 +3,7 @@ import "./styles.css";
 import logo from "../../assets/imagens/logo_blue_original.png";
 import api from "../../services/api";
 
-const Register = (props: any) => {
+const Register = () => {
 
   const [nomeCompleto, setNomeCompleto] = useState('');
   const [nomeEmpresa, setNomeEmpresa] = useState('');
