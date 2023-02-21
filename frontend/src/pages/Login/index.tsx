@@ -1,13 +1,17 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./styles.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import api from "../../services/api";
 
-
-const Login = () => {
+const Login = ({ isLoggedIn }) => {
 
   const [email, setEmail] = useState ('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
+
+  if(isLoggedIn){
+    return <Navigate to="/dashboard" replace />;
+  }
 
   function handleInputEmail(event: ChangeEvent<HTMLInputElement>){
     const email = event.target.value;
@@ -24,12 +28,34 @@ const Login = () => {
   async function handleSubmitLogin(event: FormEvent){
     event.preventDefault();
 
-    const data = {email: email, password: password};
+    const dataToSend ={
+      userData: {email: email, password: password}
+    } 
 
-    await api.post('/login', data).catch(()=>{});
-
+    await api.post('/login', dataToSend)
+      .then(resp => {
+        if(resp.data.sucess){
+          sessionStorage.setItem("access_token", `Bearer ${resp.data.token}`);
+          window.location.reload(); //a página é recarregada assim que o token é colocado na sessão
+        }else{
+          setLoginError(true);
+        }
+        setEmail('');
+        setPassword('');
+      })
+      .catch(err => {
+        if(err?.response?.data?.message){
+          console.log(err.response.data.message);
+        }else{
+          console.log("Aconteceu um erro inesperado");
+        }
+        setLoginError(true);
+      })
   }
 
+  function loginVerify(loginError){
+    return loginError ? <div className="alert alert-danger" role="alert">Erro ao logar</div> : null
+  }
 
   return (
     <div id="login-page">
@@ -68,8 +94,11 @@ const Login = () => {
                   required
                 />
               </div>
+
+              {loginVerify(loginError)}
+
               <div className="form-group form-check">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" id="botao-login">
                   Login
                 </button>
               </div>

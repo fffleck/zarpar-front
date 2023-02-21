@@ -1,11 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
-var cors = require('cors')
 import axios from "axios";
-const app = express();
-app.use(express.json());
-const jsonParser = bodyParser.json();
 import connectDatabase from "./database/db";
+var CryptoJS = require("crypto-js");
+var cors = require('cors')
+var jwt = require('jsonwebtoken')
+const jsonParser = bodyParser.json();
+const app = express();
+
+const KEY_JWT='karavel2023jwt'
 
 // Iniciando base de dados
 connectDatabase();
@@ -20,7 +23,7 @@ import tipoMercadoriaService from "./services/tipo_mercadoria.service";
 import userService from "./services/user.service";
 import { IUser } from "./models/User";
 
-
+app.use(express.json());
 app.use(cors())
 
 app.get("/busca-fretes", async (req, res)=>{
@@ -421,49 +424,95 @@ app.get("/searatesapi", async (req, res)=>{
    }
 })
 
-//CADASTRAR USUÁRIO
-
 app.post("/register", async (req,res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
    res.setHeader('Access-Control-Allow-Methods', '*');
    res.setHeader('Access-Control-Allow-Headers', '*');
+
+   const newUser = req.body.userData;
+   newUser.password = CryptoJS.MD5(newUser.password).toString(CryptoJS.enc.Hex); //Converte a senha para MD5
    
-   userService.create(req.body)
+   userService.create(newUser)
       .then((id) =>{
-         return res.status(200).json({ message: "Usuário cadastrado com sucesso."});
+         return res.status(200).json({
+            success: true,
+            message: "Usuário cadastrado com sucesso."})
       })
       .catch(err => {
-         console.error(err);
-         return res.status(500).json({ message: "Problema ao cadastrar usuário"});
+         return res.status(500).json({ 
+            success: false,
+            message: "Problema ao cadastrar usuário"
+         });
       })
 
 });
-
-//PESQUISAR USUARIO
 
 app.post("/login", async (req,res)=>{
    res.setHeader('Access-Control-Allow-Origin', '*');
    res.setHeader('Access-Control-Allow-Methods', '*');
    res.setHeader('Access-Control-Allow-Headers', '*');
 
-   const email= req.body.email;
-   const senha = req.body.password;
+   const { email, password } = req.body.userData;
 
-   const user = await userService.getByEmail(email);
+   const passwordHash = CryptoJS.MD5(password).toString(CryptoJS.enc.Hex);
 
-   if (user.length === 0){
-      return res.status(500).json({ message: "Usuário ou senha inválidos" });
+   if(email === undefined || password === undefined){
+      res.status(401).json({
+         success: false,
+         message: "Ocorreu um problema ao logar."
+      })
    }else{
-      const usuarioLocalizado = user[0];
-         
-      if(senha === usuarioLocalizado.password){
-         return res.status(200).json({ message: "Usuário logado."});
-      }else{
-         return res.status(500).json({ message: "Usuário ou senha inválidos"});
+      const user = await userService.getByEmail(email); 
+
+      //Usuário encontrado e validado
+      if(user.length > 0 && user[0].password === passwordHash){
+         const usuarioEncontrado = user[0];
+         const tokenData = {nome: usuarioEncontrado.name, email: usuarioEncontrado.email}
+         const generatedToken = jwt.sign(tokenData, KEY_JWT, {expiresIn: '60m'});
+
+         res.json(
+            {
+               success: true,
+               token: generatedToken
+            }
+         )
+      }
+      else{
+         res.status(401).json({
+            success: false,
+            message: "e-mail e/ou senhas inválidos."
+         })
       }
    }
-   
-  });
+});
+
+app.get("/verifytoken", (req, res)=>{
+
+   let token = req.headers['authorization'];
+
+   if(token != undefined){
+      //[0] = 'Bearer' e [1] = token
+      token = token.split(' ')[1];
+
+      jwt.verify(token, KEY_JWT, (err: any, decode: any) => {
+         if(!err){
+            res.json({
+               success: true,
+               message: 'Token is valid.'
+            })
+         }else{
+            res.status(401).json({
+               success: false,
+               error: err 
+            })
+         }
+      });
+   }else{
+      res.status(401).json({
+         success: false
+      })
+   }
+});
 
 function converteStrToData1(dataStr: string){
    let [dayStr, monthStr, yearStr] = dataStr.split("/")

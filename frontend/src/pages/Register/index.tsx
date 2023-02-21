@@ -13,6 +13,7 @@ const Register = () => {
   const [cep, setCEP] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [signUp, setSignUp] = useState({success: undefined, message: undefined});
 
 
   function handleInputNome(event: ChangeEvent<HTMLInputElement>){
@@ -68,19 +69,53 @@ const Register = () => {
   async function handleSubmitCadastrar(event: FormEvent) {
     event.preventDefault();
 
-    const novoUsuario = { 
-      name: nomeCompleto,
-      enterpriseName: nomeEmpresa,
-      address: endereco,
-      city: cidade,
-      state: estado,
-      zipCode: cep+"",
-      email: email,
-      password: senha+""
+    const dataToSend = {
+      userData: { 
+        name: nomeCompleto,
+        enterpriseName: nomeEmpresa,
+        address: endereco,
+        city: cidade,
+        state: estado,
+        zipCode: cep+"",
+        email: email,
+        password: senha+""
+      }
     }
-
-    await api.post('/register', novoUsuario);
+    
+    await api.post('/register', dataToSend)
+      .then(()=>{
+        setSignUp({
+          message: "Usuário cadastrado com sucesso",
+          success: true
+        });
+        setNomeCompleto('');
+        setNomeEmpresa('');
+        setEndereco('');
+        setCidade('');
+        setEstado('');
+        setCEP('');
+        setEmail('');
+        setSenha('');
+      })
+      .catch(()=>{
+        setSignUp({
+          message: "Erro ao cadastrar usuário",
+          success: false
+        });
+      })
   }
+
+
+function registerVerify(signUp){
+    if(signUp.success !== undefined){
+      return signUp.success ? 
+        <div className="alert alert-success" role="alert">Usuário cadastrado com sucesso</div>  :
+        <div className="alert alert-danger" role="alert">Erro ao cadastrar usuário</div>
+    }else{
+      return null;
+    }
+  }
+
 
   return (
     <div className="register-parent">
@@ -90,7 +125,10 @@ const Register = () => {
           <br />
           <br />
         </div>
-        <form className="row g-3" onSubmit={handleSubmitCadastrar}>
+        <form className="row g-3" onSubmit={handleSubmitCadastrar}> 
+
+          {registerVerify(signUp)}
+
           <div className="col-12">
             <label htmlFor="inputAddress1" className="form-label">
               Nome Completo

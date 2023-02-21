@@ -3,8 +3,14 @@ import "./styles.css";
 import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import api from "../../services/api";
 
 const Dashboard = () => {
+
+  const token = sessionStorage.getItem("access_token");
+
+  console.log(token);
+
   return (
     <div className="flex-dashboard">
       <Sidebar />
