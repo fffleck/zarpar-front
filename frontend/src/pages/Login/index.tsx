@@ -34,7 +34,7 @@ const Login = ({ isLoggedIn }) => {
 
     await api.post('/login', dataToSend)
       .then(resp => {
-        if(resp.data.sucess){
+        if(resp.data.success){
           sessionStorage.setItem("access_token", `Bearer ${resp.data.token}`);
           window.location.reload(); //a página é recarregada assim que o token é colocado na sessão
         }else{
@@ -53,7 +53,7 @@ const Login = ({ isLoggedIn }) => {
       })
   }
 
-  function loginVerify(loginError){
+  function loginVerify(loginError: boolean){
     return loginError ? <div className="alert alert-danger" role="alert">Erro ao logar</div> : null
   }
 
