@@ -79,7 +79,7 @@ const Register = () => {
     if(senha.length < 6){
       setSignUp({
         success: false,
-        message: "A senha possui menos de 6 caracteres."
+        message: "A senha deve possuir, no mínimo, 6 caracteres."
       })
       return;
     }
@@ -113,11 +113,22 @@ const Register = () => {
         setSenha('');
       })
       .catch(err=>{
-        console.log(err);
-        setSignUp({
-          success: false,
-          message: "Houve um problema ao cadastrar o usuário. Tente novamente mais tarde ou entre em contato com o suporte."
-        });
+        const codigoDeErro = err.response.data.errorCode;
+
+        if(codigoDeErro === 11000){
+          setSignUp({
+            success: false,
+            message: "Esse e-mail já está cadastrado!"
+          });
+        }else{
+          setSignUp({
+            success: false,
+            message: "Houve um problema ao cadastrar o usuário. Tente novamente mais tarde."
+          });
+        }
+
+        
+        
       })
   }
 

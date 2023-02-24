@@ -436,13 +436,21 @@ app.post("/register", async (req,res)=>{
       .then((id) =>{
          return res.status(200).json({
             success: true,
+            errorCode: 0,
             message: "Usuário cadastrado com sucesso."})
       })
       .catch(err => {
-         return res.status(500).json({ 
-            success: false,
-            message: "Problema ao cadastrar usuário"
-         });
+         if (err.name === 'MongoServerError' && err.code === 11000) {
+            // Duplicate e-mail
+            return res.status(422).send(
+               { succes: false, errorCode: err.code, message: 'E-mail já cadastrado!'}
+            );
+         }else{
+            return res.status(500).json(
+               { success: false, errorCode: err.code, message: "Problema ao cadastrar usuário"}
+            );
+         }
+         
       })
 
 });
