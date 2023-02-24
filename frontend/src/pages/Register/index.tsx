@@ -69,6 +69,21 @@ const Register = () => {
   async function handleSubmitCadastrar(event: FormEvent) {
     event.preventDefault();
 
+    if(cep.length !== 8 || Number.isNaN(Number(cep))){
+      setSignUp({
+        success: false,
+        message: "O CEP está fora do padrão."
+      })
+      return;
+    }
+    if(senha.length < 6){
+      setSignUp({
+        success: false,
+        message: "A senha possui menos de 6 caracteres."
+      })
+      return;
+    }
+
     const dataToSend = {
       userData: { 
         name: nomeCompleto,
@@ -97,24 +112,36 @@ const Register = () => {
         setEmail('');
         setSenha('');
       })
-      .catch(()=>{
+      .catch(err=>{
+        console.log(err);
         setSignUp({
-          message: "Erro ao cadastrar usuário",
-          success: false
+          success: false,
+          message: "Houve um problema ao cadastrar o usuário. Tente novamente mais tarde ou entre em contato com o suporte."
         });
       })
   }
 
 
-function registerVerify(signUp){
+function registerVerify(signUp: any){
     if(signUp.success !== undefined){
       return signUp.success ? 
-        <div className="alert alert-success" role="alert">Usuário cadastrado com sucesso</div>  :
-        <div className="alert alert-danger" role="alert">Erro ao cadastrar usuário</div>
+        <div className="alert alert-success" role="alert">{signUp.message}</div>  :
+        <div className="alert alert-danger" role="alert">{signUp.message}</div>
     }else{
       return null;
     }
   }
+
+function avisoSenha(signUp: any){
+  if(signUp.success === undefined){
+    return <div>
+      <ul>
+        <li>A senha deve ter no mínimo 6 caracteres</li>
+        <li>O CEP é formado por 8 números, sem pontuações</li>
+      </ul>
+      </div>
+  }
+}
 
 
   return (
@@ -128,6 +155,7 @@ function registerVerify(signUp){
         <form className="row g-3" onSubmit={handleSubmitCadastrar}> 
 
           {registerVerify(signUp)}
+          {avisoSenha(signUp)}
 
           <div className="col-12">
             <label htmlFor="inputAddress1" className="form-label">
@@ -232,6 +260,7 @@ function registerVerify(signUp){
               id="inputZip" 
               value={cep}
               onChange={handleInputCEP}
+              placeholder="00000000"
               required
               />
           </div>
@@ -261,6 +290,7 @@ function registerVerify(signUp){
               required
             />
           </div>
+          
           <div className="col-12">
             <div className="form-check">{/* </label> */}</div>
           </div>

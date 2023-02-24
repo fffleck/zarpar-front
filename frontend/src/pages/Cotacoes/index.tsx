@@ -6,7 +6,7 @@ import api from "../../services/api";
 import TabelaResultados from "./TabelaResultados";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
-import Select from "react-select";
+//import Select from "react-select";
 
 interface ItemSelect {
   idItem: any;
