@@ -1,0 +1,120 @@
+
+div .container{
+    display: flex;
+    column-gap: 1.5em;
+    row-gap: 1.5em;
+    padding: 0;
+}
+
+.titulo-texto{
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/*Seção Pedido Reserva*/
+
+.pedido-reserva{
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.titulo-secao{
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1em 0;
+}
+
+.topo{
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-reserva{
+    display: flex;
+    text-align: start;
+    column-gap: 5em;
+}
+
+.item-reserva__titulo{
+    width: 12em;
+}
+
+/*Seção Ajuste Reserva*/
+
+.ajuste-reserva{
+    text-align: center;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.item-ajuste{
+    margin: .5em 0;
+}
+
+.item-ajuste input{
+    width: 80%;
+}
+
+.item-ajuste__titulo{
+    width: 80%;
+    display: inline-block;
+    text-align: start;
+    font-size: 14px;
+    margin: 0.1em;
+}
+
+.valor-frete{
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1em 0;
+}
+
+.preco{
+    font-size: 1.5em;
+}
+
+/*Dados Embarcador*/
+
+.dados-embarcador{
+    text-align: center;
+    margin: 1em 0 0 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1em 1em 2em 1em;
+}
+
+.titulo-secao__embarcador{
+    text-align: start;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1em 0;
+}
+
+.item-embarcador{
+    display: flex;
+    align-items: center;
+    column-gap: 5em;
+    margin-bottom: 0.3em;
+}
+
+.item-embarcador input{
+    padding: 0.5em;
+}
+
+.item-embarcador__titulo{
+    width: 12em;
+    margin: 0;
+    text-align: start;
+}
+
+.botao{
+    margin-top: 1em;
+}

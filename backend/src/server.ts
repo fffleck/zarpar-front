@@ -476,7 +476,7 @@ app.post("/login", async (req,res)=>{
       if(user.length > 0 && user[0].password === passwordHash){
          const usuarioEncontrado = user[0];
          const tokenData = {nome: usuarioEncontrado.name, email: usuarioEncontrado.email}
-         const generatedToken = jwt.sign(tokenData, KEY_JWT, {expiresIn: '60m'});
+         const generatedToken = jwt.sign(tokenData, KEY_JWT, {expiresIn: '240m'});
 
          res.json(
             {
