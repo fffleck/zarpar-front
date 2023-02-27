@@ -44,6 +44,11 @@
     
 }
 
+div .form-check{
+    margin: 1em 0;
+    padding: 0;
+}
+
 @media screen and (max-width: 1152px) {
     .banner-login{
         display: none
