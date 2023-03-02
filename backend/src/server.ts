@@ -389,6 +389,7 @@ app.get("/searatesapi", async (req, res)=>{
            let tempo_trasito = parseInt(freight.transitTime.split(" ")[0])
            let data_chegada = new Date(data_partida)
            data_chegada.setDate(data_chegada.getDate() + tempo_trasito)
+
            response_freight.push({
               shipment_id: shipment.shipmentId,
               tipo_container: freight.containerType,
@@ -409,6 +410,20 @@ app.get("/searatesapi", async (req, res)=>{
          });
        })
 
+       // ZIM
+       // Tratar data
+       let data_saida_zim = formataData2(new Date(data_saida))
+
+       
+       try{
+         // let api_zim_res = await axios.get(`http://localhost:3334/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`)
+         let api_zim_res = await axios.get(`https://karavel-services.herokuapp.com/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`)
+         api_zim_res.data.forEach((result: any) => {
+            response_freight.push(result)
+         })
+       }catch(e){
+         console.log("Zim não trouxe resultados.")
+       }
        if(response_freight.length === 0){
          res.status(200).json({
             message: "Frete nao encontrado."
@@ -551,6 +566,18 @@ function formataData(data: Date){
 
 }
 
+function formataData2(data: Date){
+   function adicionaZero(numero: any){
+      if (numero <= 9) 
+          return "0" + numero;
+      else
+          return numero; 
+  }
+  let dataFormatada = (data.getFullYear() + "-" + (adicionaZero(data.getMonth()+1).toString()) + "-" + adicionaZero(data.getDate().toString()));
+  return dataFormatada
+
+}
+
 function converteStrToData2(dataStr: string){
    let [yearStr, monthStr, dayStr] = dataStr.split("-")
    if(dayStr[0] ==="0"){
@@ -567,8 +594,8 @@ function converteStrToData2(dataStr: string){
    return new Date(year, month, day);
 }
 
-// const PORT = process.env.PORT || 3000;
-const PORT = process.env.PORT || 3333; //DEV
+const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3333; //DEV
 
 const server = app.listen(PORT, () => {
    console.log(`Server is listening on port ${PORT}`);

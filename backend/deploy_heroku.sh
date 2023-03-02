@@ -4,5 +4,5 @@
 docker build -t web .
 docker run web
 heroku container:login
-heroku container:push web
-heroku container:release web
+heroku container:push web --app karavel-api
+heroku container:release web --app karavel-api

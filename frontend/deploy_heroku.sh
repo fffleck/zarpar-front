@@ -4,5 +4,5 @@
 docker build -t web .
 docker run -d -p 8080:80 web
 heroku container:login
-heroku container:push web
-heroku container:release web
+heroku container:push web --app karavel-shipping
+heroku container:release web --app karavel-shipping
