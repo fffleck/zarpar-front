@@ -4,57 +4,63 @@ import { Link, Navigate } from "react-router-dom";
 import api from "../../services/api";
 
 const Login = ({ isLoggedIn }) => {
-
-  const [email, setEmail] = useState ('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
 
-  if(isLoggedIn){
+  if (isLoggedIn) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  function handleInputEmail(event: ChangeEvent<HTMLInputElement>){
+  function handleInputEmail(event: ChangeEvent<HTMLInputElement>) {
     const email = event.target.value;
-    
+
     setEmail(email);
   }
 
-  function handleInputPassword(event: ChangeEvent<HTMLInputElement>){
+  function handleInputPassword(event: ChangeEvent<HTMLInputElement>) {
     const password = event.target.value;
 
     setPassword(password);
   }
 
-  async function handleSubmitLogin(event: FormEvent){
+  async function handleSubmitLogin(event: FormEvent) {
     event.preventDefault();
 
-    const dataToSend ={
-      userData: {email: email, password: password}
-    } 
+    console.log("AUTENTICAÇÃO");
 
-    await api.post('/login', dataToSend)
-      .then(resp => {
-        if(resp.data.success){
+    const dataToSend = {
+      userData: { email: email, password: password },
+    };
+
+    await api
+      .post("/auth/login", dataToSend)
+      .then((resp) => {
+        if (resp.data.success) {
           sessionStorage.setItem("access_token", `Bearer ${resp.data.token}`);
           window.location.reload(); //a página é recarregada assim que o token é colocado na sessão
-        }else{
+        } else {
           setLoginError(true);
         }
-        setEmail('');
-        setPassword('');
+        setEmail("");
+        setPassword("");
       })
-      .catch(err => {
-        if(err?.response?.data?.message){
+      .catch((err) => {
+        if (err?.response?.data?.message) {
           console.log(err.response.data.message);
-        }else{
+        } else {
           console.log("Aconteceu um erro inesperado");
         }
         setLoginError(true);
-      })
+      });
   }
 
-  function loginVerify(loginError: boolean){
-    return loginError ? <div className="alert alert-danger" role="alert">Erro ao logar</div> : null
+  function loginVerify(loginError: boolean) {
+    return loginError ? (
+      <div className="alert alert-danger" role="alert">
+        Erro ao logar
+      </div>
+    ) : null;
   }
 
   return (
@@ -98,7 +104,11 @@ const Login = ({ isLoggedIn }) => {
               {loginVerify(loginError)}
 
               <div className="form-group form-check">
-                <button type="submit" className="btn btn-primary" id="botao-login">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  id="botao-login"
+                >
                   Login
                 </button>
               </div>

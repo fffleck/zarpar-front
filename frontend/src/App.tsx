@@ -12,66 +12,71 @@ import Protected from "./pages/Protected";
 import api from "./services/api";
 
 function App() {
-
   const [tokenIsValid, setTokenIsValid] = useState(false);
 
   const token = sessionStorage.getItem("access_token");
 
-  api.get("/verifytoken", {
-    headers:{
-      'authorization': token
-    }
-  })
-  .then(res => {
-      if(res.data.success){
+  api
+    .get("/auth/verifytoken", {
+      headers: {
+        authorization: token,
+      },
+    })
+    .then((res) => {
+      if (res.data.success) {
         setTokenIsValid(true);
-      }else{
+      } else {
         setTokenIsValid(false);
       }
-  })
-  .catch((err) => {
-    //tratativa de erro
-  })
+    })
+    .catch((err) => {
+      //tratativa de erro
+    });
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login isLoggedIn={tokenIsValid}/> } />
+        <Route path="/" element={<Login isLoggedIn={tokenIsValid} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/bookings" 
+        <Route
+          path="/bookings"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Bookings />
             </Protected>
-          } 
+          }
         />
-        <Route path="/conta" 
+        <Route
+          path="/conta"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Conta />
-            </Protected> 
-          } 
+            </Protected>
+          }
         />
-        <Route path="/cotacoes" 
+        <Route
+          path="/cotacoes"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Cotacoes />
-            </Protected> 
-          } 
+            </Protected>
+          }
         />
-        <Route path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Dashboard />
             </Protected>
-          } 
+          }
         />
-        <Route path="/pagamentos" 
+        <Route
+          path="/pagamentos"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Pagamentos />
-            </Protected>   
-          } 
+            </Protected>
+          }
         />
       </Routes>
     </BrowserRouter>
