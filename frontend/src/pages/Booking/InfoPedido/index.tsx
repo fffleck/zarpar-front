@@ -18,7 +18,7 @@ imagem_link: string;
 shipment_id: string;
 };
 
-type informacoesEnviar = {
+type informacoesEnviarEmail = {
 armador: string;
 mercadoria: string;
 tipo_mercadoria: string;
@@ -52,6 +52,8 @@ const routeChange = () =>{
 }
 
 const email = sessionStorage.getItem("user_email");
+const [moeda, valorFrete] = props.frete.split(' ');
+
 
 api.post('/user/find_user', {email})
 .then(resp=>{
@@ -87,7 +89,7 @@ function handleInputTipoMercadoria(event: ChangeEvent<HTMLInputElement>){
 
 const dadosPedido = {
   ...props,
-  moeda: "USD",
+  moeda: props.frete.split[0], //simbolo moeda
   terminal_embarque: "",
   transbordo: "",
   quantidade_containers: qtdContainers,
@@ -95,12 +97,14 @@ const dadosPedido = {
   embarcador_endereco: enderecoEmbarcador,
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
-  valor: qtdContainers*Number(props.frete),
+  valor: Number(valorFrete)*qtdContainers,
   mercadoria: mercadoria,
   tipo_mercadoria: tipoMercadoria,
 }
 
-const informacoesEnviar:informacoesEnviar = {
+var precoTotal = dadosPedido.valor;
+
+const informacoesEnviarEmail:informacoesEnviarEmail = {
   armador: props.armador,
   mercadoria: mercadoria,
   tipo_mercadoria: tipoMercadoria,
@@ -114,22 +118,20 @@ const informacoesEnviar:informacoesEnviar = {
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
-  valor: `dadosPedido.moeda + ${String(qtdContainers*Number(props.frete))}`,
+  valor: `${moeda} ${precoTotal}` 
 }
 
-console.log(informacoesEnviar);
 
-var precoTotal = dadosPedido.quantidade_containers*Number(props.frete);
 
 const USDollar = new Intl.NumberFormat('en-US', {
   style: 'currency',
-  currency: dadosPedido.moeda,
+  currency: 'USD',
 });
 
 const sendEmailAnalisys = async (event) => {
   event.preventDefault();
 
-  await api.post('/email/send_analysis', dadosPedido)
+  await api.post('/email/send_analysis', informacoesEnviarEmail)
   .then((res) => {
     console.log("Enviado para análise");
   })
@@ -141,7 +143,7 @@ const sendEmailAnalisys = async (event) => {
 const sendEmailClient = async (event) => {
   event.preventDefault();
 
-  await api.post('/email/send_client', dadosPedido)
+  await api.post('/email/send_client', informacoesEnviarEmail)
   .then((res) => {
     console.log("Enviado para cliente");
   })

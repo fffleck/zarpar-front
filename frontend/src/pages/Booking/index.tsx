@@ -7,8 +7,6 @@ const Booking = () => {
 
   const [searchParams, _] = useSearchParams();
 
-  const frete = searchParams.get("frete").split(' ')[1]; //pegando só a parte numérica da string
-
   const dados = {
     armador : searchParams.get("armador"),
     tipo_container : searchParams.get("tipo_container"),
@@ -18,7 +16,7 @@ const Booking = () => {
     data_embarque : searchParams.get("data_embarque"),
     tempo_de_transito : searchParams.get("tempo_de_transito"),
     data_chegada : searchParams.get("data_chegada"),
-    frete : frete,
+    frete : searchParams.get("frete"),
     imagem_link : searchParams.get("imagem_link"),
     shipment_id : searchParams.get("shipment_id"),
     mercadoria: searchParams.get("mercadoria"),

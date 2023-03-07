@@ -2,6 +2,8 @@ import {Request, Response} from "express";
 const nodemailer = require('nodemailer');
 const SMTP_CONFIG = require('../../config/mail_smtp');
 
+const emailsAnalise = ['alvaro@karavel.com.br'];
+
 const transporter = nodemailer.createTransport({
     host: SMTP_CONFIG.host,
     port: SMTP_CONFIG.port,
@@ -21,11 +23,12 @@ export const send_analysis =  async (req: Request, res: Response)=>{
     res.setHeader('Access-Control-Allow-Headers', '*');
  
     const informacoesPedido = req.body;
+
     
     await transporter.sendMail({
         from: `Pedidos Karavel Shipping - <lephanyx@gmail.com>`,
         subject: `Pedido Karavel - ${informacoesPedido.embarcador_nome}`,
-        to: ['cyure.dev@gmail.com'],
+        to: emailsAnalise,
         html: 
         `
         <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -230,7 +233,7 @@ export const send_analysis =  async (req: Request, res: Response)=>{
             <p style="line-height: 19.6px;"><strong>Data de embarque:</strong> ${informacoesPedido.data_embarque}</p>
             <p style="line-height: 19.6px;"><strong>Tipo de container:</strong> ${informacoesPedido.tipo_container}</p>
             <p style="line-height: 19.6px;"><strong>Quantidade de containers:</strong> ${informacoesPedido.quantidade_containers}</p>
-            <p style="line-height: 19.6px;"><strong>Preço do Frete:</strong> ${informacoesPedido.moeda} ${informacoesPedido.valor}</p>
+            <p style="line-height: 19.6px;"><strong>Preço do Frete:</strong> ${informacoesPedido.valor}</p>
         </div>
 
             </td>
