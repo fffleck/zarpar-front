@@ -1,9 +1,11 @@
 import React from "react";
-// import "./styles.css";
-import logoMaersk from "../../../assets/imagens/maersk.png";
-import logoCMA from "../../../assets/imagens/cma.png";
-import logoMsc from "../../../assets/imagens/Imsc.png";
-import logoExalog from "../../../assets/imagens/exalog.png";
+//import "./styles.css";
+//import logoMaersk from "../../../assets/imagens/maersk.png";
+//import logoCMA from "../../../assets/imagens/cma.png";
+//import logoMsc from "../../../assets/imagens/Imsc.png";
+//import logoExalog from "../../../assets/imagens/exalog.png";
+//import { Link } from "react-router-dom";
+import ButtonBooking from "../../ButtonBooking";
 
 type ResultadoProps = {
   armador: string;
@@ -47,13 +49,16 @@ const Resultado = (props: ResultadoProps) => {
       <td className="tdImg">
         <img height={50} src={props.imagem_link} alt="Logo" />
       </td>
-      <td>{props.armador}</td>
+      <td>{props.armador}</td>  
       <td>{props.data_embarque}</td>
       <td>{props.porto_embarque}</td>
       <td>{props.porto_descarga}</td>
       <td>{props.frete}</td>
       <td>{props.tempo_de_transito.replace("days", "dias")}</td>
       <td>{props.data_chegada}</td>
+      <td>
+        <ButtonBooking {...props}/>
+      </td>
     </tr>
   );
 };

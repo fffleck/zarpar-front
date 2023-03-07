@@ -36,8 +36,10 @@ const Login = ({ isLoggedIn }) => {
     await api
       .post("/auth/login", dataToSend)
       .then((resp) => {
+        console.log(resp.data);
         if (resp.data.success) {
           sessionStorage.setItem("access_token", `Bearer ${resp.data.token}`);
+          sessionStorage.setItem("user_email", resp.data.email);
           window.location.reload(); //a página é recarregada assim que o token é colocado na sessão
         } else {
           setLoginError(true);

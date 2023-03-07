@@ -1,5 +1,4 @@
-
-div .container{
+.form{
     display: flex;
     column-gap: 1.5em;
     row-gap: 1.5em;
@@ -28,10 +27,19 @@ div .container{
     margin: 1em 0;
 }
 
+
+.topo{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+/*
 .topo{
     display: flex;
     justify-content: space-between;
 }
+*/
 
 .item-reserva{
     display: flex;
@@ -59,6 +67,10 @@ div .container{
 
 .item-ajuste input{
     width: 80%;
+}
+
+.espacamento{
+    padding-left: .5em;
 }
 
 .item-ajuste__titulo{
@@ -117,4 +129,47 @@ div .container{
 
 .botao{
     margin-top: 1em;
+}
+
+/* Sucesso Pedido*/
+
+.botao-sair{
+    display: flex
+}
+
+.container-card{
+    height: calc(100vh - 90px);
+    background-color: #F7F7F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    align-items: center;
+    background-color: white;
+    width: 900px;
+    height: 500px;
+
+    -webkit-box-shadow: -1px 3px 15px 3px rgba(0,0,0,0.22);
+    -moz-box-shadow: -1px 3px 15px 3px rgba(0,0,0,0.22);
+    box-shadow: -1px 3px 15px 3px rgba(0,0,0,0.22);
+}
+
+.titulo{
+    margin-bottom: 1em;
+}
+
+.texto{
+    margin: 0.1em 0;
+    font-size: 18px;
+}
+
+.img-tick{
+    margin: 0.5em 0;
+    align-self: center;
+}
+
+.logo-contato{
+    margin: 2em 0;
 }

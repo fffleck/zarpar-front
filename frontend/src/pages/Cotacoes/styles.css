@@ -9,6 +9,11 @@ form {
     margin-bottom: 20px;
 }
 
+tr, td{
+    text-align: center;
+    vertical-align: middle;
+}
+
 /* .login {
     height: 100%;
     display: flex;

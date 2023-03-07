@@ -17,7 +17,7 @@ export const login =  async (req: Request, res: Response)=>{
     if(email === undefined || password === undefined){
        res.status(401).json({
           success: false,
-          message: "Ocorreu um problema ao logar."
+          message: "Ocorreu um problema ao logar.",
        })
     }else{
        const user = await userService.getByEmail(email); 
@@ -31,7 +31,8 @@ export const login =  async (req: Request, res: Response)=>{
           res.json(
              {
                 success: true,
-                token: generatedToken
+                token: generatedToken,
+                email: email,
              }
           )
        }

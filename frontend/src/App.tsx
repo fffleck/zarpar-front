@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Bookings from "./pages/Bookings";
+import Booking from "./pages/Booking";
+import SucessoPedido from "./pages/Booking/SucessoPedido";
 import Conta from "./pages/Conta";
 import Cotacoes from "./pages/Cotacoes";
 import Dashboard from "./pages/Dashboard";
@@ -26,6 +28,8 @@ function App() {
       if (res.data.success) {
         setTokenIsValid(true);
       } else {
+        sessionStorage.removeItem("access_token");
+        sessionStorage.removeItem("user_email");
         setTokenIsValid(false);
       }
     })
@@ -39,12 +43,28 @@ function App() {
         <Route path="/" element={<Login isLoggedIn={tokenIsValid} />} />
         <Route path="/register" element={<Register />} />
         <Route
+          path="/booking"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Booking />
+            </Protected>
+          } 
+        />
+        <Route
+          path="/pedido_resultado"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <SucessoPedido/>
+            </Protected>
+          }>
+        </Route>
+        <Route
           path="/bookings"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Bookings />
             </Protected>
-          }
+          } 
         />
         <Route
           path="/conta"

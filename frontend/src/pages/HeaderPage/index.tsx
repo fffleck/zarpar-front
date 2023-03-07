@@ -5,6 +5,7 @@ const HeaderPage = () => {
 
   function logout(){
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("user_email");
     window.location.reload(); //recarrega a página assim que o token é retirado da sessão
   }
 
