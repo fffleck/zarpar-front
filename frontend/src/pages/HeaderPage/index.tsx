@@ -11,11 +11,11 @@ const HeaderPage = () => {
 
   return (
     <header>
-      <Link to="/dashboard">
+      <Link to="/cotacoes">
         {" "}
         <i className="fa-solid fa-bars"></i> Dashboard
       </Link>
-      <Link onClick={logout} to="/dashboard">
+      <Link onClick={logout} to="/">
         <i className="fa-solid fa-arrow-right-from-bracket"></i> 
         Logout
       </Link>

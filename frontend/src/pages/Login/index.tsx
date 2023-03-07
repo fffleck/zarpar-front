@@ -9,7 +9,7 @@ const Login = ({ isLoggedIn }) => {
   const [loginError, setLoginError] = useState(false);
 
   if (isLoggedIn) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/cotacoes" replace />;
   }
 
   function handleInputEmail(event: ChangeEvent<HTMLInputElement>) {

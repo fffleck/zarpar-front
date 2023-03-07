@@ -7,7 +7,7 @@ import "./styles.css";
 const Bookings = () => {
   return (
     <div className="flex-dashboard">
-      <Sidebar />
+      <Sidebar elementoAtivo="bookings"/>
       <main>
         <HeaderPage />
         <div className="main-content">

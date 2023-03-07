@@ -27,7 +27,7 @@ const Booking = () => {
 
   return (
     <div className="flex-dashboard">
-      <Sidebar />
+      <Sidebar elementoAtivo="cotacoes"/>
       <main>
         <HeaderPage />
         <div className="main-content">

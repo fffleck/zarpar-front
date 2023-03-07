@@ -7,7 +7,7 @@ import Sidebar from "../Sidebar";
 const Conta = () => {
   return (
     <div className="flex-dashboard">
-      <Sidebar />
+      <Sidebar elementoAtivo="conta"/>
       <main>
         <HeaderPage />
         <div className="main-content">

@@ -6,7 +6,7 @@ import Sidebar from "../Sidebar";
 const Pagamentos = () => {
   return (
     <div className="flex-dashboard">
-      <Sidebar />
+      <Sidebar elementoAtivo="pagamentos"/>
       <main>
         <HeaderPage />
         <div className="main-content">
