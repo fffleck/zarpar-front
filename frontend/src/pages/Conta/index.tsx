@@ -9,7 +9,7 @@ const Conta = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="conta"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Conta"/>
         <div className="main-content">
           <div className="main-content-title">
             <h2>Conta</h2>

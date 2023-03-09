@@ -9,7 +9,7 @@ const Bookings = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="bookings"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Bookings"/>
         <div className="main-content">
           <div className="main-content-title">
             <h2>Bookings</h2>

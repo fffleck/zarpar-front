@@ -153,7 +153,7 @@ const Cotacoes = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="cotacoes"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Cotações"/>
         <div className="main-content">
           <div className="main-content-title">
             <h2>Cotações</h2>

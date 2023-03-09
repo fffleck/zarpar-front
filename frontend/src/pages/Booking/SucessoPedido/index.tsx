@@ -9,7 +9,7 @@ const SucessoPedido = () => {
     <div className="flex-dashboard">
       <Sidebar />
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Booking"/>
         <div className="container-card">
             <div className="card">
                 <img height="200px" width="200px" src={ImgHands} alt="Hands" className="img-tick"></img>

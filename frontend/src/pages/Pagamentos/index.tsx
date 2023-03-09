@@ -8,7 +8,7 @@ const Pagamentos = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="pagamentos"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Pagamentos"/>
         <div className="main-content">
           <div className="main-content-title">
             <h2>Pagamentos</h2>

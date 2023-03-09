@@ -27,7 +27,7 @@ const Booking = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="cotacoes"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Booking"/>
         <div className="main-content">
           <p className="titulo-texto">Cotação / Armadores / Pedidos de Booking</p> 
           <InfoPedido {...dados}/>

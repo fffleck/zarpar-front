@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="dashboard"/>
       <main>
-        <HeaderPage />
+        <HeaderPage nomeOpcao="Dashboard"/>
         <div className="main-content">
           <div className="main-content-title">
             <h2>Dashboard</h2>

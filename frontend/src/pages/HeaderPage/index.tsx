@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Link } from "react-router-dom";
 
-const HeaderPage = () => {
+const HeaderPage = (props) => {
 
   function logout(){
     sessionStorage.removeItem("access_token");
@@ -9,11 +9,15 @@ const HeaderPage = () => {
     window.location.reload(); //recarrega a página assim que o token é retirado da sessão
   }
 
+  const nomeAba = props.nomeOpcao;
+
+  console.log(nomeAba);
+
   return (
     <header>
       <Link to="/cotacoes">
         {" "}
-        <i className="fa-solid fa-bars"></i> Dashboard
+        <i className="fa-solid fa-bars"></i>{nomeAba}
       </Link>
       <Link onClick={logout} to="/">
         <i className="fa-solid fa-arrow-right-from-bracket"></i> 
