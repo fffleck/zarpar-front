@@ -6,7 +6,7 @@
 | param | value |
 |--|--|
 | **client_id** | beapp-karavel |
-| **client_secret** | 9ML9Di6FbPaWFKIpbHKcmcmeA3LBUozcXgvFi98u64iOHHH1g6wUIQV7J6tThCkQ |
+| **client_secret** | ip0crECVkhkeJlgax8ugAKoAwokyhLmf0lAuDTiF5ZIACfNzRWtC0exr2J89ONDM |
 | **grant_type** | client_credentials |
 | **scope** | {refer to swagger depending on API} |
 
