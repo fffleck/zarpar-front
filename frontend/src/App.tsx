@@ -75,30 +75,35 @@ function App() {
           }
         />
 
-        <Route
-          path="/bookings"
-          element={
-            <Protected isLoggedIn={tokenIsValid}>
-              <Bookings />
-            </Protected>
-          } 
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <Protected isLoggedIn={tokenIsValid}>
-              <Dashboard />
-            </Protected>
-          }
-        />
-        <Route
-          path="/pagamentos"
-          element={
-            <Protected isLoggedIn={tokenIsValid}>
-              <Pagamentos />
-            </Protected>
-          }
-        />
+        {
+          /*
+            <Route
+              path="/bookings"
+              element={
+                <Protected isLoggedIn={tokenIsValid}>
+                  <Bookings />
+                </Protected>
+              } 
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <Protected isLoggedIn={tokenIsValid}>
+                  <Dashboard />
+                </Protected>
+              }
+            />
+            <Route
+              path="/pagamentos"
+              element={
+                <Protected isLoggedIn={tokenIsValid}>
+                  <Pagamentos />
+                </Protected>
+              }
+            />
+          
+          */
+        }
 
       </Routes>  
     </BrowserRouter>
