@@ -11,8 +11,6 @@ const HeaderPage = (props) => {
 
   const nomeAba = props.nomeOpcao;
 
-  console.log(nomeAba);
-
   return (
     <header>
       <Link to="/cotacoes">

@@ -14,6 +14,14 @@ tr, td{
     vertical-align: middle;
 }
 
+.selecao{
+    background-color: white;
+}
+
+.form-data{
+    width: 300px;
+}
+
 /* .login {
     height: 100%;
     display: flex;
