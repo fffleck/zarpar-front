@@ -71,11 +71,11 @@ const Cotacoes = () => {
   const [formData, setFormData] = useState({
     data_saida: "",
   });
-  const [valueMercadoria, setValueMercadoria] = useState({label:'', id:'0'});
-  const [valuePortoEmbarque, setValuePortoEmbarque] = useState({label:'', id:'0'});
-  const [valuePortoDescarga, setValuePortoDescarga] = useState({label:'', id:'0'});
-  const [valueTipoMercadoria, setValueTipoMercadoria] = useState({label:'', id:'0'});
-  const [valueTipoContainer, setValueTipoContainer] = useState({label:'', id:'0'});
+  const [valueMercadoria, setValueMercadoria] = useState(null);
+  const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
+  const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
+  const [valueTipoMercadoria, setValueTipoMercadoria] = useState(null);
+  const [valueTipoContainer, setValueTipoContainer] = useState(null);
   const [inputValueMercadoria, setInputValueMercadoria] = useState('');
   const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState('');
   const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState('');
@@ -112,11 +112,11 @@ const Cotacoes = () => {
     setFormData({data_saida: data});
   }
 
-  const listaMercadorias =[{label:'', id:'0'}, ...mercadorias.map((mercadoria)=>({label: mercadoria.name, id: mercadoria.idItem}))];
-  const listaPortosEmbarque = [{label:'', id:'0'}, ...portosEmbarque.map((portoEmbarque)=>({label: portoEmbarque.port_name, id: portoEmbarque.port_id}))];
-  const listaPortosDescarga = [{label:'', id:'0'}, ...portosDescarga.map((portoDescarga)=>({label: portoDescarga.port_name, id: portoDescarga.port_id}))];
-  const listaTiposMercadoria = [{label:'', id:'0'}, ...tiposMercadoria.map((tipoMercadoria)=>({label: tipoMercadoria.name, id: tipoMercadoria.idItem}))];
-  const listaTiposContainer = [{label:'', id:'0'}, ...tiposContainer.map((tipoContainer)=>({label: tipoContainer.name, id: tipoContainer.idItem}))];
+  const listaMercadorias = mercadorias.map((mercadoria)=>({label: mercadoria.name, id: mercadoria.idItem}));
+  const listaPortosEmbarque = portosEmbarque.map((portoEmbarque)=>({label: portoEmbarque.port_name, id: portoEmbarque.port_id}));
+  const listaPortosDescarga = portosDescarga.map((portoDescarga)=>({label: portoDescarga.port_name, id: portoDescarga.port_id}));
+  const listaTiposMercadoria = tiposMercadoria.map((tipoMercadoria)=>({label: tipoMercadoria.name, id: tipoMercadoria.idItem}));
+  const listaTiposContainer = tiposContainer.map((tipoContainer)=>({label: tipoContainer.name, id: tipoContainer.idItem}));
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
