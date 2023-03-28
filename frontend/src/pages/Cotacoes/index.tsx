@@ -10,6 +10,7 @@ import { Autocomplete, TextField} from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from "dayjs";
 //import Select from "react-select";
 
 interface ItemSelect {
@@ -68,9 +69,7 @@ const Cotacoes = () => {
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
   const [btnSearchDisabled, setBtnSearchDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState({
-    data_saida: "",
-  });
+  const [formData, setFormData] = useState<Dayjs | null>(null);;
   const [valueMercadoria, setValueMercadoria] = useState(null);
   const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
   const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
@@ -105,11 +104,8 @@ const Cotacoes = () => {
   }, []);
 
   function handleInputChange(event) {
-    // const { name, value } = event.target;
-    //setFormData({ ...formData, [name]: value });
-
-    const data = `${event.$y}-${event.$M+1}-${event.$D}` // YYYY/M/D
-    setFormData({data_saida: data});
+    //const data = dayjs(`${event.$y}-${event.$M+1}-${event.$D}`).format('YYYY-MM-DD'); //Formato da data
+    setFormData(dayjs(`${event.$y}-${event.$M+1}-${event.$D}`));
   }
 
   const listaMercadorias = mercadorias.map((mercadoria)=>({label: mercadoria.name, id: mercadoria.idItem}));
@@ -121,7 +117,8 @@ const Cotacoes = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    const { data_saida } = formData;
+    if(formData === null) return; //verifica se a data foi escolhida
+    const data_saida = dayjs(formData).format('YYYY-MM-DD');
 
     setBtnSearchDisabled(true);
     setSearchClicked(true);
@@ -231,6 +228,8 @@ const Cotacoes = () => {
                     disablePast
                     label="Data de embarque" 
                     className="selecao form-data"
+                    defaultValue={''}
+                    value={formData}
                     onChange={handleInputChange}
                   />
               </LocalizationProvider>
