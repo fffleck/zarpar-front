@@ -14,13 +14,11 @@ tr, td{
     vertical-align: middle;
 }
 
-.selecao{
+.selecao, .data{
     background-color: white;
+    width: 100%;
 }
 
-.form-data{
-    width: 300px;
-}
 
 /* .login {
     height: 100%;
