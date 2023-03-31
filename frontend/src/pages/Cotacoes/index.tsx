@@ -146,7 +146,7 @@ const Cotacoes = () => {
             <h2>Cotações</h2>
             <p></p>
           </div>{" "}
-          <form className="row g-3" onSubmit={handleSubmit}>
+          <form className="row g-3 formulario" onSubmit={handleSubmit}>
             <div className="col-md-4">{/*Mercadoria*/}
               <Autocomplete
                 value={valueMercadoria}
@@ -158,7 +158,6 @@ const Cotacoes = () => {
                 id="combo-box-demo"
                 options={listaMercadorias}
                 isOptionEqualToValue={(option, value)=> option.id === value.id}
-                sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Mercadoria" required/>}
               />
             </div>
@@ -173,7 +172,6 @@ const Cotacoes = () => {
                 id="combo-box-demo"
                 options={listaPortosEmbarque}
                 isOptionEqualToValue={(option, value)=> option.id === value.id}
-                sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Porto de embarque" required/>}
               />
             </div>
@@ -188,7 +186,6 @@ const Cotacoes = () => {
                 id="combo-box-demo"
                 options={listaPortosDescarga}
                 isOptionEqualToValue={(option, value)=> option.id === value.id}
-                sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Porto de descarga" required/>}
               />
             </div>
@@ -203,7 +200,6 @@ const Cotacoes = () => {
                 id="combo-box-demo"
                 options={listaTiposMercadoria}
                 isOptionEqualToValue={(option, value)=> option.id === value.id}
-                sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Tipo de mercadoria" required/>}
               />
             </div>
@@ -218,7 +214,6 @@ const Cotacoes = () => {
                 id="combo-box-demo"
                 options={listaTiposContainer}
                 isOptionEqualToValue={(option, value)=> option.id === value.id}
-                sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Tipo de container" required/>}
               />
             </div>
@@ -227,7 +222,7 @@ const Cotacoes = () => {
                   <DatePicker 
                     disablePast
                     label="Data de embarque" 
-                    className="selecao form-data"
+                    className="data"
                     defaultValue={''}
                     value={formData}
                     onChange={handleInputChange}
