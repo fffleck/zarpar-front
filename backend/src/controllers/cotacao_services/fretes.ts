@@ -34,11 +34,84 @@ export const fretes = async (req: Request, res: Response) => {
   );
   response_freight = await adicionar_servico(response_freight, req, res, cma);
 
+  let msg_default = [
+    {
+      shipment_id: "1",
+      tipo_container: "",
+      id_tipo_container: "",
+      porto_embarque: "TBI",
+      id_porto_embarque: "",
+      porto_descarga: "TBI",
+      id_porto_descarga: "",
+      armador: "MSC",
+      id_armador: "",
+      navio: "",
+      data_embarque: "TBI",
+      tempo_de_transito: "",
+      data_chegada: "",
+      frete: "",
+      imagem_link: "/imagens/msc.png",
+    },
+    {
+      shipment_id: "1",
+      tipo_container: "",
+      id_tipo_container: "",
+      porto_embarque: "TBI",
+      id_porto_embarque: "",
+      porto_descarga: "TBI",
+      id_porto_descarga: "",
+      armador: "One",
+      id_armador: "",
+      navio: "",
+      data_embarque: "TBI",
+      tempo_de_transito: "",
+      data_chegada: "",
+      frete: "",
+      imagem_link: "/imagens/one.png",
+    },
+    {
+      shipment_id: "1",
+      tipo_container: "",
+      id_tipo_container: "",
+      porto_embarque: "TBI",
+      id_porto_embarque: "",
+      porto_descarga: "TBI",
+      id_porto_descarga: "",
+      armador: "Hapag-Lloyd",
+      id_armador: "",
+      navio: "",
+      data_embarque: "TBI",
+      tempo_de_transito: "",
+      data_chegada: "",
+      frete: "",
+      imagem_link: "/imagens/hapag.png",
+    },
+    {
+      shipment_id: "1",
+      tipo_container: "",
+      id_tipo_container: "",
+      porto_embarque: "TBI",
+      id_porto_embarque: "",
+      porto_descarga: "TBI",
+      id_porto_descarga: "",
+      armador: "Cosco Shipping",
+      id_armador: "",
+      navio: "",
+      data_embarque: "TBI",
+      tempo_de_transito: "",
+      data_chegada: "",
+      frete: "",
+      imagem_link: "/imagens/cosco.png",
+    },
+  ];
+
+  response_freight = response_freight.concat(msg_default);
+
   if (response_freight.length === 0) {
     console.log({
       message: "[COTAÇÕES] Fretes nao encontrado.",
     });
-    res.status(200).json([]);
+    res.status(200).json(msg_default);
   } else {
     res.status(200).json(response_freight);
   }

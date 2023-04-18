@@ -44,23 +44,41 @@ const Resultado = (props: ResultadoProps) => {
   //   (rel) => props.id_armador === rel.idArmador
   // )?.logo;
 
-  return (
-    <tr key={props.shipment_id}>
-      <td className="tdImg">
-        <img height={50} src={props.imagem_link} alt="Logo" />
-      </td>
-      <td>{props.armador}</td>  
-      <td>{props.data_embarque}</td>
-      <td>{props.porto_embarque}</td>
-      <td>{props.porto_descarga}</td>
-      <td>{props.frete}</td>
-      <td>{props.tempo_de_transito.replace("days", "dias")}</td>
-      <td>{props.data_chegada}</td>
-      <td>
-        <ButtonBooking {...props}/>
-      </td>
-    </tr>
-  );
+  if (props.porto_embarque === "TBI") {
+    return (
+      <tr key={props.shipment_id}>
+        <td className="tdImg">
+          <img height={50} src={props.imagem_link} alt="Logo" />
+        </td>
+        <td>{props.armador}</td>
+        <td>{props.data_embarque}</td>
+        <td>{props.porto_embarque}</td>
+        <td>{props.porto_descarga}</td>
+        <td colSpan={4}>{"Em breve você recebrá sua cotação por e-mail."}</td>
+        {/* <td>
+          <ButtonBooking {...props}/>
+        </td> */}
+      </tr>
+    );
+  } else {
+    return (
+      <tr key={props.shipment_id}>
+        <td className="tdImg">
+          <img height={50} src={props.imagem_link} alt="Logo" />
+        </td>
+        <td>{props.armador}</td>
+        <td>{props.data_embarque}</td>
+        <td>{props.porto_embarque}</td>
+        <td>{props.porto_descarga}</td>
+        <td>{props.frete}</td>
+        <td>{props.tempo_de_transito.replace("days", "dias")}</td>
+        <td>{props.data_chegada}</td>
+        <td>
+          <ButtonBooking {...props} />
+        </td>
+      </tr>
+    );
+  }
 };
 
 // function formatDate(date: string) {
