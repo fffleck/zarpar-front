@@ -6,10 +6,10 @@ import api from "../../services/api";
 import TabelaResultados from "./TabelaResultados";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
-import { Autocomplete, TextField} from "@mui/material";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Autocomplete, TextField } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 //import Select from "react-select";
 
@@ -45,6 +45,24 @@ interface ResponseError {
   message: string;
 }
 
+type informacoesEnviarEmail = {
+  armador: string;
+  mercadoria: string;
+  tipo_mercadoria: string;
+  porto_embarque: string;
+  porto_descarga: string;
+  data_embarque: string;
+  tipo_container: string;
+  quantidade_containers: number;
+  embarcador_nome: string;
+  embarcador_email: string;
+  embarcador_endereco: string;
+  embarcador_cnpj: string;
+  embarcador_telefone: string;
+  embarcador_empresa: string;
+  valor: string;
+};
+
 type ResponseAPI = Array<ResponseItem> | ResponseError;
 
 function returnTableorNot(response: ResponseAPI, searchClicked: boolean) {
@@ -69,17 +87,23 @@ const Cotacoes = () => {
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
   const [btnSearchDisabled, setBtnSearchDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<Dayjs | null>(null);;
+  const [formData, setFormData] = useState<Dayjs | null>(null);
   const [valueMercadoria, setValueMercadoria] = useState(null);
   const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
   const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
   const [valueTipoMercadoria, setValueTipoMercadoria] = useState(null);
   const [valueTipoContainer, setValueTipoContainer] = useState(null);
-  const [inputValueMercadoria, setInputValueMercadoria] = useState('');
-  const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState('');
-  const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState('');
-  const [inputValueTipoMercadoria, setInputValueTipoMercadoria] = useState('');
-  const [inputValueTipoContainer, setInputValueTipoContainer] = useState('');
+  const [inputValueMercadoria, setInputValueMercadoria] = useState("");
+  const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState("");
+  const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState("");
+  const [inputValueTipoMercadoria, setInputValueTipoMercadoria] = useState("");
+  const [inputValueTipoContainer, setInputValueTipoContainer] = useState("");
+  const email = sessionStorage.getItem("user_email");
+  const [nomeEmbarcador, setNomeEmbarcador] = useState("");
+  const [enderecoEmbarcador, setEnderecoEmbarcador] = useState("");
+  const [cnpjEmbarcador, setCnpjEmbarcador] = useState("");
+  const [telefoneEmbarcador, setTelefoneEmbarcador] = useState("");
+  const [empresaEmbarcador, setEmpresaEmbarcador] = useState("");
 
   useEffect(() => {
     api.get("filters/mercadorias").then((response) => {
@@ -101,31 +125,59 @@ const Cotacoes = () => {
     api.get("filters/tipos_mercadoria").then((response) => {
       setTiposMercadoria(response.data);
     });
+
+    api
+      .post("/user/find_user", { email })
+      .then((resp) => {
+        setNomeEmbarcador(resp.data.user.name);
+        setEnderecoEmbarcador(resp.data.user.address);
+        setCnpjEmbarcador(resp.data.user.cnpj);
+        setTelefoneEmbarcador(resp.data.user.telefone);
+        setEmpresaEmbarcador(resp.data.user.enterpriseName);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   function handleInputChange(event) {
     //const data = dayjs(`${event.$y}-${event.$M+1}-${event.$D}`).format('YYYY-MM-DD'); //Formato da data
-    setFormData(dayjs(`${event.$y}-${event.$M+1}-${event.$D}`));
+    setFormData(dayjs(`${event.$y}-${event.$M + 1}-${event.$D}`));
   }
 
-  const listaMercadorias = mercadorias.map((mercadoria)=>({label: mercadoria.name, id: mercadoria.idItem}));
-  const listaPortosEmbarque = portosEmbarque.map((portoEmbarque)=>({label: portoEmbarque.port_name, id: portoEmbarque.port_id}));
-  const listaPortosDescarga = portosDescarga.map((portoDescarga)=>({label: portoDescarga.port_name, id: portoDescarga.port_id}));
-  const listaTiposMercadoria = tiposMercadoria.map((tipoMercadoria)=>({label: tipoMercadoria.name, id: tipoMercadoria.idItem}));
-  const listaTiposContainer = tiposContainer.map((tipoContainer)=>({label: tipoContainer.name, id: tipoContainer.idItem}));
+  const listaMercadorias = mercadorias.map((mercadoria) => ({
+    label: mercadoria.name,
+    id: mercadoria.idItem,
+  }));
+  const listaPortosEmbarque = portosEmbarque.map((portoEmbarque) => ({
+    label: portoEmbarque.port_name,
+    id: portoEmbarque.port_id,
+  }));
+  const listaPortosDescarga = portosDescarga.map((portoDescarga) => ({
+    label: portoDescarga.port_name,
+    id: portoDescarga.port_id,
+  }));
+  const listaTiposMercadoria = tiposMercadoria.map((tipoMercadoria) => ({
+    label: tipoMercadoria.name,
+    id: tipoMercadoria.idItem,
+  }));
+  const listaTiposContainer = tiposContainer.map((tipoContainer) => ({
+    label: tipoContainer.name,
+    id: tipoContainer.idItem,
+  }));
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if(formData === null) return; //verifica se a data foi escolhida
-    const data_saida = dayjs(formData).format('YYYY-MM-DD');
+    if (formData === null) return; //verifica se a data foi escolhida
+    const data_saida = dayjs(formData).format("YYYY-MM-DD");
 
     setBtnSearchDisabled(true);
     setSearchClicked(true);
     setBtnLoading(true);
 
     // let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
-    
+
     let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}`;
     api.get(query).then((res) => {
       setResponse(res.data);
@@ -133,100 +185,169 @@ const Cotacoes = () => {
       setBtnLoading(false);
     });
 
-    // const { name, email, whatsapp } = formData;
+    console.log(email);
+
+    const informacoesEnviarEmail: informacoesEnviarEmail = {
+      armador: "",
+      mercadoria: "",
+      tipo_mercadoria: "",
+      porto_embarque: valuePortoEmbarque.label,
+      porto_descarga: valuePortoDescarga.label,
+      data_embarque: data_saida,
+      tipo_container: valueTipoContainer.label,
+      quantidade_containers: 0,
+      embarcador_nome: nomeEmbarcador,
+      embarcador_email: email,
+      embarcador_cnpj: cnpjEmbarcador,
+      embarcador_telefone: telefoneEmbarcador,
+      embarcador_endereco: enderecoEmbarcador,
+      embarcador_empresa: empresaEmbarcador,
+      valor: `$0`,
+    };
+
+    const sendEmailQuotation = async (event) => {
+      event.preventDefault();
+
+      await api
+        .post("/email/send_quotation", informacoesEnviarEmail)
+        .then((res) => {
+          console.log("Enviado para análise");
+        })
+        .catch((err) => {
+          console.log("Ocorreu um problema ao enviar e-mail para análise");
+        });
+    };
+
+    sendEmailQuotation(event);
   }
 
   return (
     <div className="flex-dashboard">
-      <Sidebar elementoAtivo="cotacoes"/>
+      <Sidebar elementoAtivo="cotacoes" />
       <main>
-        <HeaderPage nomeOpcao="Cotações"/>
+        <HeaderPage nomeOpcao="Cotações" />
         <div className="main-content">
           <div className="main-content-title">
             <h2>Cotações</h2>
             <p></p>
           </div>{" "}
           <form className="row g-3 formulario" onSubmit={handleSubmit}>
-            <div className="col-md-4">{/*Mercadoria*/}
+            <div className="col-md-4">
+              {/*Mercadoria*/}
               <Autocomplete
                 value={valueMercadoria}
-                onChange={(event, newValue)=>{setValueMercadoria(newValue)}}
+                onChange={(event, newValue) => {
+                  setValueMercadoria(newValue);
+                }}
                 inputValue={inputValueMercadoria}
-                onInputChange={(event, newInputValue) => {setInputValueMercadoria(newInputValue)}}
+                onInputChange={(event, newInputValue) => {
+                  setInputValueMercadoria(newInputValue);
+                }}
                 className="selecao"
                 disablePortal
                 id="combo-box-demo"
                 options={listaMercadorias}
-                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                renderInput={(params) => <TextField {...params} label="Mercadoria" required/>}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Mercadoria" required />
+                )}
               />
             </div>
-            <div className="col-md-4">{/* Porto de embarque */}
+            <div className="col-md-4">
+              {/* Porto de embarque */}
               <Autocomplete
                 value={valuePortoEmbarque}
-                onChange={(event, newValue)=>{setValuePortoEmbarque(newValue)}}
+                onChange={(event, newValue) => {
+                  setValuePortoEmbarque(newValue);
+                }}
                 inputValue={inputValuePortoEmbarque}
-                onInputChange={(event, newInputValue) => {setInputValuePortoEmbarque(newInputValue)}}
+                onInputChange={(event, newInputValue) => {
+                  setInputValuePortoEmbarque(newInputValue);
+                }}
                 className="selecao"
                 disablePortal
                 id="combo-box-demo"
                 options={listaPortosEmbarque}
-                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                renderInput={(params) => <TextField {...params} label="Porto de embarque" required/>}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Porto de embarque" required />
+                )}
               />
             </div>
-            <div className="col-md-4">{/*Porto de descarga*/}
+            <div className="col-md-4">
+              {/*Porto de descarga*/}
               <Autocomplete
                 value={valuePortoDescarga}
-                onChange={(event, newValue)=>{setValuePortoDescarga(newValue)}}
+                onChange={(event, newValue) => {
+                  setValuePortoDescarga(newValue);
+                }}
                 inputValue={inputValuePortoDescarga}
-                onInputChange={(event, newInputValue) => {setInputValuePortoDescarga(newInputValue)}}
+                onInputChange={(event, newInputValue) => {
+                  setInputValuePortoDescarga(newInputValue);
+                }}
                 className="selecao"
                 disablePortal
                 id="combo-box-demo"
                 options={listaPortosDescarga}
-                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                renderInput={(params) => <TextField {...params} label="Porto de descarga" required/>}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Porto de descarga" required />
+                )}
               />
             </div>
-            <div className="col-md-4">{/*Tipo de mercadoria*/}
+            <div className="col-md-4">
+              {/*Tipo de mercadoria*/}
               <Autocomplete
                 value={valueTipoMercadoria}
-                onChange={(event, newValue)=>{setValueTipoMercadoria(newValue)}}
+                onChange={(event, newValue) => {
+                  setValueTipoMercadoria(newValue);
+                }}
                 inputValue={inputValueTipoMercadoria}
-                onInputChange={(event, newInputValue) => {setInputValueTipoMercadoria(newInputValue)}}
+                onInputChange={(event, newInputValue) => {
+                  setInputValueTipoMercadoria(newInputValue);
+                }}
                 className="selecao"
                 disablePortal
                 id="combo-box-demo"
                 options={listaTiposMercadoria}
-                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                renderInput={(params) => <TextField {...params} label="Tipo de mercadoria" required/>}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Tipo de mercadoria" required />
+                )}
               />
             </div>
-            <div className="col-md-4">{/*Tipo de Container*/}
+            <div className="col-md-4">
+              {/*Tipo de Container*/}
               <Autocomplete
                 value={valueTipoContainer}
-                onChange={(event, newValue)=>{setValueTipoContainer(newValue)}}
+                onChange={(event, newValue) => {
+                  setValueTipoContainer(newValue);
+                }}
                 inputValue={inputValueTipoContainer}
-                onInputChange={(event, newInputValue) => {setInputValueTipoContainer(newInputValue)}}
+                onInputChange={(event, newInputValue) => {
+                  setInputValueTipoContainer(newInputValue);
+                }}
                 className="selecao"
                 disablePortal
                 id="combo-box-demo"
                 options={listaTiposContainer}
-                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                renderInput={(params) => <TextField {...params} label="Tipo de container" required/>}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Tipo de container" required />
+                )}
               />
             </div>
-            <div className="col-md-4 form-data">{/*Data*/}
+            <div className="col-md-4 form-data">
+              {/*Data*/}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                    disablePast
-                    label="Data de embarque" 
-                    className="data"
-                    defaultValue={''}
-                    value={formData}
-                    onChange={handleInputChange}
-                  />
+                <DatePicker
+                  disablePast
+                  label="Data de embarque"
+                  className="data"
+                  defaultValue={""}
+                  value={formData}
+                  onChange={handleInputChange}
+                />
               </LocalizationProvider>
             </div>
             <div className="col-12">
