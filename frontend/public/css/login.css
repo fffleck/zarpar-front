@@ -1,56 +1,56 @@
 .login {
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
 }
 
 .login-form {
-    width: 50%;
-    height: 100%;
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  width: 50%;
+  height: 100%;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .banner-login {
-    width: 50%;
-    height: 100%;       
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 50%;
+  height: 100%;       
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
 
 .login-form-wrapper {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .login-form-wrapper button {
-    width: 100%;
-    max-width: 600px;
-    background-color:#0044FF;
+  width: 100%;
+  max-width: 600px;
+  background-color:#0044FF;
 }
-  
+
 .login-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  
 }
 
 div .form-check{
-    margin: 1em 0;
-    padding: 0;
+  margin: 1em 0;
+  padding: 0;
 }
 
 @media screen and (max-width: 1152px) {
-    .banner-login{
-        display: none
-    }
+  .banner-login{
+      display: none
+  }
 }

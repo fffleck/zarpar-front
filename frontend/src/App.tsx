@@ -12,6 +12,8 @@ import Pagamentos from "./pages/Pagamentos";
 import Register from "./pages/Register";
 import Protected from "./pages/Protected";
 import api from "./services/api";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -48,16 +50,16 @@ function App() {
             <Protected isLoggedIn={tokenIsValid}>
               <Booking />
             </Protected>
-          } 
+          }
         />
         <Route
           path="/pedido_resultado"
           element={
             <Protected isLoggedIn={tokenIsValid}>
-              <SucessoPedido/>
+              <SucessoPedido />
             </Protected>
-          }>
-        </Route>
+          }
+        ></Route>
         <Route
           path="/conta"
           element={
@@ -74,9 +76,10 @@ function App() {
             </Protected>
           }
         />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-        {
-          /*
+        {/*
             <Route
               path="/bookings"
               element={
@@ -102,10 +105,8 @@ function App() {
               }
             />
           
-          */
-        }
-
-      </Routes>  
+          */}
+      </Routes>
     </BrowserRouter>
   );
 }
