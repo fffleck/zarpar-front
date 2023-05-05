@@ -49,8 +49,18 @@ div .form-check{
   padding: 0;
 }
 
+.forgot-password-link{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 1152px) {
   .banner-login{
       display: none
   }
+}
+
+.form-label {
+  margin: 0;
+  margin-top: 10px;
 }

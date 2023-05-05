@@ -104,7 +104,9 @@ const Login = ({ isLoggedIn }) => {
               </div>
 
               {loginVerify(loginError)}
-
+              <Link className="forgot-password-link" to="/forgot-password">
+                Esqueci minha senha
+              </Link>
               <div className="form-group form-check">
                 <button
                   type="submit"
