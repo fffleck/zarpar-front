@@ -25,13 +25,17 @@ export const fretes = async (req: Request, res: Response) => {
     res,
     searates
   );
+
   response_freight = await adicionar_servico(response_freight, req, res, zim);
-  response_freight = await adicionar_servico(
-    response_freight,
-    req,
-    res,
-    evergreen
-  );
+
+  // ERRO EVERGREEN
+
+  // response_freight = await adicionar_servico(
+  //   response_freight,
+  //   req,
+  //   res,
+  //   evergreen
+  // );
   response_freight = await adicionar_servico(response_freight, req, res, cma);
 
   let msg_default = [

@@ -9,7 +9,7 @@ services:
       # - logs:/app/logs
     # Acesso MONGODB
     env_file:
-      - ./env/mongo.env
+      - ./backend/.env
 
   frontend:
     build:

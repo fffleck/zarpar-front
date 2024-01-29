@@ -2,8 +2,11 @@ FROM nginx
 
 WORKDIR /usr/share/react
 
-RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
-RUN apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y curl && \
+    apt-get install -y nodejs &&\
+    npm --version
 
 COPY package*.json ./
 

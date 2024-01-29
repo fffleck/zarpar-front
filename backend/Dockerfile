@@ -33,9 +33,13 @@
 
 # CMD ["node", "dist/server.js"]
 
-FROM node:12
+FROM node:20
 
 WORKDIR /app
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y curl && \
+    apt-get install -y nodejs &&\
+    npm --version
 
 COPY package*.json ./
 

@@ -78,6 +78,14 @@ function App() {
         />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Dashboard />
+            </Protected>
+          }
+        />
 
         {/*
             <Route
@@ -88,14 +96,7 @@ function App() {
                 </Protected>
               } 
             />
-            <Route
-              path="/dashboard"
-              element={
-                <Protected isLoggedIn={tokenIsValid}>
-                  <Dashboard />
-                </Protected>
-              }
-            />
+            
             <Route
               path="/pagamentos"
               element={
