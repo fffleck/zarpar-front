@@ -127,6 +127,8 @@ const adicionar_servico = async (
   res: Response,
   service: (req: Request, res: Response) => Promise<any[]>
 ) => {
+
+  console.log("PASSOU AQUI ");
   try {
     let res_service: any[];
     res_service = await service(req, res);

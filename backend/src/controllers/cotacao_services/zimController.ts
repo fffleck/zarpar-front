@@ -50,10 +50,10 @@ export const zim = async (req: Request, res: Response) => {
     let data_saida_zim = formataData2(new Date(data_saida));
 
     try {
-      // let api_zim_res = await axios.get(`http://localhost:3334/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`)
-      let api_zim_res = await axios.get(
-        `https://karavel-services-e63c55605b2e.herokuapp.com/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`
-      );
+      let api_zim_res = await axios.get(`http://localhost:3334/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`)
+      // let api_zim_res = await axios.get(
+      //   `https://karavel-services-e63c55605b2e.herokuapp.com/zim?data_saida=${data_saida_zim}&porto_embarque=${porto_embarque}&porto_descarga=${porto_descarga}&tipo_container=${tipo_container}`
+      // );
       api_zim_res.data.forEach((result: any) => {
         response_freight.push(result);
       });
