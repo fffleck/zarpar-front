@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config()
-
 export default function connectDatabase(){
   mongoose
     .connect(
-      `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}/${process.env.MONGODB_NAME}?retryWrites=true&w=majority`,
-      {dbName: process.env.MONGODB_NAME},
+      `mongodb+srv://karavel_app:karavelapp2023@cluster0.oem86y1.mongodb.net/karavel?retryWrites=true&w=majority`,
       (err) => {
         if (err) {
           console.error('FAILED TO CONNECT TO MONGODB');
