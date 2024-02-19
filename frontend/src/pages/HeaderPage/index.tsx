@@ -13,7 +13,7 @@ const HeaderPage = (props) => {
 
   return (
     <header>
-      <Link to="/cotacoes">
+      <Link to="/">
         {" "}
         <i className="fa-solid fa-bars"></i>{nomeAba}
       </Link>

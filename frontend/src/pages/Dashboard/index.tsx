@@ -37,8 +37,8 @@ const Dashboard = () => {
               "objectFit": "contain",
             }}
           />
-          <div className="card-body row m-1 mt-4">
-            <h5 className="col-9 card-subtitle" style={{"padding": 0}}>Alvaro Nunes</h5>
+          <div className="card-body row m-1">
+            <h4 className="col-9 card-subtitle" style={{"padding": 0}}>Fabio José Fleck </h4>
             <button className="col-3 btn btn-primary btn-sm">
               Conta <i className="bi bi-arrow-right"></i>
             </button>

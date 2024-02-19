@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/imagens/logo+white.png";
@@ -9,6 +9,7 @@ const Sidebar = (props) => {
     cotacoes: "",
     bookings: "",
     pagamentos: "",
+    upload: "",
     conta: "",
   };
 
@@ -31,17 +32,14 @@ const Sidebar = (props) => {
             <Link to="/cotacoes">Cotações</Link>
             {/* <a href="cotacoes.html">Cotações</a> */}
           </li>
-
-          {/*
-            <li className={active.bookings}>
-              <i className="fa-solid fa-ship"></i>
-              <Link to="/bookings">Bookings</Link>
-            </li>
-            <li className={active.pagamentos}>
-              <i className="fa-solid fa-money-check-dollar"></i>
-              <Link to="/pagamentos">Pagamentos</Link>
-            </li>
-            */}
+         {/*} <li className={active.bookings}>
+            <i className="fa-solid fa-ship"></i>
+            <Link to="/bookings">Bookings</Link>
+        </li>*/}
+          <li className={active.upload}>
+            <i className="fa-solid fa-upload"></i>
+            <Link to="/upload">Upload</Link>
+          </li>
           <li className={active.conta}>
             <i className="fa-solid fa-circle-user"></i>
             <Link to="/conta">Conta</Link>

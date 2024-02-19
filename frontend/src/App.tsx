@@ -2,13 +2,12 @@ import "./App.css";
 import React, { useState } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
 import SucessoPedido from "./pages/Booking/SucessoPedido";
 import Conta from "./pages/Conta";
 import Cotacoes from "./pages/Cotacoes";
 import Dashboard from "./pages/Dashboard";
-import Pagamentos from "./pages/Pagamentos";
+import Upload from "./pages/Upload";
 import Register from "./pages/Register";
 import Protected from "./pages/Protected";
 import api from "./services/api";
@@ -65,6 +64,14 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Conta />
+            </Protected>
+          }
+        />
+         <Route
+          path="/upload"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Upload />
             </Protected>
           }
         />
