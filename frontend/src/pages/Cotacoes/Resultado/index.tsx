@@ -60,6 +60,23 @@ const Resultado = (props: ResultadoProps) => {
         </td> */}
       </tr>
     );
+  } else if (props.imagem_link === " - "){
+    return (
+      <tr key={props.shipment_id}>
+        <td className="tdImg"> - </td>
+        <td>{props.armador}</td>
+        <td>{props.data_embarque}</td>
+        <td>{props.porto_embarque}</td>
+        <td>{props.porto_descarga}</td>
+        <td>{props.frete }</td>
+        <td>{props.tempo_de_transito }</td>
+        <td>{props.data_chegada }</td>
+        <td>
+          <ButtonBooking {...props}/>
+        </td>
+      </tr>
+    );
+      
   } else {
     return (
       <tr key={props.shipment_id}>
