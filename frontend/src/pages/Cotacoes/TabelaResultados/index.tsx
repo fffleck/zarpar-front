@@ -44,6 +44,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
         {props.response.map((resultado) => (
           <Resultado
             armador={resultado.armador}
+            id_armador={resultado.id_armador}
             navio={resultado.navio}
             porto_embarque={resultado.porto_embarque}
             data_embarque={resultado.data_embarque}

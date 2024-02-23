@@ -9,6 +9,7 @@ import ButtonBooking from "../../ButtonBooking";
 
 type ResultadoProps = {
   armador: string;
+  id_armador: string;
   tipo_container: string;
   porto_embarque: string;
   porto_descarga: string;
@@ -63,7 +64,7 @@ const Resultado = (props: ResultadoProps) => {
   } else if (props.imagem_link === " - "){
     return (
       <tr key={props.shipment_id}>
-        <td className="tdImg"> - </td>
+        <td className="tdImg"> <img height={50} src={"/imagens/armador_"+props.id_armador+".png"} alt="Logo" /></td>
         <td>{props.armador}</td>
         <td>{props.data_embarque}</td>
         <td>{props.porto_embarque}</td>
@@ -76,7 +77,6 @@ const Resultado = (props: ResultadoProps) => {
         </td>
       </tr>
     );
-      
   } else {
     return (
       <tr key={props.shipment_id}>

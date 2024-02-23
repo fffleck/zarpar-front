@@ -138,7 +138,7 @@ const Cotacoes = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [email]);
 
   function handleInputChange(event) {
     //const data = dayjs(`${event.$y}-${event.$M+1}-${event.$D}`).format('YYYY-MM-DD'); //Formato da data
@@ -184,8 +184,6 @@ const Cotacoes = () => {
       setBtnSearchDisabled(false);
       setBtnLoading(false);
     });
-
-    console.log(email);
 
     const informacoesEnviarEmail: informacoesEnviarEmail = {
       armador: "",
