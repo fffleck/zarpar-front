@@ -180,6 +180,7 @@ const Cotacoes = () => {
 
     let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}`;
     api.get(query).then((res) => {
+      console.log("RESPONSE", res.data);
       res.data.sort((a,b) => (a.frete < b.frete) ? -1 : 1)
       setResponse(res.data);
       setBtnSearchDisabled(false);

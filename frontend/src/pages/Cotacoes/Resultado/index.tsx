@@ -69,7 +69,7 @@ const Resultado = (props: ResultadoProps) => {
         <td>{props.data_embarque}</td>
         <td>{props.porto_embarque}</td>
         <td>{props.porto_descarga}</td>
-        <td>{props.frete }</td>
+        <td>$ {props.frete }</td>
         <td>{props.tempo_de_transito } dias </td>
         <td>{props.data_chegada }</td>
         <td>
@@ -87,7 +87,7 @@ const Resultado = (props: ResultadoProps) => {
         <td>{props.data_embarque}</td>
         <td>{props.porto_embarque}</td>
         <td>{props.porto_descarga}</td>
-        <td>{props.frete}</td>
+        <td>$ {props.frete}</td>
         <td>{props.tempo_de_transito.replace("days", "dias")}</td>
         <td>{props.data_chegada}</td>
         <td>
