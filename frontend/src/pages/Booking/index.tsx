@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Booking = () => {
 
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const dados = {
     armador : searchParams.get("armador"),

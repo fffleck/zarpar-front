@@ -52,7 +52,8 @@ const routeChange = () =>{
 }
 
 const email = sessionStorage.getItem("user_email");
-const [moeda, valorFrete] = props.frete.split(' ');
+const moeda = '$';
+const valorFrete = Number(props.frete);
 
 
 api.post('/user/find_user', {email})
@@ -152,12 +153,26 @@ const sendEmailClient = async (event) => {
   })
 }
 
+const saveBooking = async (event) => {
+  event.preventDefault();
+  await api.post('/booking/save_booking', informacoesEnviarEmail)
+  .then((res) => {
+    console.log("Booking salvo");
+  })
+  .catch(err => {
+    console.log("Ocorreu um problema ao salvar o booking no banco de dados");
+  })
+}
+
 function handleInputSubmit(event){
+
   sendEmailAnalisys(event);
   sendEmailClient(event);
+  saveBooking(event);
   routeChange();
 }
 
+console.log("DADOS ", dadosPedido);
 
 
 return (  

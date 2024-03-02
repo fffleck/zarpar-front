@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Booking from "./pages/Booking";
+import Bookings from "./pages/Bookings";
 import SucessoPedido from "./pages/Booking/SucessoPedido";
 import Conta from "./pages/Conta";
 import Cotacoes from "./pages/Cotacoes";
@@ -93,17 +94,15 @@ function App() {
             </Protected>
           }
         />
-
-        {/*
-            <Route
-              path="/bookings"
-              element={
-                <Protected isLoggedIn={tokenIsValid}>
-                  <Bookings />
-                </Protected>
-              } 
-            />
-            
+        <Route
+          path="/bookings"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Bookings />
+            </Protected>
+          } 
+        />
+        {/*     
             <Route
               path="/pagamentos"
               element={

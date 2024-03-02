@@ -23,28 +23,6 @@ type ResultadoProps = {
 };
 
 const Resultado = (props: ResultadoProps) => {
-  // const relLogoArmador = [
-  //   {
-  //     idArmador: "1",
-  //     logo: logoMaersk,
-  //   },
-  //   {
-  //     idArmador: "2",
-  //     logo: logoCMA,
-  //   },
-  //   {
-  //     idArmador: "3",
-  //     logo: logoMsc,
-  //   },
-  //   {
-  //     idArmador: "4",
-  //     logo: logoExalog,
-  //   },
-  // ];
-  // let logo = relLogoArmador.find(
-  //   (rel) => props.id_armador === rel.idArmador
-  // )?.logo;
-
   if (props.porto_embarque === "TBI") {
     return (
       <tr key={props.shipment_id}>

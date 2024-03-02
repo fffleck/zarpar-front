@@ -32,10 +32,10 @@ const Sidebar = (props) => {
             <Link to="/cotacoes">Cotações</Link>
             {/* <a href="cotacoes.html">Cotações</a> */}
           </li>
-         {/*} <li className={active.bookings}>
+         <li className={active.bookings}>
             <i className="fa-solid fa-ship"></i>
             <Link to="/bookings">Bookings</Link>
-        </li>*/}
+        </li>
           <li className={active.upload}>
             <i className="fa-solid fa-upload"></i>
             <Link to="/upload">Upload</Link>
