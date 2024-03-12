@@ -4308,6 +4308,11 @@ textarea.form-control-lg {
   border-top-right-radius: var(--bs-card-inner-border-radius);
 }
 
+.carousel-slide {
+  margin-right: 20px; /* Adicione margem direita para criar espaço entre as imagens */
+}
+
+
 .card-img,
 .card-img-bottom {
   border-bottom-right-radius: var(--bs-card-inner-border-radius);
