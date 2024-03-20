@@ -25,7 +25,7 @@ const Bookings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await api.get('/booking/list_booking', { params: { email } });
+        const resp = await api.post('/booking/list_booking', { params: { email } });
         const resposta = resp.data.list;
         setResponse(resposta);
       } catch (error) {
