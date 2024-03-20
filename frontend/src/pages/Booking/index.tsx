@@ -29,7 +29,7 @@ const Booking = () => {
       <main>
         <HeaderPage nomeOpcao="Booking"/>
         <div className="main-content">
-          <p className="titulo-texto">Cotação / Armadores / Pedidos de Booking</p> 
+          <p className="titulo-texto">Cotação / Armadores / Novo Booking</p> 
           <InfoPedido {...dados}/>
         </div>
       </main>

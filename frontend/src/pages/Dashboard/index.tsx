@@ -26,7 +26,7 @@ const Dashboard = () => {
     const totalBooking = resp.data.list.length;
     setqtBooking(totalBooking);
   })
-  
+
   return (
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="dashboard"/>
