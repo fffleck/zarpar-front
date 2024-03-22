@@ -27,7 +27,8 @@ const ButtonBooking = (props: InformacoesPedido) => {
     navigate(path);
   };
 
-  if (props.porto_embarque === "TBI") {
+  if (props.porto_embarque === "TBI" || props.frete === "No space available"  ) {
+    return <div className="info"> - </div>
     return <Button as="input" type="button" value="Book now" disabled />;
   } else {
     return (
