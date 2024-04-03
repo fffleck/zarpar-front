@@ -11,6 +11,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import ButtonBooking from "../ButtonBooking";
 //import Select from "react-select";
 
 interface ItemSelect {
@@ -165,6 +166,7 @@ const Cotacoes = () => {
     label: tipoContainer.name,
     id: tipoContainer.idItem,
   }));
+  const fabio = { armador: 'Maersk', tipo_container: "40 Standard", porto_embarque: "Santos", porto_descarga: "Aarhus", navio :"", data_embarque: "06/05/2024", tempo_de_transito: "28 days",  frete: "3417" }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -187,6 +189,8 @@ const Cotacoes = () => {
       setBtnSearchDisabled(false);
       setBtnLoading(false);
     });
+
+    
 
     const informacoesEnviarEmail: informacoesEnviarEmail = {
       armador: "",
@@ -380,6 +384,8 @@ const Cotacoes = () => {
                 {"   "}
                 Buscar Fretes
               </button>
+              <ButtonBooking { ...fabio }/>
+              
             </div>
           </form>
           {returnTableorNot(response, searchClicked)}

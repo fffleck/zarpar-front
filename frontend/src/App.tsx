@@ -14,7 +14,6 @@ import Protected from "./pages/Protected";
 import api from "./services/api";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
-import Sidebar from "./pages/Sidebar";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);

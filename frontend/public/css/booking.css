@@ -169,6 +169,11 @@
     align-self: center;
 }
 
+.input_selecao {
+    background-color: white;
+    width: 100%;
+}
+
 .logo-contato{
     margin: 2em 0;
 }
