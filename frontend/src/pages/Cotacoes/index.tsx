@@ -386,8 +386,6 @@ const Cotacoes = () => {
                 {"   "}
                 Buscar Fretes
               </button>
-              <ButtonBooking { ...fabio }/>
-              
             </div>
           </form>
           {returnTableorNot(response, searchClicked)}
