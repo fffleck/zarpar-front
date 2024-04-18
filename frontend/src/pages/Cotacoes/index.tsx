@@ -37,7 +37,9 @@ interface ResponseItem {
   data_embarque: string;
   tempo_de_transito: string;
   data_chegada: string;
-  frete: string;
+  base_freight: string;
+  bunker: string;
+  isps: string;
   shipment_id: string;
   imagem_link: string;
 }

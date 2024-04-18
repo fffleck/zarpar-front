@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import api from '../../../services/api';
 
-function SearchNcm({ mercadoria, onChange, inputValue, onInputChange }) {
+function SearchNcm({ value, onChange, inputValue, onInputChange }) {
   const [options, setOptions] = useState([]);
 
   const fetchOptions = async (inputValue) => {
@@ -37,12 +37,12 @@ function SearchNcm({ mercadoria, onChange, inputValue, onInputChange }) {
 
   return (
     <Autocomplete
-      value={mercadoria}
+      value={value}
       onChange={handleOptionClick}
       inputValue={inputValue}
       onInputChange={handleInputChange}
       options={options}
-      renderInput={(params) => <TextField {...params} label="Hs Code" />}
+      renderInput={(params) => <TextField {...params} name="selectMercadoria" label="Hs Code" />}
     />
   );
 }

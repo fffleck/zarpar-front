@@ -16,7 +16,9 @@ type ResultadoProps = {
   data_embarque: string;
   tempo_de_transito: string;
   data_chegada: string;
-  frete: string;
+  base_freight: string;
+  bunker: string;
+  isps: string;
   imagem_link: string;
   shipment_id: string;
 };
@@ -26,6 +28,7 @@ type TabelaResultadosProps = {
 };
 
 const TabelaResultados = (props: TabelaResultadosProps) => {
+  console.log(props)
   return (
     <Table striped bordered hover>
       <thead>
@@ -52,7 +55,9 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
             porto_descarga={resultado.porto_descarga}
             data_chegada={resultado.data_chegada}
             tipo_container={resultado.tipo_container}
-            frete={resultado.frete}
+            base_freight={resultado.base_freight}
+            bunker={resultado.bunker}
+            isps={resultado.isps}
             imagem_link={resultado.imagem_link}
             shipment_id={resultado.shipment_id}
           />

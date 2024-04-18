@@ -11,7 +11,9 @@ type InformacoesPedido = {
   data_embarque: string;
   tempo_de_transito: string;
   data_chegada: string;
-  frete: string;
+  base_freight: string;
+  bunker: string;
+  isps: string;
   imagem_link: string;
   shipment_id: string;
 };
@@ -21,13 +23,13 @@ const ButtonBooking = (props: InformacoesPedido) => {
 
   const routeChange = () => {
     const path = encodeURI(
-      `/booking?armador=${props.armador}&tipo_container=${props.tipo_container}&porto_embarque=${props.porto_embarque}&porto_descarga=${props.porto_descarga}&navio=${props.navio}&data_embarque=${props.data_embarque}&tempo_de_transito=${props.tempo_de_transito}&data_chegada=${props.data_chegada}&frete=${props.frete}&imagem_link=${props.imagem_link}&shipment_id=${props.shipment_id}`
+      `/booking?armador=${props.armador}&tipo_container=${props.tipo_container}&porto_embarque=${props.porto_embarque}&porto_descarga=${props.porto_descarga}&navio=${props.navio}&data_embarque=${props.data_embarque}&tempo_de_transito=${props.tempo_de_transito}&data_chegada=${props.data_chegada}&frete=${parseFloat(props.base_freight+props.bunker+props.isps)}&imagem_link=${props.imagem_link}&shipment_id=${props.shipment_id}`
     );
 
     navigate(path);
   };
 
-  if (props.porto_embarque === "TBI" || props.frete === "No space available"  ) {
+  if (props.porto_embarque === "TBI" || props.base_freight === "No space available"  ) {
     return <div className="info"> - </div>
   } else {
     return (
