@@ -13,9 +13,10 @@ const SucessoPedido = () => {
         <div className="container-card">
             <div className="card">
                 <img height="200px" width="200px" src={ImgHands} alt="Hands" className="img-tick"></img>
-                <h1 className="titulo">Booking realizado</h1>
+                <h1 className="titulo">Booking Processado</h1>
                 <p className="texto">Em breve um de nossos analistas irá entrar em contato.</p>
                 <p className="texto">Se preferir, fale conosco  agora através do WhatsApp clicando no ícone abaixo:</p>
+                <p className="texto">Ou então enviando email para <a href="mailto:alvaro@karavel.com"> Central do Cliente</a>:</p>
                 <a href="https://wa.me/+5511987474777" target="_blank" rel="noreferrer">
                     <img height="50px" src={ImgWpp} alt="WhatsApp logo" className="logo-contato"/>
                 </a>

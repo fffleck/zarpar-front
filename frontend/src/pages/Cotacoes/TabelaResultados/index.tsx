@@ -28,7 +28,6 @@ type TabelaResultadosProps = {
 };
 
 const TabelaResultados = (props: TabelaResultadosProps) => {
-  console.log(props)
   return (
     <Table striped bordered hover>
       <thead>

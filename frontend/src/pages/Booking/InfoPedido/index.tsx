@@ -12,6 +12,7 @@ import SearchNcm from '../Search/search-ncm';
 
 type informacoesEnviarEmail = {
     armador: string;
+    id_armador: string;
     mercadoria: string;
     tipo_mercadoria: string;
     porto_embarque: string;
@@ -26,7 +27,6 @@ type informacoesEnviarEmail = {
     embarcador_telefone: string;
     valor: string;
 }
-
 
 const InfoPedido = (props) => {
 const [formData, setFormData] = useState<Dayjs | null>(null);
@@ -52,6 +52,9 @@ let dadosPedido = {
   embarcador_endereco: enderecoEmbarcador,
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
+  frete_base: Number(props.frete_base) * qtdContainers,
+  frete_bunker: Number(props.frete_bunker) * qtdContainers,
+  frete_isps: Number(props.frete_isps) * qtdContainers,
   valor: Number(props.frete) * qtdContainers,
   mercadoria: mercadoria,
   tipo_mercadoria: tipoMercadoria,
@@ -73,7 +76,6 @@ function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   setQtdContainers(quantidade);
 }
 
-
 api.post('/user/find_user', {email})
 .then(resp=>{
   setNomeEmbarcador(resp.data.user.name);
@@ -87,9 +89,13 @@ api.post('/user/find_user', {email})
 
 
 var precoTotal = dadosPedido.valor;
+var precoPorBase = dadosPedido.frete_base;
+var precoPorBuner = dadosPedido.frete_bunker;
+var precoPorIsps = dadosPedido.frete_isps;
 
 const informacoesEnviarEmail:informacoesEnviarEmail = {
   armador: props.armador,
+  id_armador: props.id_armador,
   mercadoria: mercadoria,
   tipo_mercadoria: tipoMercadoria,
   porto_embarque: props.porto_embarque,
@@ -162,7 +168,7 @@ const sendBookingReserva = async (event) => {
 
   try {
       await api.post('/booking/reservas', dataToSend);
-      console.log("Booking reservado com sucesso");
+      await api.post('booking/send_email', dataToSend);
       sendEmailAnalisys(event);
       sendEmailClient(event);
       saveBooking(event);
@@ -206,7 +212,7 @@ const handleSubmit = async (event) => {
 
 return (  
   <form className="form"  onSubmit={sendBookingReserva}>
-    <div className="col-md-12">
+    <div className="col-md-9">
       <section className="pedido-reserva">
         <div className="topo">
           <h2 className="titulo-secao">Novo Booking</h2>
@@ -218,13 +224,9 @@ return (
                     <div className='row'>
                         <div className="col-md-4">
                         <Form.Label htmlFor="selectCarrier"> Carrier / NVOCC / Booking Agent </Form.Label>
-                        <Form.Select id="selectCarrier" name='selectCarrier' aria-label="Default select example">
+                        <Form.Select id="selectCarrier" name='selectCarrier' aria-label="Default select example" disabled>
                           <option>Select ...</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="4">Four</option>
-                          <option value="5">Five</option>
+                          <option value={dadosPedido.armador} selected>{dadosPedido.armador}</option>
                         </Form.Select>
                         </div>
                         <div className="col-md-4">
@@ -265,6 +267,8 @@ return (
                           name="inputShipper"
                           aria-required="true"
                           aria-describedby="inputShipper"
+                          disabled="true"
+                          value={dadosPedido.embarcador_nome}
                         />
                         <Form.Text id="inputShipper"></Form.Text>
                       </div>
@@ -476,14 +480,14 @@ return (
                         <Form.Label htmlFor="selectPayer"> Payer </Form.Label>
                         <Form.Select id="selectPayer" name="selectPayer" aria-label="Default select example">
                           <option>Select ...</option>
-                          <option value="2">Booker</option>
-                          <option value="5">Consignee</option>
-                          <option value="6">Contract Party</option>
-                          <option value="4">Forwarder</option>
-                          <option value="7">Main Notify Party</option>
-                          <option value="8">First Additional Notify Party</option>
-                          <option value="9">Second Additional Notify Party</option>
-                          <option value="3">Shipper</option>
+                          <option value="Booker">Booker</option>
+                          <option value="Consignee">Consignee</option>
+                          <option value="Contract Party">Contract Party</option>
+                          <option value="Forwarder">Forwarder</option>
+                          <option value="Main Notify Party">Main Notify Party</option>
+                          <option value="First Additional">First Additional Notify Party</option>
+                          <option value="Second Additional">Second Additional Notify Party</option>
+                          <option value="Shipper">Shipper</option>
                         </Form.Select>
                       </div>
 
@@ -532,30 +536,75 @@ return (
               </Accordion.Item>
             </Accordion> 
       </section>
+    </div>
+    <div className="col-md-3">
+      <section className="pedido-reserva" style={{"textAlign": "right"}}>
+          <div className="topo" >
+            <h2 className="titulo-secao" >Dados Taxas</h2>
+            </div>
+            <hr></hr>
+            <div style={{"textAlign": "center"}}>
+              <h2 className="titulo-secao">Taxas por Container</h2>
+            </div>
+            <table className='table'>
+              <tr>
+                <td><p className="item-ajuste__titulo">Tipo do Container </p></td>
+                <td style={{"textAlign": "right"}}><strong>{(dadosPedido.tipo_container)}  x ({qtdContainers}) </strong></td>
+              </tr>
+              <tr>
+                <td><p className="item-ajuste__titulo">Base Freight </p></td>
+                <td style={{"textAlign": "right"}}><strong> $ {precoPorBase}</strong></td>
+              </tr>
+              <tr>
+                <td><p className="item-ajuste__titulo">Fee / Bunker </p></td>
+                <td style={{"textAlign": "right"}}><strong> $ {precoPorBuner}</strong></td>
+              </tr>
+              <tr>
+                <td> <p className="item-ajuste__titulo">Fee / ISPS </p></td>
+                <td style={{"textAlign": "right"}}><strong> $ {precoPorIsps}</strong></td>
+              </tr>
+            </table>
+            <hr></hr>
+            <div style={{"textAlign": "center"}}>
+              <h2 className="titulo-secao">Taxas de Embarque</h2> 
+            </div>
+            <table className='table'>
+              <tr>
+                <td><p className="item-ajuste__titulo">Fee Zarpar </p></td>
+                <td style={{"textAlign": "right"}}><strong> $ 100 </strong></td>
+              </tr>
+              </table>
+            <hr></hr>
+            <div style={{"textAlign": "center"}}>
+              <h2 className="titulo-secao">Dados da reserva</h2> 
+            </div>
+            <div style={{"textAlign": "left"}}>
+                Porto de Embarque
+                <input type="text" value={dadosPedido.porto_embarque} disabled/>
+            </div>
+            <div style={{"textAlign": "left"}}>Porto de Descarga
+                <input type="text" value={dadosPedido.porto_descarga} disabled className="espacamento"/>
+            </div>
+            <div style={{"textAlign": "left"}}>Armador
+                <input type="text" value={dadosPedido.armador} disabled className="espacamento"/>
+            </div>
+            <div style={{"textAlign": "left"}}>Data de Embarque
+                <input type="text" value={dadosPedido.data_embarque} disabled className="espacamento"/>
+            </div>
+      </section>
       <section className="pedido-reserva">
-        <div className='row'>
-          <div className="col-md-12">
-          <h2 className="titulo-secao">SubTotal da reserva</h2> 
-          <div className="item-ajuste">
-              <p className="item-ajuste__titulo">Porto de Embarque</p>
-              <input type="text" value={dadosPedido.porto_embarque} disabled className="espacamento"/>
+          <div style={{"textAlign": "center"}}>
+            <h2 className="valor-frete">Total Frete a Pagar</h2> 
           </div>
-          <div className="item-ajuste">
-              <p className="item-ajuste__titulo">Porto de Descarga</p>
-              <input type="text" value={dadosPedido.porto_descarga} disabled className="espacamento"/>
+
+          <div style={{"textAlign": "center"}}>
+            <p className="preco">{`${USDollar.format(precoTotal + 100 )}`}</p>
           </div>
-          <div className="item-ajuste">
-              <p className="item-ajuste__titulo">Data de Embarque</p>
-              <input type="text" value={dadosPedido.data_embarque} disabled className="espacamento"/>
+          <div style={{"textAlign": "center"}}>
+            <Button type="submit" className="botao">Reservar</Button>
           </div>
-          <h2 className="valor-frete">Total Frete a Pagar</h2> 
-          <p className="preco">{`${USDollar.format(precoTotal)}`}</p>
-          </div>
-        </div>
-        <Button type="submit" className="botao">Reservar</Button>
       </section>
     </div>
-    
   </form>
 )
 }

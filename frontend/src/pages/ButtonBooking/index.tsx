@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 type InformacoesPedido = {
   armador: string;
+  id_armador: string;
   tipo_container: string;
   porto_embarque: string;
   porto_descarga: string;
@@ -23,7 +24,7 @@ const ButtonBooking = (props: InformacoesPedido) => {
 
   const routeChange = () => {
     const path = encodeURI(
-      `/booking?armador=${props.armador}&tipo_container=${props.tipo_container}&porto_embarque=${props.porto_embarque}&porto_descarga=${props.porto_descarga}&navio=${props.navio}&data_embarque=${props.data_embarque}&tempo_de_transito=${props.tempo_de_transito}&data_chegada=${props.data_chegada}&frete=${parseFloat(props.base_freight+props.bunker+props.isps)}&imagem_link=${props.imagem_link}&shipment_id=${props.shipment_id}`
+      `/booking?armador=${props.armador}&tipo_container=${props.tipo_container}&id_armador=${props.id_armador}&porto_embarque=${props.porto_embarque}&porto_descarga=${props.porto_descarga}&navio=${props.navio}&data_embarque=${props.data_embarque}&tempo_de_transito=${props.tempo_de_transito}&data_chegada=${props.data_chegada}&frete=${parseFloat(props.base_freight+props.bunker+props.isps)}&base=${props.base_freight}&bunker=${props.bunker}&isps=${props.isps}&imagem_link=${props.imagem_link}&shipment_id=${props.shipment_id}`
     );
 
     navigate(path);

@@ -36,6 +36,7 @@ function SearchNcm({ value, onChange, inputValue, onInputChange }) {
   };
 
   return (
+    <div className="col-md-12">
     <Autocomplete
       value={value}
       onChange={handleOptionClick}
@@ -44,6 +45,7 @@ function SearchNcm({ value, onChange, inputValue, onInputChange }) {
       options={options}
       renderInput={(params) => <TextField {...params} name="selectMercadoria" label="Hs Code" />}
     />
+    </div>
   );
 }
 
