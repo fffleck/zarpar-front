@@ -54,6 +54,21 @@ const Resultado = (props: ResultadoProps) => {
         </td>
       </tr>
     );
+  } else if (props.base_freight == "No space available") {
+    return (
+      <tr key={props.shipment_id}>
+        <td className="tdImg">
+          <img height={50} src={props.imagem_link} alt="Logo" />
+        </td>
+        <td>{props.armador}</td>
+        <td>{props.data_embarque}</td>
+        <td>{props.porto_embarque}</td>
+        <td>{props.porto_descarga}</td>
+        <td colSpan={4}>
+          <LabelModal {...props}/>
+        </td>
+      </tr>
+    );
   } else {
     return (
       <tr key={props.shipment_id}>

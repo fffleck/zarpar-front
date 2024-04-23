@@ -65,41 +65,47 @@ type ResultadoProps = {
 
 
 const LabelModal = (props: ResultadoProps) => {
-    return (
-      <>
-        {['right'].map((placement) => (
-          <OverlayTrigger
-            trigger="hover"
-            key={placement}
-            placement={placement}
-            overlay={
-              <Popover id={`popover-positioned-${placement}`}>
-                <Popover.Header as="h3">Taxes</Popover.Header>
-                <Popover.Body>
-                <table className="table table-striped table-hover" style={{"width": "100px"}} >
-                     <tr>
-                         <td style={{"color": "black", "textAlign": "left"}}>Freight : </td>
-                         <td style={{"color": "black", "textAlign": "right"}}>{props.base_freight}</td>
-                     </tr>
-                     <tr>
-                         <td style={{"color": "black", "textAlign": "left"}}>Bunker : </td>
-                         <td style={{"color": "black", "textAlign": "right"}}>{props.bunker}</td>
-                     </tr>
-                     <tr>
-                         <td style={{"color": "black", "textAlign": "left"}}>Isps : </td>
-                         <td style={{"color": "black", "textAlign": "right"}}>{props.isps}</td>
-                     </tr>
-                 </table>
-                  
-                </Popover.Body>
-              </Popover>
-            }
-          >
-            <Button>USD {props.base_freight + props.bunker + props.isps} </Button>
-          </OverlayTrigger>
-        ))}
-      </>
-    );
+    if (props.base_freight == "No space available") {
+      return (<Button>{props.base_freight} </Button>)
+    } else {
+      return (
+        <>
+          {['right'].map((placement) => (
+            <OverlayTrigger
+              trigger="hover"
+              key={placement}
+              placement={placement}
+              overlay={
+                <Popover id={`popover-positioned-${placement}`}>
+                  <Popover.Header as="h3">Taxes</Popover.Header>
+                  <Popover.Body>
+                  <table className="table table-striped table-hover" style={{"width": "100px"}} >
+                       <tr>
+                           <td style={{"color": "black", "textAlign": "left"}}>Freight : </td>
+                           <td style={{"color": "black", "textAlign": "right"}}>{props.base_freight}</td>
+                       </tr>
+                       <tr>
+                           <td style={{"color": "black", "textAlign": "left"}}>Bunker : </td>
+                           <td style={{"color": "black", "textAlign": "right"}}>{props.bunker}</td>
+                       </tr>
+                       <tr>
+                           <td style={{"color": "black", "textAlign": "left"}}>Isps : </td>
+                           <td style={{"color": "black", "textAlign": "right"}}>{props.isps}</td>
+                       </tr>
+                   </table>
+                    
+                  </Popover.Body>
+                </Popover>
+              }
+            >
+              <Button>USD {props.base_freight + props.bunker + props.isps} </Button>
+            </OverlayTrigger>
+          ))}
+        </>
+      );
+    } 
+  
+  
   }
   
   export default LabelModal;
