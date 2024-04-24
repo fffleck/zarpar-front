@@ -10,6 +10,7 @@ type ResultadoProps = {
     tipo_container: string;
     quantidade_containers: string;
     valor: string;
+    status: string;
 };
 
 const ResultadoBooking = (props: ResultadoProps) => {
@@ -25,6 +26,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
         <td>{props.quantidade_containers}</td>
         <td>{props.tipo_container.replace("Standard", "ST").replace("High Cube", "HQ")}</td>
         <td>{props.valor}</td>
+        <td><button className="btn btn-primary botao">{props.status}</button></td>
       </tr>
     );
 };

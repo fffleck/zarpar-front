@@ -54,7 +54,7 @@ const Resultado = (props: ResultadoProps) => {
         </td>
       </tr>
     );
-  } else if (props.base_freight == "No space available") {
+  } else if (props.base_freight === "No space available") {
     return (
       <tr key={props.shipment_id}>
         <td className="tdImg">

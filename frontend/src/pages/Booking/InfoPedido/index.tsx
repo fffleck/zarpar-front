@@ -3,10 +3,6 @@ import { Button , Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import Accordion from 'react-bootstrap/Accordion';
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SearchNcm from '../Search/search-ncm';
 
 
@@ -29,14 +25,16 @@ type informacoesEnviarEmail = {
 }
 
 const InfoPedido = (props) => {
-const [formData, setFormData] = useState<Dayjs | null>(null);
+const [formData] = useState<Dayjs | null>(null);
 const [qtdContainers, setQtdContainers] = useState<number>(1);
 const [nomeEmbarcador, setNomeEmbarcador] = useState('');
 const [enderecoEmbarcador, setEnderecoEmbarcador] = useState('');
 const [cnpjEmbarcador, setCnpjEmbarcador] = useState('');
 const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
-const [mercadoria, setMercadoria] = useState('');
-const [tipoMercadoria, setTipoMercadoria] = useState('');
+const [mercadoria] = useState('');
+const [tipoMercadoria] = useState('');
+const [cordaFonte, setcordaFonte] = useState('');
+const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
 const moeda = '$';
 
@@ -48,6 +46,7 @@ let dadosPedido = {
   terminal_embarque: "",
   transbordo: "",
   quantidade_containers: qtdContainers,
+  embarcador_email: email,
   embarcador_nome: nomeEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
   embarcador_cnpj: cnpjEmbarcador,
@@ -65,10 +64,6 @@ const routeChange = () =>{
   navigate(path);
 }
 
-function handleInputChange(event: ChangeEvent<{ value: unknown }>) {
-  const selectedDate = event.value as Dayjs;
-  setFormData(selectedDate);
-}
 
 function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   const quantidade = Number(event.target.value);
@@ -165,16 +160,48 @@ const sendBookingReserva = async (event) => {
       ...extractFormData()
   };
 
-
-  try {
+  if (!dataToSend.selectMercadoria || !dataToSend.inputContracNumber || !dataToSend.selectPaymentChargeType || !dataToSend.selectPaymentTerm || !dataToSend.selectPayer) {
+    setcordaFonte("red")
+    settipodaFonte("bold")
+    alert('Preencha todos os campos obrigatórios')
+  } else {
+    try {
       await api.post('/booking/reservas', dataToSend);
       await api.post('booking/send_email', dataToSend);
       sendEmailAnalisys(event);
       sendEmailClient(event);
       saveBooking(event);
       routeChange();
-  } catch (error) {
-      console.error("Ocorreu um problema ao reservar o booking:", error);
+    } catch (error) {
+        console.error("Ocorreu um problema ao reservar o booking:", error);
+    }
+  }
+}
+
+const onSaveBooking = async (event) => {
+  event.preventDefault()
+
+  const dataToSend = {
+      ...dadosPedido,
+      formData: formData?.format('YYYY-MM-DD') ?? null,
+      qtdContainers,
+      mercadoria,
+      tipoMercadoria,
+      ...extractFormData()
+  };
+
+  if (!dataToSend.selectMercadoria || !dataToSend.inputContracNumber || !dataToSend.selectPaymentChargeType || !dataToSend.selectPaymentTerm || !dataToSend.selectPayer) {
+    setcordaFonte("red")
+    settipodaFonte("bold")
+    alert('Preencha todos os campos obrigatórios')
+  } else {
+    try {
+      await api.post('/booking/reservas', dataToSend);
+      saveBooking(event);
+      routeChange();
+    } catch (error) {
+        console.error("Ocorreu um problema ao salvar o booking:", error);
+    }
   }
 }
 
@@ -187,28 +214,6 @@ const extractFormData = () => {
   return formData;
 };
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-
-  const form = event.currentTarget;
-  const formData = new FormData(form);
-
-  const dataToSend = {};
-  formData.forEach((value, key) => {
-      dataToSend[key] = value;
-  });
-
-  try {
-    await api.post('/booking/reservas', dataToSend);
-    console.log('Dados do formulário enviados com sucesso para o backend.');
-    sendEmailAnalisys(event);
-    sendEmailClient(event);
-    saveBooking(event);
-    routeChange(); // Redireciona para a próxima página após o envio bem-sucedido
-  } catch (error) {
-    console.error('Erro ao enviar dados do formulário para o backend:', error);
-  }
-}
 
 return (  
   <form className="form"  onSubmit={sendBookingReserva}>
@@ -219,7 +224,7 @@ return (
         </div>
         <Accordion defaultActiveKey="0">
               <Accordion.Item eventKey="0">
-                <Accordion.Header>General Details</Accordion.Header>
+                <Accordion.Header><span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> General Details *</span></Accordion.Header>
                 <Accordion.Body>
                     <div className='row'>
                         <div className="col-md-4">
@@ -230,7 +235,7 @@ return (
                         </Form.Select>
                         </div>
                         <div className="col-md-4">
-                        <Form.Label htmlFor="inputContracNumber"> Contract Number </Form.Label>
+                        <Form.Label htmlFor="inputContracNumber"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Contract Number*</span> </Form.Label>
                         <Form.Control
                           type="text"
                           id="inputContracNumber"
@@ -353,8 +358,7 @@ return (
                       <div className="col-md-4">
                       <Form.Label htmlFor="selectMoveType"> Move Type</Form.Label>
                         <Form.Select id="selectMoveType" name="selectMoveType" aria-label="Default select">
-                          <option>Select ...</option>
-                          <option value="PortToPort">Port, Ramp, or CY to Port, Ramp, or CY</option>
+                          <option value="PortToPort" selected>Port, Ramp, or CY to Port, Ramp, or CY</option>
                           <option value="DoorToPort">Door to port, Ramp, or Cy </option>
                           <option value="DoorToDoor">Door to Door</option>
                           <option value="PortToDoor">Port Ramp, or Cy to Door</option>
@@ -367,24 +371,26 @@ return (
                           type="text"
                           id="inputplacecarrierreceipt"
                           name="inputplacecarrierreceipt"
+                          value={props.porto_embarque}
                           aria-required="true"
+                          disabled
                           aria-describedby="inputplacecarrierreceipt"
                         />
                         <Form.Text id="inputplacecarrierreceipt"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          disablePast
-                          label="Early Departure Date"
-                          className="data"
+                      <Form.Label htmlFor="inputplacecarrierreceipt"> Early Departure Date </Form.Label>
+                        <Form.Control
+                          type="text"
+                          id="dateDepartureEarly"
                           name="dateDepartureEarly"
-                          defaultValue={""}
-                          value={formData}
-                          onChange={handleInputChange}
+                          value={formataData(props.data_embarque)}
+                          aria-required="true"
+                          disabled
+                          aria-describedby="inputplacecarrierreceipt"
                         />
-                      </LocalizationProvider>
+                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
                       </div>
                   </div>
                   <p></p>
@@ -397,24 +403,26 @@ return (
                           type="text"
                           id="inputplacecarrierreceipt"
                           name="inputplacecarrierreceipt"
+                          value={props.porto_descarga}
                           aria-required="true"
+                          disabled
                           aria-describedby="inputplacecarrierreceipt"
                         />
                         <Form.Text id="inputplacecarrierreceipt"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          disablePast
-                          label="Latest Delivery Date"
-                          className="data"
+                      <Form.Label htmlFor="inputplacecarrierreceipt"> Latest Delivery Date </Form.Label>
+                        <Form.Control
+                          type="text"
+                          id="dateDeliveryLatest"
                           name="dateDeliveryLatest"
-                          defaultValue={""}
-                          value={formData}
-                          onChange={handleInputChange}
+                          value={formataData(props.data_chegada)}
+                          aria-required="true"
+                          disabled
+                          aria-describedby="inputplacecarrierreceipt"
                         />
-                      </LocalizationProvider>
+                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
                       </div>
                   </div>
                 </Accordion.Body>
@@ -439,10 +447,10 @@ return (
               </Accordion.Item>
               <p></p>
               <Accordion.Item eventKey="5">
-                <Accordion.Header> Cargo </Accordion.Header>
+                <Accordion.Header><span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Cargo * </span></Accordion.Header>
                 <Accordion.Body>
                   <div className='row'>
-                    <p className="item-ajuste__titulo"> Digite parte do nome da mercadoria</p>
+                    <p className="item-ajuste__titulo"><span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Digite parte do nome da mercadoria  </span></p>
                       <div className="col-md-12">
                       <SearchNcm mercadoria={mercadoria} />
                       </div>
@@ -451,11 +459,11 @@ return (
               </Accordion.Item>
               <p></p>
               <Accordion.Item eventKey="6">
-                <Accordion.Header>Payments Details</Accordion.Header>
+                <Accordion.Header><span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Payments Details *</span></Accordion.Header>
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-4">
-                        <Form.Label htmlFor="selectPaymentChargeType"> Charge Type</Form.Label>
+                        <Form.Label htmlFor="selectPaymentChargeType"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Charge Type* </span></Form.Label>
                         <Form.Select id="selectPaymentChargeType"  name="selectPaymentChargeType" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Additional">Additional Charges</option>
@@ -467,7 +475,7 @@ return (
                         </Form.Select>
                       </div>
                       <div className="col-md-2">
-                        <Form.Label htmlFor="selectPaymentTerm"> Payment Term</Form.Label>
+                        <Form.Label htmlFor="selectPaymentTerm">  <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Payment Term* </span></Form.Label>
                         <Form.Select id="selectPaymentTerm" name="selectPaymentTerm" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Prepaid">Pre-paid</option>
@@ -477,7 +485,7 @@ return (
                       </div>
 
                       <div className="col-md-3">
-                        <Form.Label htmlFor="selectPayer"> Payer </Form.Label>
+                        <Form.Label htmlFor="selectPayer"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Payer* </span> </Form.Label>
                         <Form.Select id="selectPayer" name="selectPayer" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Booker">Booker</option>
@@ -535,6 +543,14 @@ return (
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion> 
+            <div className="row">
+              <div className="col-md-6">
+                <Button type="button" onClick={onSaveBooking} className="btn btn-secondary botao">Salvar</Button>
+              </div>
+              <div className="col-md-6">
+                <Button type="submit" className="botao">Reservar</Button>
+              </div>
+            </div>
       </section>
     </div>
     <div className="col-md-3">
@@ -609,4 +625,13 @@ return (
 )
 }
 
+function formataData(date: string) {
+  let dateDate = date.split("/");
+  return (dateDate[0].length >= 2 ? dateDate[0] : '0'+ dateDate[0]) +'/'+dateDate[1]+'/'+dateDate[2];
+} 
+
 export default InfoPedido;
+
+function async(event: Event) {
+  throw new Error('Function not implemented.');
+}

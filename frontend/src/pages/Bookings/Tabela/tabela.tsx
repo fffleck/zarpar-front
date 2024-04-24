@@ -9,10 +9,11 @@ type ResultadoProps = {
   data_embarque: string;
   porto_embarque: string;
   porto_descarga: string;
-  tipo_mercadoria: string;
+  selectMercadoria: string;
   tipo_container: string;
   quantidade_containers: string;
   valor: string;
+  status: string;
 };
 
 type TabelaResultadosProps = {
@@ -21,7 +22,6 @@ type TabelaResultadosProps = {
 
 const TabelaResultados = (props: TabelaResultadosProps) => {
   return (
-    <div className="table">
     <Table striped bordered>
       <thead>
         <tr>
@@ -34,6 +34,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           <th scope="col">Qt. Containers</th>
           <th scope="col">Tipo Container</th>
           <th scope="col">Valor Booking</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -44,15 +45,15 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
             data_embarque={resultado.data_embarque}
             porto_embarque={resultado.porto_embarque}
             porto_descarga={resultado.porto_descarga}
-            tipo_mercadoria={resultado.tipo_mercadoria}
+            tipo_mercadoria={resultado.selectMercadoria.split(" - ")[1]}
             quantidade_containers={resultado.quantidade_containers}
             tipo_container={resultado.tipo_container}
             valor={resultado.valor}
+            status={resultado.status}
           />
         ))}
       </tbody>
     </Table>
-    </div>
   );
 };
 

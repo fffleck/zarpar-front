@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
@@ -65,7 +63,7 @@ type ResultadoProps = {
 
 
 const LabelModal = (props: ResultadoProps) => {
-    if (props.base_freight == "No space available") {
+    if (props.base_freight === "No space available") {
       return (<Button>{props.base_freight} </Button>)
     } else {
       return (

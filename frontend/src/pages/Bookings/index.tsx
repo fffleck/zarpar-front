@@ -9,13 +9,15 @@ interface ResponseItem {
   id: string;
   armador: string;
   data_embarque: string;
+  embarcador_email: string;
   embarcador_name: string;
   porto_embarque: string;
   porto_descarga: string;
-  tipo_mercadoria: string;
+  selectMercadoria: string;
   tipo_container: string;
   quantidade_containers: string;
   valor: string;
+  status: string;
 }
 
 const Bookings = () => {

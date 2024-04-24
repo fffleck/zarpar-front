@@ -166,8 +166,7 @@ const Cotacoes = () => {
     label: tipoContainer.name,
     id: tipoContainer.idItem,
   }));
-  const fabio = { armador: 'Maersk', tipo_container: "40 Standard", porto_embarque: "Santos", porto_descarga: "Aarhus", navio :"", data_embarque: "06/05/2024", tempo_de_transito: "28 days",  frete: "3417" }
-
+  
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
