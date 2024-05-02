@@ -6,7 +6,12 @@ import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import api from '../../services/api';
 import Quotations from '../Quotations';
-import ShippingCommodities from '../Comodities';
+import ShippingCommodities from '../DashApis/actions';
+import QuotatiosActions from '../DashApis/actions';
+import QuotationsActions from '../DashApis/actions';
+import QuotationsCurrency from '../DashApis/currency';
+import DashTeste from '../DashApis/dash-test';
+import CommoditiesList from '../DashApis/commodities';
 
 
 
@@ -118,20 +123,19 @@ const Dashboard = () => {
                   <div className="card-img-top" style={{"backgroundColor": "#9f9f9f", "padding": 10}} >
                     <h5 style={{"color": "white", "textAlign": "center"}}> Solicitar Cotação Instantânea </h5></div>
                     <div style={{"padding": 40}}>
+                    <Link to="/cotacoes"> 
                       <button className="col-lg-12 col-md-8 btn btn-primary btn-big" >
                         Cotação Rápida  <i className="bi bi-arrow-right"></i>
                       </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
-                <div className="row"></div>
                 <p></p>
-                <div className="row gap-3 mt-3">
-                    <Quotations />
-                    <ShippingCommodities />
-                </div> 
+                </div>
+              
             </div>
-          </div>
+           
       </main>
     </div>
   );
