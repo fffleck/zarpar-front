@@ -5,13 +5,6 @@ import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import api from '../../services/api';
-import Quotations from '../Quotations';
-import ShippingCommodities from '../DashApis/actions';
-import QuotatiosActions from '../DashApis/actions';
-import QuotationsActions from '../DashApis/actions';
-import QuotationsCurrency from '../DashApis/currency';
-import DashTeste from '../DashApis/dash-test';
-import CommoditiesList from '../DashApis/commodities';
 
 
 

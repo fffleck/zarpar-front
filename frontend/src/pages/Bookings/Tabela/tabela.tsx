@@ -5,7 +5,10 @@ import ResultadoBooking from "../Resultado";
 
 type ResultadoProps = {
   id: string;
+  booking: string;
+  blnumber: string;
   armador: string;
+  navio: string;
   data_embarque: string;
   porto_embarque: string;
   porto_descarga: string;
@@ -21,35 +24,36 @@ type TabelaResultadosProps = {
 };
 
 const TabelaResultados = (props: TabelaResultadosProps) => {
+  const email = sessionStorage.getItem("user_email");
   return (
     <Table striped bordered>
       <thead>
         <tr>
-          <th scope="col">Booking ID</th>
+          <th scope="col">#Order</th>
+          <th scope="col">#Booking</th>
+          <th scope="col">#B/L</th>
           <th scope="col">Armador</th>
-          <th scope="col">Data Embarque</th>
-          <th scope="col">Porto Embarque</th>
-          <th scope="col">Porto Descargo</th>
-          <th scope="col">Mercadoria</th>
-          <th scope="col">Qt. Containers</th>
-          <th scope="col">Tipo Container</th>
-          <th scope="col">Valor Booking</th>
+          <th scope="col">Navio</th>
+          <th scope="col">ETS</th>
+          <th scope="col">POL</th>
+          <th scope="col">POD</th>
           <th scope="col">Status</th>
+          <th scope="col"> # </th>
         </tr>
       </thead>
       <tbody>
         {props.response.map((resultado) => (
           <ResultadoBooking
             id={resultado._id}
+            booking=""
+            blnumber=""
             armador={resultado.armador}
+            navio={resultado.navio}
             data_embarque={resultado.data_embarque}
             porto_embarque={resultado.porto_embarque}
             porto_descarga={resultado.porto_descarga}
-            tipo_mercadoria={resultado.selectMercadoria.split(" - ")[1]}
-            quantidade_containers={resultado.quantidade_containers}
-            tipo_container={resultado.tipo_container}
-            valor={resultado.valor}
             status={resultado.status}
+            email={email}
           />
         ))}
       </tbody>

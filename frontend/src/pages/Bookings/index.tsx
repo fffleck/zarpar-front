@@ -18,6 +18,7 @@ interface ResponseItem {
   quantidade_containers: string;
   valor: string;
   status: string;
+  email: string;
 }
 
 const Bookings = () => {
@@ -27,7 +28,7 @@ const Bookings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await api.post('/booking/list_booking', { params: { email } });
+        const resp = await api.post('/booking/list_booking', {email});
         const resposta = resp.data.list;
         setResponse(resposta);
       } catch (error) {
@@ -47,7 +48,7 @@ const Bookings = () => {
           <div className="main-content-title">
             <h2>Bookings</h2>
             <p></p>
-            <TabelaResultados response={response} />
+            <TabelaResultados response={response}/>
           </div>
         </div>
       </main>
