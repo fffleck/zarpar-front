@@ -14,6 +14,7 @@ import Protected from "./pages/Protected";
 import api from "./services/api";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import EditBooking from "./pages/Edit";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -73,6 +74,14 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Upload />
+            </Protected>
+          }
+        />      
+        <Route
+          path="/edit/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <EditBooking />
             </Protected>
           }
         />

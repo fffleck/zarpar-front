@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 type ResultadoProps = {
     id: string;
@@ -18,10 +20,25 @@ type ResultadoProps = {
 };
 
 const ResultadoBooking = (props: ResultadoProps) => {
+
+  const classButton = (status) => {
+    let classReturn = "";
+    if (status === "Pending") { classReturn = "btn btn-warning botao" }
+    if (status === "Canceled") { classReturn = "btn btn-danger botao" }
+    if (status === "Confirmed") { classReturn = "btn btn-success botao" }
+    if (status === "Deleted") { classReturn = "btn btn-danger botao" }
+    if (status === "Shipped") { classReturn = "btn btn-primary botao" }
+    if (status === "Saved") { classReturn = "btn btn-info botao" }
+
+    return classReturn;
+  };
+
+
   if (props.email==="ffleck@gmail.com") {
     return (
       <tr key={props.id}>
         <td>{props.id.substring(props.id.length - 6 )}</td>
+        <td>{props.email}</td>
         <td>{props.booking}</td>
         <td>{props.blnumber}</td>
         <td>{props.armador}</td>
@@ -30,10 +47,10 @@ const ResultadoBooking = (props: ResultadoProps) => {
         <td>{props.porto_embarque}</td>
         <td>{props.porto_descarga}</td>
         <td>
-          <button className="btn btn-primary botao">{props.status}</button>&nbsp;&nbsp; 
+          <button className={classButton(props.status)}>{props.status}</button>&nbsp;&nbsp; 
         </td>
         <td>
-        <a href={"booking/edit/"+props.id} className="btn btn-info btn-sm active botao">Edit</a>
+        <Link to={`/edit/${props.id}`}>Edit</Link>
         </td>
       </tr>
     );

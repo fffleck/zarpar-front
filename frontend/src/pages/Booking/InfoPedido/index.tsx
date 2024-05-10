@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import Accordion from 'react-bootstrap/Accordion';
 import SearchNcm from '../Search/search-ncm';
+import { response } from 'express';
 
 
 type informacoesEnviarEmail = {
@@ -70,6 +71,12 @@ function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   
   setQtdContainers(quantidade);
 }
+
+
+api.post('/booking/taxes', {props})
+.then(response=>{
+  console.log('RESPOSTA TAXAS', response.data.list)
+})
 
 api.post('/user/find_user', {email})
 .then(resp=>{
