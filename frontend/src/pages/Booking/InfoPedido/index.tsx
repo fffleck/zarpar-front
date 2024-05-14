@@ -1,10 +1,9 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Button , Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import Accordion from 'react-bootstrap/Accordion';
 import SearchNcm from '../Search/search-ncm';
-import { response } from 'express';
 
 
 type informacoesEnviarEmail = {
@@ -37,6 +36,7 @@ const [tipoMercadoria] = useState('');
 const [cordaFonte, setcordaFonte] = useState('');
 const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
+const [taxs, setTaxs] = useState([]);
 const moeda = '$';
 
 let navigate = useNavigate();
@@ -72,28 +72,32 @@ function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   setQtdContainers(quantidade);
 }
 
+useEffect(() => {
+  api.post('/booking/taxes', {props})
+  .then(response=>{
+    setTaxs(response.data.list)
+  }).catch(err =>{
+    console.error(err);
+  })
 
-api.post('/booking/taxes', {props})
-.then(response=>{
-  console.log('RESPOSTA TAXAS', response.data.list)
-})
-
-api.post('/user/find_user', {email})
-.then(resp=>{
-  setNomeEmbarcador(resp.data.user.name);
-  setEnderecoEmbarcador(resp.data.user.address);
-  setCnpjEmbarcador(resp.data.user.cnpj);
-  setTelefoneEmbarcador(resp.data.user.telefone);
-})
-.catch(err =>{
-  console.error(err);
-})
+  api.post('/user/find_user', {email})
+  .then(resp=>{
+    setNomeEmbarcador(resp.data.user.name);
+    setEnderecoEmbarcador(resp.data.user.address);
+    setCnpjEmbarcador(resp.data.user.cnpj);
+    setTelefoneEmbarcador(resp.data.user.telefone);
+  })
+  .catch(err =>{
+    console.error(err);
+  })
+}, []);
 
 
 var precoTotal = dadosPedido.valor;
 var precoPorBase = dadosPedido.frete_base;
 var precoPorBuner = dadosPedido.frete_bunker;
 var precoPorIsps = dadosPedido.frete_isps;
+var precoTotalTaxas = 0;
 
 const informacoesEnviarEmail:informacoesEnviarEmail = {
   armador: props.armador,
@@ -110,7 +114,7 @@ const informacoesEnviarEmail:informacoesEnviarEmail = {
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
-  valor: `${moeda} ${precoTotal}`,
+  valor: `${moeda} ${(precoTotal+precoTotalTaxas)}`,
   
 }
 
@@ -593,10 +597,18 @@ return (
             </div>
             <table className='table'>
               <tr>
-                <td><p className="item-ajuste__titulo">Fee Zarpar </p></td>
+                <td><p className="item-ajuste__titulo">Fee Zarpar</p></td>
                 <td style={{"textAlign": "right"}}><strong> $ 100 </strong></td>
               </tr>
-              </table>
+                {taxs.map(tax => {
+                  precoTotalTaxas =+ precoTotalTaxas + (tax.taxValue * qtdContainers) 
+                  return (                 
+                        <tr key={tax.taxname}>
+                            <td><p className="item-ajuste__titulo">{tax.taxname}</p></td>
+                            <td style={{"textAlign": "right"}}><strong>$ {(tax.taxValue * qtdContainers)}</strong> </td>
+                        </tr>
+                    )})}
+            </table>
             <hr></hr>
             <div style={{"textAlign": "center"}}>
               <h2 className="titulo-secao">Dados da reserva</h2> 
@@ -621,7 +633,7 @@ return (
           </div>
 
           <div style={{"textAlign": "center"}}>
-            <p className="preco">{`${USDollar.format(precoTotal + 100 )}`}</p>
+            <p className="preco">{`${USDollar.format(precoTotal + precoTotalTaxas + 100 )}`}</p>
           </div>
           <div style={{"textAlign": "center"}}>
             <Button type="submit" className="botao">Reservar</Button>

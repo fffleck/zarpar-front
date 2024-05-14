@@ -13,6 +13,12 @@ interface ResponseItem {
     booking: string;
     booking_id: string;
     bl_number: string;
+    qtdContainers: string;
+    tipo_container: string;
+    valor: number;
+    porto_embarque: string;
+    porto_descarga: string;
+    data_embarqui: string;
     armador: string;
     navio: string;
     ets: string;
@@ -187,6 +193,50 @@ const EditBooking = () => {
                     aria-required="true"
                     aria-describedby="POD"
                     value={response.porto_descarga}
+                    aria-disabled="true"
+                    disabled="true"
+                    />
+                    <Form.Text id="POD"></Form.Text>
+                </div>
+            </div>
+            <div className='row'>
+                <div className="col-md-4">
+                    <Form.Label htmlFor="ETS">Quatidade Container</Form.Label>
+                    <Form.Control
+                    type="text"
+                    id="qtdConatainers"
+                    name="qtdConatainers"
+                    aria-required="true"
+                    aria-describedby="ETS"
+                    value={response.qtdContainers}
+                    aria-disabled="true"
+                    disabled="true"
+                    />
+                    <Form.Text id="ETS"></Form.Text>
+                </div>
+                <div className="col-md-4 right">
+                    <Form.Label htmlFor="POL"> Tipo Container </Form.Label>
+                    <Form.Control
+                    type="text"
+                    id="tipo_container"
+                    name="tipo_container"
+                    aria-required="true"
+                    aria-describedby="POL"
+                    value={response.tipo_container}
+                    aria-disabled="true"
+                    disabled="true"
+                    />
+                    <Form.Text id="POL"></Form.Text>
+                </div>
+                <div className="col-md-4 right">
+                    <Form.Label htmlFor="POD">Total Frete</Form.Label>
+                    <Form.Control
+                    type="text"
+                    id="valor"
+                    name="valor"
+                    aria-required="true"
+                    aria-describedby="POD"
+                    value={response.valor}
                     aria-disabled="true"
                     disabled="true"
                     />
