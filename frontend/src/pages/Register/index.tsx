@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./styles.css";
-import logo from "../../assets/imagens/logo_blue_original.png";
+import logo from "../../assets/imagens/logo_blue.png";
 import api from "../../services/api";
 
 const Register = () => {
