@@ -34,26 +34,47 @@ const ResultadoBooking = (props: ResultadoProps) => {
   };
 
 
-  if (props.email==="ffleck@gmail.com") {
-    return (
-      <tr key={props.id}>
-        <td>{props.id.substring(props.id.length - 6 )}</td>
-        <td>{props.email}</td>
-        <td>{props.booking}</td>
-        <td>{props.blnumber}</td>
-        <td>{props.armador}</td>
-        <td>{props.navio}</td>
-        <td>{props.data_embarque}</td>
-        <td>{props.porto_embarque}</td>
-        <td>{props.porto_descarga}</td>
-        <td>
-          <button className={classButton(props.status)}>{props.status}</button>&nbsp;&nbsp; 
-        </td>
-        <td>
-        <Link to={`/edit/${props.id}`}>Edit</Link>
-        </td>
-      </tr>
-    );
+  if (props.email==="ffleck@gmail.com" || props.email==="alvaro@karavel.com.br") {
+    if (props.status !== "Canceled") {
+      return (
+        <tr key={props.id}>
+          <td>{props.id.substring(props.id.length - 6 )}</td>
+          <td>{props.email}</td>
+          <td>{props.booking}</td>
+          <td>{props.blnumber}</td>
+          <td>{props.armador}</td>
+          <td>{props.navio}</td>
+          <td>{props.data_embarque}</td>
+          <td>{props.porto_embarque}</td>
+          <td>{props.porto_descarga}</td>
+          <td>
+            <button className={classButton(props.status)}>{props.status}</button>&nbsp;&nbsp; 
+          </td>
+          <td>
+          <Link to={`/edit/${props.id}`}>Edit</Link>
+          </td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr key={props.id}>
+          <td>{props.id.substring(props.id.length - 6 )}</td>
+          <td>{props.email}</td>
+          <td>{props.booking}</td>
+          <td>{props.blnumber}</td>
+          <td>{props.armador}</td>
+          <td>{props.navio}</td>
+          <td>{props.data_embarque}</td>
+          <td>{props.porto_embarque}</td>
+          <td>{props.porto_descarga}</td>
+          <td>
+            <button className={classButton(props.status)}>{props.status}</button>&nbsp;&nbsp; 
+          </td>
+          <td></td>
+        </tr>
+      );
+    }
+    
   } else {
     return (
       <tr>

@@ -22,6 +22,7 @@ type informacoesEnviarEmail = {
     embarcador_cnpj: string;
     embarcador_telefone: string;
     valor: string;
+    taxas: any
 }
 
 const InfoPedido = (props) => {
@@ -37,7 +38,6 @@ const [cordaFonte, setcordaFonte] = useState('');
 const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
 const [taxs, setTaxs] = useState([]);
-const moeda = '$';
 
 let navigate = useNavigate();
 
@@ -56,6 +56,7 @@ let dadosPedido = {
   frete_bunker: Number(props.frete_bunker) * qtdContainers,
   frete_isps: Number(props.frete_isps) * qtdContainers,
   valor: Number(props.frete) * qtdContainers,
+  taxas: taxs,
   mercadoria: mercadoria,
   tipo_mercadoria: tipoMercadoria,
 };
@@ -114,7 +115,8 @@ const informacoesEnviarEmail:informacoesEnviarEmail = {
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
-  valor: `${moeda} ${(precoTotal+precoTotalTaxas)}`,
+  valor: precoTotal,
+  taxas: taxs,
   
 }
 
