@@ -7,6 +7,7 @@ type ResultadoProps = {
     booking: string;
     blnumber: string;
     armador: string;
+    client:string;
     navio: string;
     data_embarque: string;
     porto_embarque: string;
@@ -39,7 +40,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
       return (
         <tr key={props.id}>
           <td>{props.id.substring(props.id.length - 6 )}</td>
-          <td>{props.email}</td>
+          <td>{props.client}</td>
           <td>{props.booking}</td>
           <td>{props.blnumber}</td>
           <td>{props.armador}</td>
@@ -59,7 +60,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
       return (
         <tr key={props.id}>
           <td>{props.id.substring(props.id.length - 6 )}</td>
-          <td>{props.email}</td>
+          <td>{props.client}</td>
           <td>{props.booking}</td>
           <td>{props.blnumber}</td>
           <td>{props.armador}</td>
@@ -87,7 +88,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
         <td>{props.porto_embarque}</td>
         <td>{props.porto_descarga}</td>
         <td>
-          <button className="btn btn-primary botao">{props.status}</button>
+          <button className={classButton(props.status)}>{props.status}</button>
           </td>
         <td></td>
       </tr>

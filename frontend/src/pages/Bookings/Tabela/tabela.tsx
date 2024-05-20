@@ -11,6 +11,7 @@ type ResultadoProps = {
   armador: string;
   navio: string;
   data_embarque: string;
+  embarcador_email: string;
   porto_embarque: string;
   porto_descarga: string;
   selectMercadoria: string;
@@ -57,6 +58,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               porto_descarga={resultado.porto_descarga}
               status={resultado.status}
               email={email}
+              client={resultado.embarcador_email}
             />
           ))}
         </tbody>
