@@ -96,7 +96,8 @@ const LabelModal = (props: ResultadoProps) => {
                 </Popover>
               }
             >
-              <Button>USD {props.base_freight + props.bunker + props.isps} </Button>
+            <Button>USD {parseInt(props.base_freight, 10) + parseFloat(props.bunker) + parseFloat(props.isps)} </Button>
+
             </OverlayTrigger>
           ))}
         </>
