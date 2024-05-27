@@ -73,7 +73,7 @@ const Resultado = (props: ResultadoProps) => {
     return (
       <tr key={props.shipment_id}>
         <td className="tdImg">
-          <img height={50}  src={"/imagens/armador_"+props.id_armador+".png"} alt={props.imagem_link} />
+          <img height={50}  src={"/imagens/armador_"+props.id_armador+".png"} alt="Logo" />
         </td>
         <td>{props.armador}</td>
         <td>{props.data_embarque}</td>
