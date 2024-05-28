@@ -197,14 +197,11 @@ const Cotacoes = () => {
     }).catch((error) => {
       console.log('ERROR', error)
       setResponse([])
-    }).finally(() => {
-      setResponse([])
       setBtnSearchDisabled(false);
       setBtnLoading(false);
+      alert('Problemas ao executar a busca, tente novamente mais tarde')
     })
-
     
-
     const informacoesEnviarEmail: informacoesEnviarEmail = {
       armador: "",
       mercadoria: "",
