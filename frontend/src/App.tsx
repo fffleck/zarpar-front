@@ -15,6 +15,13 @@ import api from "./services/api";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import EditBooking from "./pages/Edit";
+import Pagamentos from "./pages/Pagamentos";
+import Admin from "./pages/Admin";
+import Tracking from "./pages/Tracking";
+import Demandas from "./pages/Demandas";
+import Negociacoes from "./pages/Negociacoes";
+import Impulsionar from "./pages/Impulsionar";
+import CotacoesNAC from "./pages/Nac";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -45,48 +52,42 @@ function App() {
       <Routes>
         <Route path="/" element={<Login isLoggedIn={tokenIsValid} />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/booking"
+        <Route path="/booking"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Booking />
             </Protected>
           }
         />
-        <Route
-          path="/pedido_resultado"
+        <Route path="/pedido_resultado"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <SucessoPedido />
             </Protected>
           }
         ></Route>
-        <Route
-          path="/conta"
+        <Route path="/conta"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Conta />
             </Protected>
           }
         />
-         <Route
-          path="/upload"
+         <Route path="/upload"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Upload />
             </Protected>
           }
         />      
-        <Route
-          path="/edit/:id"
+        <Route path="/edit/:id"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <EditBooking />
             </Protected>
           }
         />
-        <Route
-          path="/cotacoes"
+        <Route path="/cotacoes"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Cotacoes />
@@ -95,33 +96,83 @@ function App() {
         />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route
-          path="/dashboard"
+        <Route path="/dashboard"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Dashboard />
             </Protected>
           }
         />
-        <Route
-          path="/bookings"
+        <Route path="/bookings"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Bookings />
             </Protected>
           } 
         />
-        {/*     
-            <Route
-              path="/pagamentos"
-              element={
-                <Protected isLoggedIn={tokenIsValid}>
-                  <Pagamentos />
-                </Protected>
-              }
-            />
-          
-          */}
+             
+        <Route
+          path="/pagamentos"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Pagamentos />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Admin />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/tracking"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Tracking />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/demandas"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Demandas />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/negociacoes"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Negociacoes />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/impulsionar"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Impulsionar />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/nac"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <CotacoesNAC />
+            </Protected>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

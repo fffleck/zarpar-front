@@ -4,12 +4,18 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/imagens/logo+white.png";
 
 const Sidebar = (props) => {
-  const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar se o menu está aberto ou fechado
+  const [menuOpen] = useState(false); // Estado para controlar se o menu está aberto ou fechado
   const active = {
     dashboard: "",
+    admin: "",
     cotacoes: "",
+    cotacoes_nac: "",
     bookings: "",
+    tracking: "",
     pagamentos: "",
+    demandas: "",
+    negociacoes: "",
+    impulsionar: "",
     upload: "",
     conta: "",
   };
@@ -22,26 +28,52 @@ const Sidebar = (props) => {
     <div className={`sidebar ${menuOpen ? "open" : ""}`}>
       <div className="sidebar-title">
         <img src={logo} alt="Logo Karavel" />
-        <i className="fa-solid fa-bars" onClick={() => setMenuOpen(!menuOpen)}></i>
       </div>
       <div className="menu">
         {/* Botão para abrir/fechar o menu */}
-        <button className="toggle-menu" onClick={() => setMenuOpen(!menuOpen)}>
-          <i className={`fa-solid ${menuOpen ? "fa-chevron-left" : "fa-chevron-right"}`}></i>
-        </button>
         {/* Links do menu */}
         <ul>
+          {(email === "ffleck@gmail.com" || email === "alvaro@karavel.com.br") && (
+            <li className={active.admin}>
+              <img src="/imagens/menu/gear.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+              <Link to="/admin"><strong>Painel de Controle</strong></Link>
+            </li>
+          )}
           <li className={active.dashboard}>
-            <i className="fa-solid fa-house"></i>
+            <img src="/imagens/menu/home.svg" style={{ "width": "25px","height": "25px"}} alt="" />
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li className={active.cotacoes}>
-            <i className="fa-solid fa-table-list"></i>
+            <img src="/imagens/menu/cotacao.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
             <Link to="/cotacoes">Cotações</Link>
           </li>
+          <li className={active.cotacoes_nac}>
+            <img src="/imagens/menu/cotacoes_nac.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/nac">Cotações - NAC</Link>
+          </li>
           <li className={active.bookings}>
-            <i className="fa-solid fa-ship"></i>
+            <img src="/imagens/menu/booking.svg" style={{ "width": "25px","height": "25px"}} alt=""/>
             <Link to="/bookings">Bookings</Link>
+          </li>
+          <li className={active.tracking}>
+            <img src="/imagens/menu/tracking.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/tracking">Tracking</Link>
+          </li>
+          <li className={active.pagamentos}>
+            <img src="/imagens/menu/pagamentos.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/pagamentos">Pagamentos</Link>
+          </li>
+          <li className={active.demandas}>
+            <img src="/imagens/menu/demandas.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/demandas">Demandas</Link>
+          </li>
+          <li className={active.negociacoes}>
+            <img src="/imagens/menu/negociacoes.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/negociacoes">Negociações</Link>
+          </li>
+          <li className={active.impulsionar}>
+            <img src="/imagens/menu/impulsionar.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/impulsionar">Impulsionar Vendas</Link>
           </li>
           {/* Renderiza o link de Upload apenas se o menu estiver aberto e o email for válido */}
           {(email === "ffleck@gmail.com" || email === "alvaro@karavel.com.br") && (
@@ -51,8 +83,8 @@ const Sidebar = (props) => {
             </li>
           )}
           <li className={active.conta}>
-            <i className="fa-solid fa-circle-user"></i>
-            <Link to="/conta">Conta</Link>
+            <img src="/imagens/menu/conta.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/conta">Minha Conta</Link>
           </li>
         </ul>
       </div>
