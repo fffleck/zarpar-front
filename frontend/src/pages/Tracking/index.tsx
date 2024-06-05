@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar";
 const Tracing = () => {
   return (
     <div className="flex-dashboard">
-      <Sidebar elementoAtivo="admin"/>
+      <Sidebar elementoAtivo="tracking"/>
       <main>
         <HeaderPage nomeOpcao="Tracking"/>
         <div className="main-content">
