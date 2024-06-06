@@ -1,15 +1,17 @@
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import api from "../../services/api";
-import Spinner from "react-bootstrap/Spinner";
-import Alert from "react-bootstrap/Alert";
 import { Autocomplete, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import { Button, Form } from "react-bootstrap";
+import SearchNcm from "./seachArmador/search-ncm"
+import SearchArmador from "./seachArmador/search-armador";
+import { useNavigate } from "react-router-dom";
 
 interface ItemSelect {
   idItem: any;
@@ -21,78 +23,39 @@ interface PortoSelect {
   port_name: string;
 }
 
-interface ResponseItem {
-  tipo_container: string;
-  id_tipo_container: string;
-  porto_embarque: string;
-  id_porto_embarque: string;
-  porto_descarga: string;
-  id_porto_descarga: string;
-  armador: string;
-  id_armador: string;
-  navio: string;
-  data_embarque: string;
-  tempo_de_transito: string;
-  data_chegada: string;
-  base_freight: string;
-  bunker: string;
-  isps: string;
-  shipment_id: string;
-  imagem_link: string;
-}
-
-interface ResponseError {
-  message: string;
-}
-
-type informacoesEnviarEmail = {
-  armador: string;
-  mercadoria: string;
-  tipo_mercadoria: string;
-  porto_embarque: string;
-  porto_descarga: string;
-  data_embarque: string;
-  tipo_container: string;
-  quantidade_containers: number;
-  embarcador_nome: string;
-  embarcador_email: string;
-  embarcador_endereco: string;
-  embarcador_cnpj: string;
-  embarcador_telefone: string;
-  embarcador_empresa: string;
-  valor: string;
-};
-
-type ResponseAPI = Array<ResponseItem> | ResponseError;
-
 
 const CotacoesNAC = () => {
   const [mercadorias, setMercadorias] = useState<ItemSelect[]>([]);
   const [tiposMercadoria, setTiposMercadoria] = useState<ItemSelect[]>([]);
+  const [nomeEmbarcador, setNomeEmbarcador] = useState('');
+  const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
   const [tiposContainer, setTiposContainer] = useState<ItemSelect[]>([]);
   const [portosEmbarque, setPortosEmbarque] = useState<PortoSelect[]>([]);
   const [portosDescarga, setPortosDescarga] = useState<PortoSelect[]>([]);
-  const [response, setResponse] = useState<ResponseItem[]>([]);
-  const [searchClicked, setSearchClicked] = useState<boolean>(false);
-  const [btnSearchDisabled, setBtnSearchDisabled] = useState<boolean>(false);
-  const [btnLoading, setBtnLoading] = useState<boolean>(false);
+  const [mercadoria] = useState('');
   const [formData, setFormData] = useState<Dayjs | null>(null);
-  const [valueMercadoria, setValueMercadoria] = useState(null);
-  const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
-  const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
-  const [valueTipoMercadoria, setValueTipoMercadoria] = useState(null);
   const [valueTipoContainer, setValueTipoContainer] = useState(null);
-  const [inputValueMercadoria, setInputValueMercadoria] = useState("");
-  const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState("");
-  const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState("");
-  const [inputValueTipoMercadoria, setInputValueTipoMercadoria] = useState("");
   const [inputValueTipoContainer, setInputValueTipoContainer] = useState("");
   const email = sessionStorage.getItem("user_email");
-  const [nomeEmbarcador, setNomeEmbarcador] = useState("");
-  const [enderecoEmbarcador, setEnderecoEmbarcador] = useState("");
-  const [cnpjEmbarcador, setCnpjEmbarcador] = useState("");
-  const [telefoneEmbarcador, setTelefoneEmbarcador] = useState("");
-  const [empresaEmbarcador, setEmpresaEmbarcador] = useState("");
+  const [selectedArmadores, setSelectedArmadores] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [cordaFonte, setcordaFonte] = useState('');
+  const [tipodaFonte, settipodaFonte] = useState('');
+
+  let navigate = useNavigate();
+
+  const routeChange = () =>{ 
+    const path = "/sucesso_quotation";
+    navigate(path);
+  }
+
+  const handleArmadorChange = (event, newValue) => {
+    setSelectedArmadores(newValue);
+  };
+
+  const handleInputArmadorChange = (event, newInputValue) => {
+    setInputValue(newInputValue);
+  };
 
   useEffect(() => {
     api.get("filters/mercadorias").then((response) => {
@@ -119,10 +82,7 @@ const CotacoesNAC = () => {
       .post("/user/find_user", { email })
       .then((resp) => {
         setNomeEmbarcador(resp.data.user.name);
-        setEnderecoEmbarcador(resp.data.user.address);
-        setCnpjEmbarcador(resp.data.user.cnpj);
         setTelefoneEmbarcador(resp.data.user.telefone);
-        setEmpresaEmbarcador(resp.data.user.enterpriseName);
       })
       .catch((err) => {
         console.error(err);
@@ -134,11 +94,6 @@ const CotacoesNAC = () => {
     setFormData(dayjs(`${event.$y}-${event.$M + 1}-${event.$D}`));
   }
 
-  const listaMercadorias = mercadorias.map((mercadoria) => ({
-    label: mercadoria.name,
-    id: mercadoria.idItem,
-  }));
-
   const listaPortosEmbarque = portosEmbarque.map((portoEmbarque) => ({
     label: portoEmbarque.port_name,
     id: portoEmbarque.port_id,
@@ -149,84 +104,51 @@ const CotacoesNAC = () => {
     id: portoDescarga.port_id,
   }));
 
-  const listaTiposMercadoria = tiposMercadoria.map((tipoMercadoria) => ({
-    label: tipoMercadoria.name,
-    id: tipoMercadoria.idItem,
-  }));
-
   const listaTiposContainer = tiposContainer.map((tipoContainer) => ({
     label: tipoContainer.name,
     id: tipoContainer.idItem,
   }));
+
+  const sendRequestNAC = async (event) => {
+
+    event.preventDefault()
   
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+    const dataToSend = {
+        embarcador_nome: nomeEmbarcador,
+        telefone_embarcador: telefoneEmbarcador,
+        embarcador_email: email,
+        data_embarque: formData?.format('DD-MM-YYYY') ?? null,
+        ...extractFormData()
+    };
 
-    if (formData === null) return; //verifica se a data foi escolhida
-    const data_saida = dayjs(formData).format("YYYY-MM-DD");
-
-    setBtnSearchDisabled(true);
-    setSearchClicked(true);
-    setBtnLoading(true);
-
-    // let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
-
-    let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}`;
-    api.get(query).then((res) => {
-      
-      if (res.status >= 404) {
-        res.data = [];
-      } else {
-        res.data.sort((a,b) => (a.frete < b.frete) ? -1 : 1)
-        api.post("/user/add_search", { email }).then((resp) => { console.log(resp.data.message) });
-      
+    if (!dataToSend.Armadores || !dataToSend.shipper || !dataToSend.consignee || !dataToSend.selectPortoEmbarque || !dataToSend.selectPortoDescarga || !dataToSend.selectMercadoria || 
+       !dataToSend.tipoContainer || !dataToSend.data_embarque || !dataToSend.Incoterm || !dataToSend.freetimeOrigem || !dataToSend.freetimeDestino || !dataToSend.qtdContainers || !dataToSend.targetOceanFreight )  {
+      setcordaFonte("red")
+      settipodaFonte("bold")
+      alert('Preencha todos os campos obrigatórios')
+    } else {
+      try {
+        // Envia Email para ADMIN
+        await api.post('/email/send_quotationnac', dataToSend);
+        await api.post('booking/save_quotation', dataToSend);
+        routeChange();
+      } catch (error) {
+          console.error("Ocorreu um problema ao reservar o booking:", error);
       }
+    }
 
-      setResponse(res.data);
-      setBtnSearchDisabled(false);
-      setBtnLoading(false);
-    }).catch((error) => {
-      console.log('ERROR', error)
-      setResponse([])
-      setBtnSearchDisabled(false);
-      setBtnLoading(false);
-      alert('Problemas ao executar a busca, tente novamente mais tarde')
-    })
-    
-    const informacoesEnviarEmail: informacoesEnviarEmail = {
-      armador: "",
-      mercadoria: "",
-      tipo_mercadoria: "",
-      porto_embarque: valuePortoEmbarque.label,
-      porto_descarga: valuePortoDescarga.label,
-      data_embarque: data_saida,
-      tipo_container: valueTipoContainer.label,
-      quantidade_containers: 0,
-      embarcador_nome: nomeEmbarcador,
-      embarcador_email: email,
-      embarcador_cnpj: cnpjEmbarcador,
-      embarcador_telefone: telefoneEmbarcador,
-      embarcador_endereco: enderecoEmbarcador,
-      embarcador_empresa: empresaEmbarcador,
-      valor: `$0`,
-    };
-
-    const sendEmailQuotation = async (event) => {
-      event.preventDefault();
-
-      await api
-        .post("/email/send_quotation", informacoesEnviarEmail)
-        .then((res) => {
-          console.log("Enviado para análise");
-        })
-        .catch((err) => {
-          console.log("Ocorreu um problema ao enviar e-mail para análise");
-        });
-    };
-
-    sendEmailQuotation(event);
+    console.log("DATA FORM ", dataToSend)
   }
 
+
+  const extractFormData = () => {
+    const formElements = document.querySelectorAll('input, select, textarea');
+    const formData = {};
+    formElements.forEach((element: any) => {
+        formData[element.name] = element.value || null;
+    });
+    return formData;
+  };
   return (
     <div className="flex-dashboard">
       <Sidebar elementoAtivo="cotacoesNAC" />
@@ -237,160 +159,205 @@ const CotacoesNAC = () => {
             <h2>Cotações - NAC</h2>
             <p></p>
           </div>{" "}
-          <form className="row g-3 formulario" onSubmit={handleSubmit}>
-            <div className="col-md-4">
-              {/*Mercadoria*/}
-              <Autocomplete
-                value={valueMercadoria}
-                onChange={(event, newValue) => {
-                  setValueMercadoria(newValue);
-                }}
-                inputValue={inputValueMercadoria}
-                onInputChange={(event, newInputValue) => {
-                  setInputValueMercadoria(newInputValue);
-                }}
-                className="selecao"
-                disablePortal
-                id="combo-box-demo"
-                options={listaMercadorias}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => (
-                  <TextField {...params} label="Mercadoria" required />
-                )}
-              />
-            </div>
-            <div className="col-md-4">
-              {/* Porto de embarque */}
-              <Autocomplete
-                value={valuePortoEmbarque}
-                onChange={(event, newValue) => {
-                  setValuePortoEmbarque(newValue);
-                }}
-                inputValue={inputValuePortoEmbarque}
-                onInputChange={(event, newInputValue) => {
-                  setInputValuePortoEmbarque(newInputValue);
-                }}
-                className="selecao"
-                disablePortal
-                id="combo-box-demo"
-                options={listaPortosEmbarque}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => (
-                  <TextField {...params} label="Porto de embarque" required />
-                )}
-              />
-            </div>
-            <div className="col-md-4">
-              {/*Porto de descarga*/}
-              <Autocomplete
-                value={valuePortoDescarga}
-                onChange={(event, newValue) => {
-                  setValuePortoDescarga(newValue);
-                }}
-                inputValue={inputValuePortoDescarga}
-                onInputChange={(event, newInputValue) => {
-                  setInputValuePortoDescarga(newInputValue);
-                }}
-                className="selecao"
-                disablePortal
-                id="combo-box-demo"
-                options={listaPortosDescarga}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => (
-                  <TextField {...params} label="Porto de descarga" required />
-                )}
-              />
-            </div>
-            <div className="col-md-4">
-              {/*Tipo de mercadoria*/}
-              <Autocomplete
-                value={valueTipoMercadoria}
-                onChange={(event, newValue) => {
-                  setValueTipoMercadoria(newValue);
-                }}
-                inputValue={inputValueTipoMercadoria}
-                onInputChange={(event, newInputValue) => {
-                  setInputValueTipoMercadoria(newInputValue);
-                }}
-                className="selecao"
-                disablePortal
-                id="combo-box-demo"
-                options={listaTiposMercadoria}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => (
-                  <TextField {...params} label="Tipo de mercadoria" required />
-                )}
-              />
-            </div>
-            <div className="col-md-4">
-              {/*Tipo de Container*/}
-              <Autocomplete
-                value={valueTipoContainer}
-                onChange={(event, newValue) => {
-                  setValueTipoContainer(newValue);
-                }}
-                inputValue={inputValueTipoContainer}
-                onInputChange={(event, newInputValue) => {
-                  setInputValueTipoContainer(newInputValue);
-                }}
-                className="selecao"
-                disablePortal
-                id="combo-box-demo"
-                options={listaTiposContainer}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => (
-                  <TextField {...params} label="Tipo de container" required />
-                )}
-              />
-            </div>
-            <div className="col-md-4 form-data">
-              {/*Data*/}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  disablePast
-                  label="Data de embarque"
-                  className="data"
-                  defaultValue={""}
-                  value={formData}
-                  onChange={handleInputChange}
+          <form className="row g-3 formulario" onSubmit={sendRequestNAC}>
+            <div className='row'>
+              <div className="col-md-3">
+                <Form.Label htmlFor="shipper"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Shipper *</span> </Form.Label>
+                <Form.Control
+                  type="text"
+                  id="shipper"
+                  name="shipper"
+                  aria-required="true"
+                  aria-describedby="shipper"
                 />
-              </LocalizationProvider>
+                <Form.Text id="shipper"></Form.Text>
+              </div>    
+              <div className="col-md-3">
+                <Form.Label htmlFor="consignee"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Consignee *</span> </Form.Label>
+                <Form.Control
+                  type="text"
+                  id="consignee"
+                  name="consignee"
+                  aria-required="true"
+                  aria-describedby="consignee"          
+                />
+                <Form.Text id="consignee"></Form.Text>
+              </div> 
+              <div className="col-md-3">
+                <Form.Label htmlFor="selectPortoEmbarque" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Porto Embarque *</Form.Label>
+                <Form.Select id="selectPortoEmbarque" name="selectPortoEmbarque" aria-label="Default select">
+                <option>Selecione...</option>
+                  {listaPortosEmbarque.map(porto => {
+                    return (
+                      <option value={porto.id}>{porto.label}</option>
+                    )
+                  })}
+                </Form.Select>
+              </div>
+              <div className="col-md-3">
+                <Form.Label htmlFor="selectPortoDescarga" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Porto Descarga *</Form.Label>
+                <Form.Select id="selectPortoDescarga" name="selectPortoDescarga" aria-label="Default select">
+                <option>Selecione...</option>
+                  {listaPortosDescarga.map(porto => {
+                    return (
+                      <option value={porto.id}>{porto.label}</option>
+                    )
+                  })}
+                </Form.Select>
+              </div>
             </div>
-            <div className="col-12">
-              <button
-                type="submit"
-                disabled={btnSearchDisabled}
-                className="btn btn-primary"
-              >
-                {btnLoading ? (
-                  <Spinner
-                    animation="border"
-                    variant="light"
-                    as="span"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
+            <p></p>
+            <div className='row'>
+              <div className="col-md-3">
+                <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Mercadoria * <small>(digite o nome para pesquisar)</small> </span>
+                <SearchNcm mercadoria={mercadoria} />
+              </div>
+              <div className="col-md-3">
+                <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Tipo Container *</span>
+                <Autocomplete
+                  value={valueTipoContainer}
+                  onChange={(event, newValue) => {
+                    setValueTipoContainer(newValue);
+                  }}
+                  inputValue={inputValueTipoContainer}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValueTipoContainer(newInputValue);
+                  }}
+                  className="selecao"
+                  disablePortal
+                  id="combo-box-demo"
+                  options={listaTiposContainer}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  renderInput={(params) => (
+                    <TextField {...params} name="tipoContainer" required />
+                  )}
+                />
+              </div>
+              <div className="col-md-3">
+                <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Data Embarque *</span>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    disablePast                    
+                    className="data"
+                    defaultValue={""}
+                    value={formData}
+                    onChange={handleInputChange}
                   />
-                ) : (
-                  <Spinner
-                    animation="border"
-                    variant="light"
-                    as="span"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    className="visually-hidden"
-                  />
-                )}
-                {"   "}
-                Buscar Fretes
-              </button>
+                </LocalizationProvider>
+              </div>
+              <div className="col-md-3">
+                <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Armador *</span>
+                <SearchArmador
+                  value={selectedArmadores}
+                  onChange={handleArmadorChange}
+                  inputValue={inputValue}
+                  onInputChange={handleInputArmadorChange}
+                />
+              </div>
+            </div>
+            <p></p>
+            <div className='row'>
+              <div className="col-md-3">
+                <Form.Label htmlFor="Incoterm" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Incoterm *</Form.Label>
+                <Form.Select id="Incoterm" name="Incoterm" aria-label="Default select">
+                  <option value="" selected>Selecion</option>
+                  <option value="C&F">C & F</option>
+                  <option value="CIF">C I F</option>
+                  <option value="FOB">FOB</option>                  
+                </Form.Select>
+              </div>
+              <div className="col-md-3">
+                <Form.Label htmlFor="freetimeOrigem"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Origem *</span> </Form.Label>
+                <Form.Control
+                  type="text"
+                  id="freetimeOrigem"
+                  name="freetimeOrigem"
+                  aria-required="true"
+                  aria-describedby="freetimeOrigem"
+                />
+                <Form.Text id="freetimeOrigem"></Form.Text>
+              </div>  
+              <div className="col-md-3">
+                <Form.Label htmlFor="freetimeDestino"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Destino *</span> </Form.Label>
+                <Form.Control
+                  type="text"
+                  id="freetimeDestino"
+                  name="freetimeDestino"
+                  aria-required="true"
+                  aria-describedby="freetimeDestino"
+                />
+                <Form.Text id="freetimeDestino"></Form.Text>
+              </div>  
+              <div className="col-md-3">
+                <Form.Label htmlFor="agenteDeCarga" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Agente de Carga *</Form.Label>
+                <Form.Select id="agenteDeCarga" name="agenteDeCarga" aria-label="Default select">
+                  <option value="nao" selected>Não</option>
+                  <option value="sim">Sim</option>
+                </Form.Select>
+              </div>  
+               
+            </div>
+            <p></p>
+            <div className='row'>
+              <div className="col-md-3">
+                <Form.Label htmlFor="CargaEspecial" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Carga Especial *</Form.Label>
+                <Form.Select id="CargaEspecial" name="CargaEspecial" aria-label="Default select">
+                  <option value="nao_imo" selected>Não IMO</option>
+                  <option value="imo">IMO</option>
+                </Form.Select>
+              </div>
+              <div className="col-md-3">
+                <Form.Label htmlFor="qtdContainers"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Quantidade de Containers *</span> </Form.Label>
+                <Form.Control
+                  type="number"
+                  min={1}
+                  id="qtdContainers"
+                  name="qtdContainers"
+                  aria-required="true"
+                  aria-describedby="qtdContainers"
+                />
+                <Form.Text id="qtdContainers"></Form.Text>
+              </div> 
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-3">
+                    <Form.Label htmlFor="Currency" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Currency *</Form.Label>
+                    <Form.Select id="Currency" name="Currency" aria-label="Default select">
+                      <option value="real" selected>BRL - R$</option>
+                      <option value="dolar">USD - US$</option>
+                      <option value="euro">EUR - € </option>
+                    </Form.Select>
+                  </div>
+                  <div className="col-md-7">
+                    <Form.Label htmlFor="targetOceanFreight"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Target Ocean Freight *</span> </Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="targetOceanFreight"
+                      name="targetOceanFreight"
+                      aria-required="true"
+                      aria-describedby="targetOceanFreight"
+                    />
+                    <Form.Text id="targetOceanFreight"></Form.Text>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            <p></p>
+            <div className='row'>
+              <div className="col-md-5">
+              </div>
+              <div className="col-md-2">
+                <Button type="submit" className="botao">Request Quotation</Button>
+              </div>
+              <div className="col-md-5">
+              </div>
+
             </div>
           </form>
         </div>
       </main>
     </div>
   );
-};
+}
 
 export default CotacoesNAC;

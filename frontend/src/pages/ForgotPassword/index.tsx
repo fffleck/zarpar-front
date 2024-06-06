@@ -26,6 +26,9 @@ const ForgotPassword = () => {
       role="dialog"
       id="modalSignin"
     >
+      <div style={{textAlign: "center"}} role="document">
+        <img src="imagens/logo_escura.png"  alt="" />
+      </div>
       <div className="modal-dialog" role="document">
         <div className="modal-content rounded-4 shadow">
           <div className="modal-header p-5 pb-4 border-bottom-0">

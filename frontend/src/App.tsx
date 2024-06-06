@@ -22,6 +22,7 @@ import Demandas from "./pages/Demandas";
 import Negociacoes from "./pages/Negociacoes";
 import Impulsionar from "./pages/Impulsionar";
 import CotacoesNAC from "./pages/Nac";
+import SucessoQuotation from "./pages/Nac/Sucesso/quotation_nac_success";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -63,6 +64,13 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <SucessoPedido />
+            </Protected>
+          }
+        ></Route>
+        <Route path="/sucesso_quotation"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <SucessoQuotation />
             </Protected>
           }
         ></Route>

@@ -36,9 +36,9 @@ const Dashboard = () => {
                 <div className="card border-light col-xl-4 col-lg-12 col-md-12 card-profile" style={{"padding": 0}}>
                   <div
                     className="card-img-top" 
-                    style={{"backgroundColor": "#9f9f9f"}}
+                    style={{"backgroundColor": "#ADD8E6"}}
                   >
-                    <h5 className="card-title m-3 mb-4" style={{"color": "white"}}>Bem Vindo!</h5>
+                    <h5 className="card-title m-3 mb-4" style={{"color": "black"}}>Bem Vindo!</h5>
                   </div>
                   <img
                     src="https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg"
@@ -56,7 +56,7 @@ const Dashboard = () => {
                   <div className="card-body row m-1">
                     <h4 className="col-8 card-subtitle" style={{"padding": 0}}>{nameUser} </h4>
                     <button className="col-4 btn btn-primary btn-sm">
-                      Conta <i className="fas fa-arrow-right"></i>
+                      <Link to="/conta" style={{color: "white"}}> Conta  </Link>
                     </button>
                   </div>
                 </div>
@@ -113,8 +113,8 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="card border-light col-xl-3 col-lg-12 col-md-8 card-profile" style={{"padding": 0}}>
-                  <div className="card-img-top" style={{"backgroundColor": "#9f9f9f", "padding": 10}} >
-                    <h5 style={{"color": "white", "textAlign": "center"}}> Solicitar Cotação Instantânea </h5></div>
+                  <div className="card-img-top" style={{"backgroundColor": "#ADD8E6", "padding": 10}} >
+                    <h5 style={{"color": "black", "textAlign": "center"}}> Solicitar Cotação Instantânea </h5></div>
                     <div style={{"padding": 40}}>
                     <Link to="/cotacoes"> 
                       <button className="col-lg-12 col-md-8 btn btn-primary btn-big" >

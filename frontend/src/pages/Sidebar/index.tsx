@@ -45,11 +45,11 @@ const Sidebar = (props) => {
           </li>
           <li className={active.cotacoes}>
             <img src="/imagens/menu/cotacao.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/cotacoes">Cotações</Link>
+            <Link to="/cotacoes">Cotação - SPOT</Link>
           </li>
           <li className={active.cotacoes_nac}>
             <img src="/imagens/menu/cotacoes_nac.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/nac">Cotações - NAC</Link>
+            <Link to="/nac">Cotação - NAC</Link>
           </li>
           <li className={active.bookings}>
             <img src="/imagens/menu/booking.svg" style={{ "width": "25px","height": "25px"}} alt=""/>
@@ -65,7 +65,7 @@ const Sidebar = (props) => {
           </li>
           <li className={active.demandas}>
             <img src="/imagens/menu/demandas.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/demandas">Demandas</Link>
+            <Link to="/demandas">Trade</Link>
           </li>
           <li className={active.negociacoes}>
             <img src="/imagens/menu/negociacoes.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>

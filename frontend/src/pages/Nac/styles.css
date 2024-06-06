@@ -52,3 +52,8 @@
 .login-form {
     width: 100%;
 } */
+
+.selecao, .data{
+    background-color: white;
+    width: 100%;
+}

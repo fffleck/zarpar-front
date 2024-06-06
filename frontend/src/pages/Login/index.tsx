@@ -72,6 +72,11 @@ const Login = ({ isLoggedIn }) => {
       <div className="login">
         <div className="login-form">
           <div className="login-form-wrapper">
+            
+            <div style={{textAlign: "left"}}>
+              <img src="imagens/logo_escura.png" width={300} alt="" />
+            </div>
+            <br /><br />
             <div className="login-title">
               <h2>Log In</h2>
               <Link to="/register">Inscreva-se</Link>
@@ -122,7 +127,7 @@ const Login = ({ isLoggedIn }) => {
           </div>
         </div>
         <div className="banner-login">
-          <img src="imagens/proposito_reduzido.png" alt="" />
+          <img src="imagens/logo_home_2.jpeg" alt="" />
         </div>
       </div>
     </div>
