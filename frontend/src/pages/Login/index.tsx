@@ -74,7 +74,7 @@ const Login = ({ isLoggedIn }) => {
           <div className="login-form-wrapper">
             
             <div style={{textAlign: "left"}}>
-              <img src="imagens/logo_escura.png" width={300} alt="" />
+              <img src="imagens/logo_escura.png" width={250} alt="" />
             </div>
             <br /><br />
             <div className="login-title">
