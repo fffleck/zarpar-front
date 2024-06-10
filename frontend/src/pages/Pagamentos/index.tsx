@@ -16,6 +16,9 @@ const Pagamentos = () => {
               <h4 ><strong>Em breve ! ! ! </strong></h4>
             </div>
           </div>
+          <div className="main-content-title">
+            <img src="/imagens/pagamento_2.png" width="100%" height="100%" />
+          </div>
         </div>
       </main>
     </div>
