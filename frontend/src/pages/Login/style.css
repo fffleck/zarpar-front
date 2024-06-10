@@ -9,8 +9,10 @@
   flex: 1;
   background-color: #f0f0f0; /* Cor de fundo de exemplo */
   display: flex;
+  width: 150%;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
 }
 
 /* Imagem de login */

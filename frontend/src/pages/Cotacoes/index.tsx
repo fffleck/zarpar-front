@@ -181,11 +181,11 @@ const Cotacoes = () => {
 
     let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}`;
     api.get(query).then((res) => {
-      
+
       if (res.status >= 404) {
         res.data = [];
       } else {
-        res.data.sort((a,b) => (a.frete < b.frete) ? -1 : 1)
+        res.data.sort((a,b) => (parseFloat(a.base_freight + a.bunker) < parseFloat(b.base_freight + a.bunker)) ? -1 : 1)
         api.post("/user/add_search", { email }).then((resp) => { console.log(resp.data.message) });
       
       }

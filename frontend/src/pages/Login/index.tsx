@@ -72,16 +72,14 @@ const Login = ({ isLoggedIn }) => {
         <img src="imagens/logo_home_2.jpeg" alt="Login" className="login-image" />
       </div>
       <div className="form-container">
-        <div className="login-form">
-          <div className="login-form-wrapper">
-            
+        <div>
+          <div className="login-form-wrapper image-container" >
             <div style={{textAlign: "left"}}>
               <img src="imagens/logo_escura.png" width="250px" height="70px" alt="" />
             </div>
             <br /><br />
             <div className="login-title">
-              <h2>Log In</h2>
-              <Link to="/register">Inscreva-se</Link>
+              <h3>Log In</h3>
             </div>
             <form onSubmit={handleSubmitLogin}>
               <div className="form-group">
@@ -115,7 +113,8 @@ const Login = ({ isLoggedIn }) => {
               {loginVerify(loginError)}
               <Link className="forgot-password-link" to="/forgot-password">
                 Esqueci minha senha
-              </Link>
+              </Link><br /><br />
+              <Link to="/register">Inscreva-se</Link>
               <div className="form-group form-check">
                 <button
                   type="submit"

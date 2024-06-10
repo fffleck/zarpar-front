@@ -598,10 +598,6 @@ return (
               <h2 className="titulo-secao">Taxas de Embarque</h2> 
             </div>
             <table className='table'>
-              <tr>
-                <td><p className="item-ajuste__titulo">Fee Zarpar</p></td>
-                <td style={{"textAlign": "right"}}><strong> $ 100 </strong></td>
-              </tr>
                 {taxs.map(tax => {
                   precoTotalTaxas =+ precoTotalTaxas + (tax.taxValue * qtdContainers) 
                   return (                 
@@ -635,7 +631,7 @@ return (
           </div>
 
           <div style={{"textAlign": "center"}}>
-            <p className="preco">{`${USDollar.format(precoTotal + precoTotalTaxas + 100 )}`}</p>
+            <p className="preco">{`${USDollar.format(precoTotal)}`}</p>
           </div>
           <div style={{"textAlign": "center"}}>
             <Button type="submit" className="botao">Reservar</Button>
