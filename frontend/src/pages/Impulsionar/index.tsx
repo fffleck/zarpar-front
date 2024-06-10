@@ -14,8 +14,8 @@ const Impulsionar = () => {
             <div style={{textAlign: "center"}}>
               <h4 ><strong>Em breve ! ! ! </strong></h4>
             </div>
-            <div className="main-content-title">
-            <img src="/imagens/marketing_2.png" width="100%" height="100%" />
+            <div className="main-content-title"  style={{textAlign: "center"}}>
+              <img src="/imagens/marketing_2.png" width="1000px" height="700px" />
           </div>
           </div>
         </div>

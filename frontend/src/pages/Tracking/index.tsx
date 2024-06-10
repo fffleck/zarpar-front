@@ -15,8 +15,8 @@ const Tracing = () => {
               <h4 ><strong>Em breve ! ! ! </strong></h4>
             </div>
           </div>
-          <div className="main-content-title">
-            <img src="/imagens/tracking_2.png" width="100%" height="100%" />
+          <div className="main-content-title"  style={{textAlign: "center"}}>
+            <img src="/imagens/tracking_2.png" width="900px" height="600px" />
           </div>
         </div>
       </main>
