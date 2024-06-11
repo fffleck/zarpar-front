@@ -21,7 +21,7 @@ type informacoesEnviarEmail = {
     embarcador_endereco: string;
     embarcador_cnpj: string;
     embarcador_telefone: string;
-    valor: string;
+    valor: number;
     taxas: any
 }
 
@@ -94,7 +94,7 @@ useEffect(() => {
 });
 
 
-var precoTotal = dadosPedido.valor;
+var precoTotal = dadosPedido.valor; 
 var precoPorBase = dadosPedido.frete_base;
 var precoPorBuner = dadosPedido.frete_bunker;
 var precoPorIsps = dadosPedido.frete_isps;
@@ -115,7 +115,7 @@ const informacoesEnviarEmail:informacoesEnviarEmail = {
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
-  valor: precoTotal,
+  valor: (precoPorBase + precoPorBuner + precoPorIsps),
   taxas: taxs,
   
 }
@@ -631,7 +631,7 @@ return (
           </div>
 
           <div style={{"textAlign": "center"}}>
-            <p className="preco">{`${USDollar.format(precoTotal)}`}</p>
+            <p className="preco">{`${USDollar.format(dadosPedido.frete_base + dadosPedido.frete_bunker + dadosPedido.frete_isps )}`}</p>
           </div>
           <div style={{"textAlign": "center"}}>
             <Button type="submit" className="botao">Reservar</Button>
