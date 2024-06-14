@@ -3,6 +3,8 @@ import "./styles.css";
 import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import api from "../../services/api";
+import InputMask from 'react-input-mask';  // Importa o InputMask
+
 
 const Conta = () => {
   const [nomeEmbarcador, setNomeEmbarcador] = useState("");
@@ -93,14 +95,17 @@ const Conta = () => {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="inputtext" className="form-label">
-                      CNPJ
+                      Telefone
                     </label>
-                    <input
-                      type="text"
+                    <InputMask
+                      mask="(99) 99999 9999"
                       className="form-control"
-                      value={cnpjEmbarcador}
-                      onChange={(e) => setCnpjEmbarcador(e.target.value)}
-                      id="inputtext"
+                      id="telefone"
+                      name="telefone"
+                      value={telefoneEmbarcador}
+                      onChange={(e) => setTelefoneEmbarcador(e.target.value)}
+                      placeholder="(99) 99999 9999"
+                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -114,17 +119,6 @@ const Conta = () => {
                       value={email}
                       readOnly
                       placeholder="E-mail"
-                      required
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <label htmlFor="inputPassword4" className="form-label">
-                      Senha
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="inputPassword4"
                       required
                     />
                   </div>

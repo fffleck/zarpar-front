@@ -29,6 +29,10 @@ const CotacoesNAC = () => {
   const [tiposMercadoria, setTiposMercadoria] = useState<ItemSelect[]>([]);
   const [nomeEmbarcador, setNomeEmbarcador] = useState('');
   const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
+  const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
+  const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
+  const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState("");
+  const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState("");
   const [tiposContainer, setTiposContainer] = useState<ItemSelect[]>([]);
   const [portosEmbarque, setPortosEmbarque] = useState<PortoSelect[]>([]);
   const [portosDescarga, setPortosDescarga] = useState<PortoSelect[]>([]);
@@ -184,26 +188,46 @@ const CotacoesNAC = () => {
                 <Form.Text id="consignee"></Form.Text>
               </div> 
               <div className="col-md-3">
-                <Form.Label htmlFor="selectPortoEmbarque" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Porto Embarque *</Form.Label>
-                <Form.Select id="selectPortoEmbarque" name="selectPortoEmbarque" aria-label="Default select">
-                <option>Selecione...</option>
-                  {listaPortosEmbarque.map(porto => {
-                    return (
-                      <option value={porto.id}>{porto.label}</option>
-                    )
-                  })}
-                </Form.Select>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Porto Embarque</span>
+              <Autocomplete
+                value={valuePortoEmbarque}
+                onChange={(event, newValue) => {
+                  setValuePortoEmbarque(newValue);
+                }}
+                inputValue={inputValuePortoEmbarque}
+                onInputChange={(event, newInputValue) => {
+                  setInputValuePortoEmbarque(newInputValue);
+                }}
+                className="selecao"
+                disablePortal
+                id="combo-box-demo"
+                options={listaPortosEmbarque}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Porto de embarque" name="selectPortoEmbarque" required />
+                )}
+              />
               </div>
               <div className="col-md-3">
-                <Form.Label htmlFor="selectPortoDescarga" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Porto Descarga *</Form.Label>
-                <Form.Select id="selectPortoDescarga" name="selectPortoDescarga" aria-label="Default select">
-                <option>Selecione...</option>
-                  {listaPortosDescarga.map(porto => {
-                    return (
-                      <option value={porto.id}>{porto.label}</option>
-                    )
-                  })}
-                </Form.Select>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Porto Descarga</span>
+              <Autocomplete
+                value={valuePortoDescarga}
+                onChange={(event, newValue) => {
+                  setValuePortoDescarga(newValue);
+                }}
+                inputValue={inputValuePortoDescarga}
+                onInputChange={(event, newInputValue) => {
+                  setInputValuePortoDescarga(newInputValue);
+                }}
+                className="selecao"
+                disablePortal
+                id="combo-box-demo"
+                options={listaPortosDescarga}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField {...params} label="Porto de descarga" name="selectPortoDescarga" required />
+                )}
+              />
               </div>
             </div>
             <p></p>

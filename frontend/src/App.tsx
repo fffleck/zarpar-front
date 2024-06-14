@@ -23,6 +23,7 @@ import Negociacoes from "./pages/Negociacoes";
 import Impulsionar from "./pages/Impulsionar";
 import CotacoesNAC from "./pages/Nac";
 import SucessoQuotation from "./pages/Nac/Sucesso/quotation_nac_success";
+import ConsolidateBooking from "./pages/Consolida";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -92,6 +93,13 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <EditBooking />
+            </Protected>
+          }
+        />
+        <Route path="/consolida/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <ConsolidateBooking />
             </Protected>
           }
         />
