@@ -91,7 +91,7 @@ useEffect(() => {
   .catch(err =>{
     console.error(err);
   })
-});
+}, []);
 
 
 var precoTotal = dadosPedido.valor; 
@@ -582,15 +582,15 @@ return (
               </tr>
               <tr>
                 <td><p className="item-ajuste__titulo">Base Freight </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorBase}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format( precoPorBase)}</strong></td>
               </tr>
               <tr>
                 <td><p className="item-ajuste__titulo">Fee / Bunker </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorBuner}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorBuner)}</strong></td>
               </tr>
               <tr>
                 <td> <p className="item-ajuste__titulo">Fee / ISPS </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorIsps}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorIsps)}</strong></td>
               </tr>
             </table>
             <hr></hr>
@@ -603,7 +603,7 @@ return (
                   return (                 
                         <tr key={tax.taxname}>
                             <td><p className="item-ajuste__titulo">{tax.taxname}</p></td>
-                            <td style={{"textAlign": "right"}}><strong>$ {(tax.taxValue * qtdContainers)}</strong> </td>
+                            <td style={{"textAlign": "right"}}><strong> {(tax.taxValue * qtdContainers)}</strong> {tax.currency}</td>
                         </tr>
                     )})}
             </table>
@@ -632,6 +632,7 @@ return (
 
           <div style={{"textAlign": "center"}}>
             <p className="preco">{`${USDollar.format(dadosPedido.frete_base + dadosPedido.frete_bunker + dadosPedido.frete_isps )}`}</p>
+            <span className='item-ajuste__titulo' style={{"textAlign": "center"}}> (+ taxas)</span>
           </div>
           <div style={{"textAlign": "center"}}>
             <Button type="submit" className="botao">Reservar</Button>
