@@ -612,17 +612,24 @@ return (
               <h2 className="titulo-secao">Dados da reserva</h2> 
             </div>
             <div style={{"textAlign": "left"}}>
-                Porto de Embarque
-                <input type="text" value={dadosPedido.porto_embarque} disabled/>
-            </div>
-            <div style={{"textAlign": "left"}}>Porto de Descarga
-                <input type="text" value={dadosPedido.porto_descarga} disabled className="espacamento"/>
-            </div>
-            <div style={{"textAlign": "left"}}>Armador
-                <input type="text" value={dadosPedido.armador} disabled className="espacamento"/>
-            </div>
-            <div style={{"textAlign": "left"}}>Data de Embarque
-                <input type="text" value={dadosPedido.data_embarque} disabled className="espacamento"/>
+              <table>
+                <tr>
+                <td style={{textAlign: "left"}}>Porto Embarque</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.porto_embarque} disabled style={{textAlign: "right"}}/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Porto Descarga</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.porto_descarga} disabled style={{textAlign: "right", width: "200px"}} className="espacamento"/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Armador</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.armador} disabled style={{textAlign: "right"}} className="espacamento"/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Data de Embarque</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.data_embarque} disabled style={{textAlign: "right"}} className="espacamento"/></td>
+                </tr>
+              </table>
             </div>
       </section>
       <section className="pedido-reserva">
