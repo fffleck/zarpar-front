@@ -33,7 +33,7 @@ const [enderecoEmbarcador, setEnderecoEmbarcador] = useState('');
 const [cnpjEmbarcador, setCnpjEmbarcador] = useState('');
 const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
 const [mercadoria] = useState('');
-const [tipoMercadoria] = useState('');
+const [tipoMercadoria, setTipoMercadoria] = useState('');
 const [cordaFonte, setcordaFonte] = useState('');
 const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
@@ -149,8 +149,10 @@ const sendEmailClient = async (event) => {
   })
 }
 
-const saveBooking = async (event) => {
+const saveBooking = async (event, dataToSend) => {
   event.preventDefault();
+  informacoesEnviarEmail.tipo_mercadoria = dataToSend.selectMercadoria.split('-')[0]
+  informacoesEnviarEmail.mercadoria = dataToSend.selectMercadoria.split('-')[1]
   await api.post('/booking/save_booking', informacoesEnviarEmail)
   .then((res) => {
     console.log("Booking salvo");
@@ -178,12 +180,13 @@ const sendBookingReserva = async (event) => {
     settipodaFonte("bold")
     alert('Preencha todos os campos obrigatórios')
   } else {
+    setTipoMercadoria(dataToSend.selectMercadoria)
     try {
       await api.post('/booking/reservas', dataToSend);
       await api.post('booking/send_email', dataToSend);
       sendEmailAnalisys(event);
       sendEmailClient(event);
-      saveBooking(event);
+      saveBooking(event, dataToSend);
       routeChange();
     } catch (error) {
         console.error("Ocorreu um problema ao reservar o booking:", error);

@@ -27,7 +27,7 @@ const Sidebar = (props) => {
   return (
     <div className={`sidebar ${menuOpen ? "open" : ""}`}>
       <div className="sidebar-title">
-        <img src={logo} alt="Logo Karavel" />
+        <img src={logo} alt="Logo Zarpar" />
       </div>
       <div className="menu">
         {/* Botão para abrir/fechar o menu */}

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./styles.css";
 import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
@@ -9,21 +9,27 @@ import api from '../../services/api';
 
 
 const Dashboard = () => {
-  const nameUser = sessionStorage.getItem("name");
   const email = sessionStorage.getItem("user_email");
   const[qtSearch, setqtSearch] = useState(0);
   const[qtBooking, setqtBooking] = useState(0);
+  const [nameUser, setNameUser] = useState('Visitante')
+  
+  console.log('sessionStorage', sessionStorage)
 
-  api.post('/user/find_user', {email})
-    .then(resp=>{
-      setqtSearch(resp.data.user.search ?? 0);
-  });
+  useEffect(() => {
+    api.post('/user/find_user', {email})
+      .then(resp => {
+        setNameUser(resp.data.user.name)
+        setqtSearch(resp.data.user.search ?? 0);
+    });
 
-  api.post('/booking/list_booking', {email})
-  .then(resp => {
-    const totalBooking = resp.data.list.length;
-    setqtBooking(totalBooking);
-  })
+    api.post('/booking/list_booking', {email})
+    .then(resp => {
+      const totalBooking = resp.data.list.length;
+      setqtBooking(totalBooking);
+    })
+  }, []);
+
 
   return (
     <div className="flex-dashboard">
