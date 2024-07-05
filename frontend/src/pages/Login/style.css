@@ -1,0 +1,88 @@
+/* Estilização da página de login */
+.login-page {
+  display: flex;
+  height: 100vh;
+}
+
+/* Container da imagem */
+.image-container {
+  flex: 1;
+  background-color: #f0f0f0; /* Cor de fundo de exemplo */
+  display: flex;
+  width: 150%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Imagem de login */
+.login-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+/* Container do formulário */
+.form-container {
+  flex: 1;
+  display: flex;
+  height: 100vh;
+  background-color: #012849;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Formulário de login */
+.login-form {
+  width: 80%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 0px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 50vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título do formulário */
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+/* Grupo de formulário */
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Campo de entrada */
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Botão de login */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}

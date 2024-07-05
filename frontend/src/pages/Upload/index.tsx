@@ -39,12 +39,17 @@ function refreshPage() {
 
 function FileUpload() {
   const [file, setFile] = useState(null);
+  const [filetax, setFileTax] = useState(null);
   const [btnSearchDisabled, setBtnSearchDisabled] = useState<boolean>(false);
   const [responseUpload, setResponseUpload] = useState<ResponseUpload>({});
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+  };
+
+  const handleFileChangeTax = (event) => {
+    setFileTax(event.target.files[0]);
   };
 
   const handleSubmit = async () => {
@@ -56,6 +61,27 @@ function FileUpload() {
     reader.onloadend = async () => {
       try {
         await api.post('/upload/files', {
+          data: reader.result
+        }).then((res) => {
+          setResponseUpload(res.data);    
+          return <TabelaResultados response={responseUpload} />;
+        });
+        ;
+      } catch (error) {
+        console.error('Erro ao enviar arquivo:', error);
+      }
+    };
+  };
+
+  const handleSubmitTaxes = async () => {
+    const reader = new FileReader();
+    reader.readAsDataURL(filetax);
+    setBtnSearchDisabled(true);
+    setSearchClicked(true);
+
+    reader.onloadend = async () => {
+      try {
+        await api.post('/upload/taxes', {
           data: reader.result
         }).then((res) => {
           setResponseUpload(res.data);    
@@ -80,7 +106,7 @@ function FileUpload() {
           </div>
           <div className="col-md-9">
               <div className=" row col-12">
-                <div className="Upload-img"></div><br/>
+                <div className="Upload-img"><h3>Importação de Valor de Frete</h3></div><br/><br/>
               </div>
               <p> Selecione o arquivo Excel (.xlsx) que deseja importar e clique em enviar</p>
               <div className="col-12">
@@ -95,9 +121,28 @@ function FileUpload() {
               </div>
               </div>
           </div>
+          <br /><hr></hr>
           <br />
+          <div className="col-md-9">
+              <div className=" row col-12">
+                <div className="Upload-img"><h3>Importação de Valor de Taxas</h3></div><br/><br/>
+              </div>
+              <p> Selecione o arquivo Excel (.xlsx) que deseja importar e clique em enviar</p>
+              <div className="col-12">
+              <div className="Upload-form">
+                  <label htmlFor="file2" className="form-label">
+                      Arquivo: 
+                    </label>
+                  <input className="form-control" type="file" onChange={handleFileChangeTax} />
+                  <p></p>
+                  <button  disabled={btnSearchDisabled} className="btn btn-primary" onClick={handleSubmitTaxes}>Enviar</button>&nbsp;
+                  <button  className="btn btn-primary" onClick={refreshPage}>Limpar</button>
+              </div>
+              </div>
+          </div>
           { returnTableorNot(responseUpload, searchClicked) }
           </div>
+          
       </main>
     </div>
   );

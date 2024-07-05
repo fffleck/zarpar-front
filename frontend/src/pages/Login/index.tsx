@@ -1,7 +1,8 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import "./styles.css";
 import { Link, Navigate } from "react-router-dom";
+import "./style.css";
 import api from "../../services/api";
+
 
 const Login = ({ isLoggedIn }) => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,6 @@ const Login = ({ isLoggedIn }) => {
   async function handleSubmitLogin(event: FormEvent) {
     event.preventDefault();
 
-    console.log("AUTENTICAÇÃO");
 
     const dataToSend = {
       userData: { email: email, password: password },
@@ -66,15 +66,20 @@ const Login = ({ isLoggedIn }) => {
       </div>
     ) : null;
   }
-
   return (
-    <div id="login-page">
-      <div className="login">
-        <div className="login-form">
-          <div className="login-form-wrapper">
+    <div className="login-page">
+      <div className="image-container">
+        <img src="imagens/logo_home_2.jpeg" alt="Login" className="login-image" />
+      </div>
+      <div className="form-container">
+        <div>
+          <div className="login-form-wrapper image-container" >
+            <div style={{textAlign: "left"}}>
+              <img src="imagens/logo_escura.png" width="250px" height="70px" alt="" />
+            </div>
+            <br /><br />
             <div className="login-title">
-              <h2>Log In</h2>
-              <Link to="/register">Inscreva-se</Link>
+              <h3>Log In</h3>
             </div>
             <form onSubmit={handleSubmitLogin}>
               <div className="form-group">
@@ -108,7 +113,8 @@ const Login = ({ isLoggedIn }) => {
               {loginVerify(loginError)}
               <Link className="forgot-password-link" to="/forgot-password">
                 Esqueci minha senha
-              </Link>
+              </Link><br /><br />
+              <Link to="/register">Inscreva-se</Link>
               <div className="form-group form-check">
                 <button
                   type="submit"
@@ -120,9 +126,6 @@ const Login = ({ isLoggedIn }) => {
               </div>
             </form>
           </div>
-        </div>
-        <div className="banner-login">
-          <img src="imagens/proposito_reduzido.png" alt="" />
         </div>
       </div>
     </div>

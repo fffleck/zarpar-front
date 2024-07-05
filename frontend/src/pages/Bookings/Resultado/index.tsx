@@ -28,7 +28,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
     if (status === "Canceled") { classReturn = "btn btn-danger botao" }
     if (status === "Confirmed") { classReturn = "btn btn-success botao" }
     if (status === "Deleted") { classReturn = "btn btn-danger botao" }
-    if (status === "Shipped") { classReturn = "btn btn-primary botao" }
+    if (status === "Loaded") { classReturn = "btn btn-primary botao" }
     if (status === "Saved") { classReturn = "btn btn-info botao" }
 
     return classReturn;

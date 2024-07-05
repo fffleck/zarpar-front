@@ -247,7 +247,7 @@ const EditBooking = () => {
                 <div className="col-md-4">
                     <Form.Label htmlFor="Status"> Status</Form.Label>
                     <Form.Select id="Status" name="Status" aria-label="Default select">
-                    {["Pending", "Confirmed", "Canceled", "Saved", "Shipped"].map((option) => (
+                    {["Pending", "Confirmed", "Canceled", "Saved", "Loaded"].map((option) => (
                         <option key={option} value={option} selected={response.status === option}>{option}</option>
                     ))}
                     </Form.Select>

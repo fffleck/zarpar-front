@@ -21,7 +21,7 @@ type informacoesEnviarEmail = {
     embarcador_endereco: string;
     embarcador_cnpj: string;
     embarcador_telefone: string;
-    valor: string;
+    valor: number;
     taxas: any
 }
 
@@ -33,7 +33,7 @@ const [enderecoEmbarcador, setEnderecoEmbarcador] = useState('');
 const [cnpjEmbarcador, setCnpjEmbarcador] = useState('');
 const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
 const [mercadoria] = useState('');
-const [tipoMercadoria] = useState('');
+const [tipoMercadoria, setTipoMercadoria] = useState('');
 const [cordaFonte, setcordaFonte] = useState('');
 const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
@@ -94,7 +94,7 @@ useEffect(() => {
 }, []);
 
 
-var precoTotal = dadosPedido.valor;
+var precoTotal = dadosPedido.valor; 
 var precoPorBase = dadosPedido.frete_base;
 var precoPorBuner = dadosPedido.frete_bunker;
 var precoPorIsps = dadosPedido.frete_isps;
@@ -115,7 +115,7 @@ const informacoesEnviarEmail:informacoesEnviarEmail = {
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
   embarcador_endereco: enderecoEmbarcador,
-  valor: precoTotal,
+  valor: (precoPorBase + precoPorBuner + precoPorIsps),
   taxas: taxs,
   
 }
@@ -149,8 +149,10 @@ const sendEmailClient = async (event) => {
   })
 }
 
-const saveBooking = async (event) => {
+const saveBooking = async (event, dataToSend) => {
   event.preventDefault();
+  informacoesEnviarEmail.tipo_mercadoria = dataToSend.selectMercadoria.split('-')[0]
+  informacoesEnviarEmail.mercadoria = dataToSend.selectMercadoria.split('-')[1]
   await api.post('/booking/save_booking', informacoesEnviarEmail)
   .then((res) => {
     console.log("Booking salvo");
@@ -178,12 +180,13 @@ const sendBookingReserva = async (event) => {
     settipodaFonte("bold")
     alert('Preencha todos os campos obrigatórios')
   } else {
+    setTipoMercadoria(dataToSend.selectMercadoria)
     try {
       await api.post('/booking/reservas', dataToSend);
       await api.post('booking/send_email', dataToSend);
       sendEmailAnalisys(event);
       sendEmailClient(event);
-      saveBooking(event);
+      saveBooking(event, dataToSend);
       routeChange();
     } catch (error) {
         console.error("Ocorreu um problema ao reservar o booking:", error);
@@ -582,15 +585,15 @@ return (
               </tr>
               <tr>
                 <td><p className="item-ajuste__titulo">Base Freight </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorBase}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format( precoPorBase)}</strong></td>
               </tr>
               <tr>
                 <td><p className="item-ajuste__titulo">Fee / Bunker </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorBuner}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorBuner)}</strong></td>
               </tr>
               <tr>
                 <td> <p className="item-ajuste__titulo">Fee / ISPS </p></td>
-                <td style={{"textAlign": "right"}}><strong> $ {precoPorIsps}</strong></td>
+                <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorIsps)}</strong></td>
               </tr>
             </table>
             <hr></hr>
@@ -598,16 +601,12 @@ return (
               <h2 className="titulo-secao">Taxas de Embarque</h2> 
             </div>
             <table className='table'>
-              <tr>
-                <td><p className="item-ajuste__titulo">Fee Zarpar</p></td>
-                <td style={{"textAlign": "right"}}><strong> $ 100 </strong></td>
-              </tr>
                 {taxs.map(tax => {
                   precoTotalTaxas =+ precoTotalTaxas + (tax.taxValue * qtdContainers) 
                   return (                 
                         <tr key={tax.taxname}>
                             <td><p className="item-ajuste__titulo">{tax.taxname}</p></td>
-                            <td style={{"textAlign": "right"}}><strong>$ {(tax.taxValue * qtdContainers)}</strong> </td>
+                            <td style={{"textAlign": "right"}}><strong> {(tax.taxValue * qtdContainers)}</strong> {tax.currency}</td>
                         </tr>
                     )})}
             </table>
@@ -616,17 +615,24 @@ return (
               <h2 className="titulo-secao">Dados da reserva</h2> 
             </div>
             <div style={{"textAlign": "left"}}>
-                Porto de Embarque
-                <input type="text" value={dadosPedido.porto_embarque} disabled/>
-            </div>
-            <div style={{"textAlign": "left"}}>Porto de Descarga
-                <input type="text" value={dadosPedido.porto_descarga} disabled className="espacamento"/>
-            </div>
-            <div style={{"textAlign": "left"}}>Armador
-                <input type="text" value={dadosPedido.armador} disabled className="espacamento"/>
-            </div>
-            <div style={{"textAlign": "left"}}>Data de Embarque
-                <input type="text" value={dadosPedido.data_embarque} disabled className="espacamento"/>
+              <table>
+                <tr>
+                <td style={{textAlign: "left"}}>Porto Embarque</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.porto_embarque} disabled style={{textAlign: "right"}}/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Porto Descarga</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.porto_descarga} disabled style={{textAlign: "right", width: "200px"}} className="espacamento"/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Armador</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.armador} disabled style={{textAlign: "right"}} className="espacamento"/></td>
+                </tr>
+                <tr>
+                <td style={{textAlign: "left"}}>Data de Embarque</td>
+                  <td style={{textAlign: "right"}}><input type="text" value={dadosPedido.data_embarque} disabled style={{textAlign: "right"}} className="espacamento"/></td>
+                </tr>
+              </table>
             </div>
       </section>
       <section className="pedido-reserva">
@@ -635,7 +641,8 @@ return (
           </div>
 
           <div style={{"textAlign": "center"}}>
-            <p className="preco">{`${USDollar.format(precoTotal + precoTotalTaxas + 100 )}`}</p>
+            <p className="preco">{`${USDollar.format(dadosPedido.frete_base + dadosPedido.frete_bunker + dadosPedido.frete_isps )}`}</p>
+            <span className='item-ajuste__titulo' style={{"textAlign": "center"}}> (+ taxas)</span>
           </div>
           <div style={{"textAlign": "center"}}>
             <Button type="submit" className="botao">Reservar</Button>
