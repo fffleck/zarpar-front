@@ -5,10 +5,15 @@ import ImgFone from "../../assets/imagens/whatss.png"
 
 const HeaderPage = (props) => {
 
+  function refreshPage() { 
+    window.location.href = '/';
+  };
+
   function logout(){
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("user_email");
-    window.location.reload(); //recarrega a página assim que o token é retirado da sessão
+    refreshPage()
+    // window.location.reload(); //recarrega a página assim que o token é retirado da sessão
   }
 
   const nomeAba = props.nomeOpcao;
