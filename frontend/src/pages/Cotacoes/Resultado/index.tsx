@@ -1,7 +1,6 @@
 import React from "react";
 import ButtonBooking from "../../ButtonBooking";
 import LabelModal from "../Modal";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 type ResultadoProps = {
@@ -28,26 +27,7 @@ const Resultado = (props: ResultadoProps) => {
     navigate(path);
   }
 
-  if (props.porto_embarque === "TBI") {
-    return (
-      <tr key={props.shipment_id}>
-        <td className="tdImg">
-          <img height={50} src={props.imagem_link} alt="Logo" />
-        </td>
-        <td>{props.armador}</td>
-        <td>{props.data_embarque}</td>
-        <td>{props.porto_embarque}</td>
-        <td>{props.porto_descarga}</td>
-        <td colSpan={4}>
-          <Button as="input" type="button" value="Cotação NAC" onClick={routeChange} />
-        </td>
-        {/* <td colSpan={4}>{"Em breve você recebrá sua cotação por e-mail."}</td> */}
-        {/* <td>
-          <ButtonBooking {...props}/>
-        </td> */}
-      </tr>
-    );
-  } else if (props.imagem_link === " - "){
+  if (props.imagem_link === " - "){
     return (
       <tr key={props.shipment_id}>
         <td className="tdImg"> <img height={50} src={"/imagens/armador_"+props.id_armador+".png"} alt="Logo" /></td>
