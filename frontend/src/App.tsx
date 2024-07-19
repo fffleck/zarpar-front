@@ -52,22 +52,23 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<Login isLoggedIn={tokenIsValid} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/booking"
-          element={
+        <Route path="/" element={<Login isLoggedIn={tokenIsValid} />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/booking" element={
             <Protected isLoggedIn={tokenIsValid}>
               <Booking />
             </Protected>
           }
-        />
-        <Route path="/pedido_resultado"
-          element={
+        ></Route>
+        
+        <Route path="/pedido_resultado" element={
             <Protected isLoggedIn={tokenIsValid}>
               <SucessoPedido />
             </Protected>
           }
-        ></Route>
+        >
+        </Route>
+
         <Route path="/sucesso_quotation"
           element={
             <Protected isLoggedIn={tokenIsValid}>
@@ -75,120 +76,127 @@ function App() {
             </Protected>
           }
         ></Route>
+
         <Route path="/conta"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Conta />
             </Protected>
-          }
-        />
-         <Route path="/upload"
+          }>
+        </Route>
+
+        <Route path="/upload"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Upload />
             </Protected>
-          }
-        />      
+          }>
+        </Route>
+               
         <Route path="/edit/:id"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <EditBooking />
             </Protected>
           }
-        />
+        ></Route>
         <Route path="/consolida/:id"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <ConsolidateBooking />
             </Protected>
           }
-        />
+        ></Route>
+
         <Route path="/cotacoes"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Cotacoes />
             </Protected>
           }
-        />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        >
+        </Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/reset-password/:token" element={<ResetPassword />}></Route>
         <Route path="/dashboard"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Dashboard />
             </Protected>
           }
-        />
+        >
+        </Route>
         <Route path="/bookings"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Bookings />
             </Protected>
           } 
-        />
-             
-        <Route
-          path="/pagamentos"
+        >
+        </Route>
+
+        <Route path="/pagamentos"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Pagamentos />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/admin"
+        <Route path="/admin"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Admin />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/tracking"
+        <Route path="/tracking"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Tracking />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/demandas"
+        <Route path="/demandas"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Demandas />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/negociacoes"
+        <Route path="/negociacoes"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Negociacoes />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/impulsionar"
+        <Route path="/impulsionar"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Impulsionar />
             </Protected>
           }
-        />
+        >
+        </Route>
 
-        <Route
-          path="/nac"
+        <Route path="/nac"
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <CotacoesNAC />
             </Protected>
           }
-        />
+        >
+        </Route>
       </Routes>
     </BrowserRouter>
   );
