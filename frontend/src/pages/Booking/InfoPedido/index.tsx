@@ -602,11 +602,12 @@ return (
             </div>
             <table className='table'>
                 {taxs.map(tax => {
-                  precoTotalTaxas =+ precoTotalTaxas + (tax.taxValue * qtdContainers) 
+                  const valor_taxa = (tax.applicability == "C") ? (tax.taxValue * qtdContainers) : tax.taxValue  
+                  precoTotalTaxas =+ precoTotalTaxas +  valor_taxa
                   return (                 
                         <tr key={tax.taxname}>
                             <td><p className="item-ajuste__titulo">{tax.taxname}</p></td>
-                            <td style={{"textAlign": "right"}}><strong> {(tax.taxValue * qtdContainers)}</strong> {tax.currency}</td>
+                            <td style={{"textAlign": "right"}}><strong> { valor_taxa }</strong> {tax.currency}</td>
                         </tr>
                     )})}
             </table>
