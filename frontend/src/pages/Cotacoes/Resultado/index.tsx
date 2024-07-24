@@ -26,7 +26,7 @@ const Resultado = (props: ResultadoProps) => {
     const path = '/nac';
     navigate(path);
   }
-
+ 
   if (props.imagem_link === " - "){
     return (
       <tr key={props.shipment_id}>

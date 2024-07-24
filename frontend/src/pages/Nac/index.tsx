@@ -204,7 +204,7 @@ const CotacoesNAC = () => {
                 options={listaPortosEmbarque}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => (
-                  <TextField {...params} label="Porto de embarque" name="selectPortoEmbarque" required />
+                  <TextField {...params} name="selectPortoEmbarque" required />
                 )}
               />
               </div>
@@ -225,7 +225,7 @@ const CotacoesNAC = () => {
                 options={listaPortosDescarga}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => (
-                  <TextField {...params} label="Porto de descarga" name="selectPortoDescarga" required />
+                  <TextField {...params} name="selectPortoDescarga" required />
                 )}
               />
               </div>
