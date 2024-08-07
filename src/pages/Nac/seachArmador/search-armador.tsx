@@ -30,13 +30,6 @@ function SearchArmador({ value = [], onChange = () => {}, inputValue, onInputCha
     debouncedFetchOptions();
   }, [debouncedFetchOptions]);
 
-  const handleInputChange = (event) => {
-    const newInputValue = event.target.value;
-    if (onInputChange) {
-      onInputChange(event, newInputValue);
-    }
-  };
-
   const handleChange = (event) => {
     const {
       target: { value },

@@ -43,7 +43,6 @@ const EditBooking = () => {
             ...extractFormData()
         };
 
-        console.log('DATA', dataToSend);
 
         if ((dataToSend.Status!=="Pending") && (!dataToSend.inputBLNumber || dataToSend.inputBLNumber === null || !dataToSend.inputBookingId || !dataToSend.inputBookingId===null)) {
           setcordaFonte("red")
@@ -82,7 +81,7 @@ const EditBooking = () => {
             setResponse(response.data.list);
         });
 
-    }, []);
+    });
 
     
 

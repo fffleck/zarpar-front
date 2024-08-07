@@ -27,8 +27,6 @@ const Login = ({ isLoggedIn }) => {
   async function handleSubmitLogin(event: FormEvent) {
     event.preventDefault();
 
-    console.log("AUTENTICAÇÃO");
-
     const dataToSend = {
       userData: { email: email, password: password },
     };

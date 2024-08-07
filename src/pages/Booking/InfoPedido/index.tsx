@@ -91,10 +91,9 @@ useEffect(() => {
   .catch(err =>{
     console.error(err);
   })
-}, []);
+});
 
 
-var precoTotal = dadosPedido.valor; 
 var precoPorBase = dadosPedido.frete_base;
 var precoPorBuner = dadosPedido.frete_bunker;
 var precoPorIsps = dadosPedido.frete_isps;
@@ -602,7 +601,7 @@ return (
             </div>
             <table className='table'>
                 {taxs.map(tax => {
-                  const valor_taxa = (tax.applicability == "C") ? (tax.taxValue * qtdContainers) : tax.taxValue  
+                  const valor_taxa = (tax.applicability === "C") ? (tax.taxValue * qtdContainers) : tax.taxValue  
                   precoTotalTaxas =+ precoTotalTaxas +  valor_taxa
                   return (                 
                         <tr key={tax.taxname}>
@@ -660,7 +659,3 @@ function formataData(date: string) {
 } 
 
 export default InfoPedido;
-
-function async(event: Event) {
-  throw new Error('Function not implemented.');
-}

@@ -13,8 +13,6 @@ const Dashboard = () => {
   const[qtSearch, setqtSearch] = useState(0);
   const[qtBooking, setqtBooking] = useState(0);
   const [nameUser, setNameUser] = useState('Visitante')
-  
-  console.log('sessionStorage', sessionStorage)
 
   useEffect(() => {
     api.post('/user/find_user', {email})
@@ -28,7 +26,7 @@ const Dashboard = () => {
       const totalBooking = resp.data.list.length;
       setqtBooking(totalBooking);
     })
-  }, []);
+  });
 
 
   return (

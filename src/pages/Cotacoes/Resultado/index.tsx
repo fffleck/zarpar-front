@@ -1,7 +1,6 @@
 import React from "react";
 import ButtonBooking from "../../ButtonBooking";
 import LabelModal from "../Modal";
-import { useNavigate } from "react-router-dom";
 
 type ResultadoProps = {
   armador: string;
@@ -20,13 +19,7 @@ type ResultadoProps = {
   shipment_id: string;
 };
 
-const Resultado = (props: ResultadoProps) => {
-  let navigate = useNavigate();
-  const routeChange = () => {
-    const path = '/nac';
-    navigate(path);
-  }
- 
+const Resultado = (props: ResultadoProps) => { 
   if (props.imagem_link === " - "){
     return (
       <tr key={props.shipment_id}>

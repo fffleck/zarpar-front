@@ -25,8 +25,6 @@ interface PortoSelect {
 
 
 const CotacoesNAC = () => {
-  const [mercadorias, setMercadorias] = useState<ItemSelect[]>([]);
-  const [tiposMercadoria, setTiposMercadoria] = useState<ItemSelect[]>([]);
   const [nomeEmbarcador, setNomeEmbarcador] = useState('');
   const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
   const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
@@ -53,6 +51,11 @@ const CotacoesNAC = () => {
     navigate(path);
   }
 
+  const routeFornecedor = () =>{ 
+    const path = "/fornecedores";
+    navigate(path);
+  }
+
   const handleArmadorChange = (event, newValue) => {
     setSelectedArmadores(newValue);
   };
@@ -62,10 +65,6 @@ const CotacoesNAC = () => {
   };
 
   useEffect(() => {
-    api.get("filters/mercadorias").then((response) => {
-      setMercadorias(response.data);
-    });
-
     api.get("filters/portos_embarque").then((response) => {
       setPortosEmbarque(response.data);
     });
@@ -76,10 +75,6 @@ const CotacoesNAC = () => {
 
     api.get("filters/tipos_container").then((response) => {
       setTiposContainer(response.data);
-    });
-
-    api.get("filters/tipos_mercadoria").then((response) => {
-      setTiposMercadoria(response.data);
     });
 
     api
@@ -94,7 +89,6 @@ const CotacoesNAC = () => {
   }, [email]);
 
   function handleInputChange(event) {
-    //const data = dayjs(`${event.$y}-${event.$M+1}-${event.$D}`).format('YYYY-MM-DD'); //Formato da data
     setFormData(dayjs(`${event.$y}-${event.$M + 1}-${event.$D}`));
   }
 
@@ -140,8 +134,12 @@ const CotacoesNAC = () => {
           console.error("Ocorreu um problema ao reservar o booking:", error);
       }
     }
+  }
 
-    console.log("DATA FORM ", dataToSend)
+  const onAddFornecedor = async (event) => {
+    event.preventDefault()
+    routeFornecedor()
+
   }
 
 
@@ -161,7 +159,7 @@ const CotacoesNAC = () => {
         <div className="main-content">
           <div className="main-content-title">
             <h2>Cotações - NAC</h2>
-            <p></p>
+            <button onClick={onAddFornecedor} className="fornecedores">Fornecedores</button>
           </div>{" "}
           <form className="row g-3 formulario" onSubmit={sendRequestNAC}>
             <div className='row'>

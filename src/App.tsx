@@ -24,6 +24,8 @@ import Impulsionar from "./pages/Impulsionar";
 import CotacoesNAC from "./pages/Nac";
 import SucessoQuotation from "./pages/Nac/Sucesso/quotation_nac_success";
 import ConsolidateBooking from "./pages/Consolida";
+import Fornecedores from "./pages/Fornecedores";
+import AddFornecedores from "./pages/Fornecedores/list";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -85,6 +87,22 @@ function App() {
           }>
         </Route>
 
+        <Route path="/fornecedores"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Fornecedores />
+            </Protected>
+          }>
+        </Route>
+
+        <Route path="/addFornecedor"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddFornecedores />
+            </Protected>
+          }>
+        </Route>
+        
         <Route path="/upload"
           element={
             <Protected isLoggedIn={tokenIsValid}>

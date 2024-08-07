@@ -32,7 +32,6 @@ const CommoditiesList = () => {
         var svgclass = /<svg ([\s\S]+?)>/gi;
         var class2 = /class="datatable-v2_cell__([*]+?)"/gi
 
-        console.log("FABIO", JSON.stringify(commoditiesHTMLString));
 
         setCommoditiesHTML(JSON.stringify(commoditiesHTMLString.replaceAll(subclass, ""))
                                                                .replaceAll(linkclass, "")
@@ -53,8 +52,6 @@ const CommoditiesList = () => {
                                                                .replace("<table ","<table className='table table-bordered' widht=\"100%\"'")
                                                                
                                                                .replaceAll("\"",""));
-
-        console.log("FABIO DEPOIS",  JSON.stringify(commoditiesHTMLString));
         setLoading(false);
       } catch (error) {
         console.error('Erro ao buscar dados de commodities:', error);
