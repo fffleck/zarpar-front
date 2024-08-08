@@ -91,7 +91,7 @@ useEffect(() => {
   .catch(err =>{
     console.error(err);
   })
-});
+}, []);
 
 
 var precoPorBase = dadosPedido.frete_base;
