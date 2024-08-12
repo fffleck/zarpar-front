@@ -36,7 +36,7 @@ const ForgotPassword = () => {
             
             <div className="modal-content rounded-4 shadow">
               <div style={{textAlign: "center"}} role="document">
-              <img src="imagens/logo_dtw_novo.png" width="250px" height="70px" alt="" />
+              <img src="imagens/logo_escura.png" width="250px" height="70px" alt="" />
               </div>
               <div className="modal-header p-5 pb-4 border-bottom-0">
                 <h4 className="card-title mb-4">Recuperação de senha</h4>

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
-// import logo from "../../assets/imagens/logo+white.png";
-import logo from "../../assets/imagens/logo_dtw_novo.png";
+import logo from "../../assets/imagens/logo+white.png";
 
 const Sidebar = (props) => {
   const [menuOpen] = useState(false); // Estado para controlar se o menu está aberto ou fechado

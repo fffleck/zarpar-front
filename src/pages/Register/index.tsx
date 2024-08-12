@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./styles.css";
-// import logo from "../../assets/imagens/logo_escura.png";
-import logo from "../../assets/imagens/logo_dtw_novo.png";
+import logo from "../../assets/imagens/logo_escura.png";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
 import InputMask from 'react-input-mask';  // Importa o InputMask
