@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 
 
 type ResultadoProps = {
@@ -12,6 +13,23 @@ type ResultadoProps = {
 };
 
 const ResultadoFornecedor = (props: ResultadoProps) => {
+  const navigate = useNavigate();
+
+  const sendBookingReserva = async (event) => {
+    event.preventDefault();
+      try {
+        await api.post('/fornecedor/del', props);
+        alert("Fornecedor apagado com sucesso !");
+        routeChange();
+      } catch (error) {
+        alert("Ocorreu um problema ao apagar o fornecedor:");
+      }
+  }
+
+  const routeChange = () => { 
+    navigate("/nac");
+  };
+
   if (props.email==="ffleck@gmail.com" || props.email==="alvaro@karavel.com.br") {
       return (
         <tr key={props.id}>
@@ -21,6 +39,7 @@ const ResultadoFornecedor = (props: ResultadoProps) => {
           <td>{props.email}</td>
           <td>{props.phone}</td>
           <td>{props.tradelane}</td>
+          <td><form onSubmit={sendBookingReserva}><button type="submit" className="btn btn-danger"> Apagar </button></form></td>
         </tr>
       );
   } else {
@@ -31,6 +50,7 @@ const ResultadoFornecedor = (props: ResultadoProps) => {
           <td>{props.email}</td>
           <td>{props.phone}</td>
           <td>{props.tradelane}</td>
+          <td><form onSubmit={sendBookingReserva}><button type="submit" className="btn btn-danger"> Apagar </button></form></td>
         </tr>
     );
   }
