@@ -591,7 +591,7 @@ return (
                 <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorBuner)}</strong></td>
               </tr>
               <tr>
-                <td> <p className="item-ajuste__titulo">Fee / ISPS </p></td>
+                <td> <p className="item-ajuste__titulo">Fee / CSF </p></td>
                 <td style={{"textAlign": "right"}}><strong> {USDollar.format(precoPorIsps)}</strong></td>
               </tr>
             </table>

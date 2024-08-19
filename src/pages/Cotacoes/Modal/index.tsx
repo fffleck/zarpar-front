@@ -87,7 +87,7 @@ const LabelModal = (props: ResultadoProps) => {
                            <td style={{"color": "black", "textAlign": "right"}}>{props.bunker}</td>
                        </tr>
                        <tr>
-                           <td style={{"color": "black", "textAlign": "left"}}>Isps : </td>
+                           <td style={{"color": "black", "textAlign": "left"}}>CSF : </td>
                            <td style={{"color": "black", "textAlign": "right"}}>{props.isps}</td>
                        </tr>
                    </table>
