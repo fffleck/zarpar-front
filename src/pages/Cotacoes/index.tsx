@@ -88,12 +88,12 @@ const Cotacoes = () => {
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
   const [btnSearchDisabled, setBtnSearchDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<Dayjs | null>(null);
-  const [valueMercadoria, setValueMercadoria] = useState(null);
-  const [valuePortoEmbarque, setValuePortoEmbarque] = useState(null);
-  const [valuePortoDescarga, setValuePortoDescarga] = useState(null);
-  const [valueTipoMercadoria, setValueTipoMercadoria] = useState(null);
-  const [valueTipoContainer, setValueTipoContainer] = useState(null);
+  const [formData, setFormData] = useState<Dayjs | null>();
+  const [valueMercadoria, setValueMercadoria] = useState();
+  const [valuePortoEmbarque, setValuePortoEmbarque] = useState();
+  const [valuePortoDescarga, setValuePortoDescarga] = useState();
+  const [valueTipoMercadoria, setValueTipoMercadoria] = useState();
+  const [valueTipoContainer, setValueTipoContainer] = useState();
   const [inputValueMercadoria, setInputValueMercadoria] = useState("");
   const [inputValuePortoEmbarque, setInputValuePortoEmbarque] = useState("");
   const [inputValuePortoDescarga, setInputValuePortoDescarga] = useState("");
@@ -107,6 +107,19 @@ const Cotacoes = () => {
   const [empresaEmbarcador, setEmpresaEmbarcador] = useState("");
 
   useEffect(() => {
+
+    if (
+      sessionStorage.getItem("table")
+    ) {
+      setResponse(JSON.parse(sessionStorage.getItem("table")));
+      setBtnSearchDisabled(false);
+      setBtnLoading(false);
+      returnTableorNot(response, true)
+    }
+
+
+
+
     api.get("filters/mercadorias").then((response) => {
       setMercadorias(response.data);
     });
@@ -142,7 +155,6 @@ const Cotacoes = () => {
   }, [email]);
 
   function handleInputChange(event) {
-    //const data = dayjs(`${event.$y}-${event.$M+1}-${event.$D}`).format('YYYY-MM-DD'); //Formato da data
     setFormData(dayjs(`${event.$y}-${event.$M + 1}-${event.$D}`));
   }
 
@@ -166,6 +178,7 @@ const Cotacoes = () => {
     label: tipoContainer.name,
     id: tipoContainer.idItem,
   }));
+
   
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -177,18 +190,22 @@ const Cotacoes = () => {
     setSearchClicked(true);
     setBtnLoading(true);
 
-    // let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${selectedPortoEmbarque}&porto_descarga=${selectedPortoDescarga}&mercadoria=${selectedMercadoria}&tipo_container=${selectedTipoContainer}`;
-
-    let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}`;
+    let query = `cotacao/fretes?data_saida=${data_saida}&porto_embarque=${valuePortoEmbarque.id}&porto_descarga=${valuePortoDescarga.id}&mercadoria=${valueMercadoria.id}&tipo_container=${valueTipoContainer.id}&email=${email}`;
     api.get(query).then((res) => {
 
       if (res.status >= 404) {
         res.data = [];
       } else {
-        res.data.sort((a,b) => (parseFloat(a.base_freight + a.bunker) < parseFloat(b.base_freight + a.bunker)) ? -1 : 1)
+
+        res.data.forEach((linha) => linha.total = linha.base_freight+linha.bunker+linha.isps)
+        res.data.sort((a,b) => ((parseFloat(a.total) < parseFloat(b.total)) && (a.base_freight!=="No space available")) ? -1 : 1)
+        
         api.post("/user/add_search", { email }).then((resp) => { console.log(resp.data.message) });
       
       }
+
+
+      sessionStorage.setItem("table", JSON.stringify(res.data));
 
       setResponse(res.data);
       setBtnSearchDisabled(false);

@@ -26,6 +26,7 @@ import SucessoQuotation from "./pages/Nac/Sucesso/quotation_nac_success";
 import ConsolidateBooking from "./pages/Consolida";
 import Fornecedores from "./pages/Fornecedores";
 import AddFornecedores from "./pages/Fornecedores/list";
+import ConsolidaNac from "./pages/EditNAC";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -122,6 +123,14 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <ConsolidateBooking />
+            </Protected>
+          }
+        ></Route>
+
+        <Route path="/nac/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <ConsolidaNac />
             </Protected>
           }
         ></Route>

@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 // import "./styles.css";
 import Table from "react-bootstrap/Table";
 import Resultado from "../Resultado";
+
+
+interface ResponseItem {
+  tipo_container: string;
+  id_tipo_container: string;
+  porto_embarque: string;
+  id_porto_embarque: string;
+  porto_descarga: string;
+  id_porto_descarga: string;
+  armador: string;
+  id_armador: string;
+  navio: string;
+  data_embarque: string;
+  tempo_de_transito: string;
+  data_chegada: string;
+  base_freight: string;
+  bunker: string;
+  isps: string;
+  shipment_id: string;
+  imagem_link: string;
+}
+
 
 type ResultadoProps = {
   tipo_container: string;
@@ -21,7 +43,10 @@ type ResultadoProps = {
   isps: string;
   imagem_link: string;
   shipment_id: string;
+  resultados: ResponseAPI;
 };
+
+type ResponseAPI = Array<ResultadoProps>;
 
 type TabelaResultadosProps = {
   response: Array<ResultadoProps>;
@@ -43,6 +68,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
         </tr>
       </thead>
       <tbody>
+        
         {props.response.map((resultado) => (
           <Resultado
             armador={resultado.armador}

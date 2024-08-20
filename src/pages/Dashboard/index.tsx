@@ -5,14 +5,29 @@ import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import api from '../../services/api';
+import TabelaNac from './TabelaNac/tabelanac';
 
-
+interface ResponseItem {
+  id: string;
+  shipper: string;
+  consignee: string;
+  selectPortoEmbarque: string;
+  selectPortoDescarga: string;
+  selectMercadoria: string;
+  quantidade_containers: string;
+  tipo_container: string;
+  data_embarque: string;
+  armador: string;
+  embarcador_email: string;
+  embarcador_nome: string;
+}
 
 const Dashboard = () => {
   const email = sessionStorage.getItem("user_email");
   const[qtSearch, setqtSearch] = useState(0);
   const[qtBooking, setqtBooking] = useState(0);
   const [nameUser, setNameUser] = useState('Visitante')
+  const [response, setResponse] = useState<ResponseItem[]>([]);
 
   useEffect(() => {
     api.post('/user/find_user', {email})
@@ -26,7 +41,19 @@ const Dashboard = () => {
       const totalBooking = resp.data.list.length;
       setqtBooking(totalBooking);
     })
-  });
+
+    const fetchData = async () => {
+      try {
+        await api.get(`quotations/mynacs/${email}`).then((res) => {
+          setResponse(res.data.list);
+        });
+      } catch (error) {
+        console.error('Error fetching quotations data:', error);
+      }
+    };
+
+    fetchData();
+  }, [email]);
 
 
   return (
@@ -128,11 +155,26 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                <p></p>
+                <br></br>
+                {/* {((email !== "ffleck@gmail.com") && (email !== "alvaro@karavel.com.br")) && (                  
+                  <table width="95%">
+                  <tr>
+                    <td>
+                    <div className="card  col-xl-12 col-lg-12 col-md-8 card-profile">
+                      <div className="card-img-top" style={{"backgroundColor": "#ADD8E6", "padding": 10}} >
+                        <h4 style={{"color": "black", "textAlign": "center"}}> Cotações NAC </h4>
+                      </div>
+                        <TabelaNac response={response}/>
+                    </div>
+                    </td>
+                  </tr>
+                </table>
+                
+              )}  */}
+                
                 </div>
-              
             </div>
-           
+          
       </main>
     </div>
   );

@@ -66,6 +66,11 @@ const routeChange = () =>{
   navigate(path);
 }
 
+const routeBack = () =>{ 
+  const path = "/cotacoes";
+  navigate(path);
+}
+
 
 function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   const quantidade = Number(event.target.value);
@@ -560,7 +565,7 @@ return (
             </Accordion> 
             <div className="row">
               <div className="col-md-6">
-                <Button type="button" onClick={onSaveBooking} className="btn btn-secondary botao">Salvar</Button>
+                <Button type="button" onClick={routeBack} className="btn btn-secondary botao">Voltar</Button>
               </div>
               <div className="col-md-6">
                 <Button type="submit" className="botao">Reservar</Button>

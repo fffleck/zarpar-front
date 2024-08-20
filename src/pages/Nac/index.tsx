@@ -153,7 +153,7 @@ const CotacoesNAC = () => {
   };
   return (
     <div className="flex-dashboard">
-      <Sidebar elementoAtivo="cotacoesNAC" />
+      <Sidebar elementoAtivo="cotacoes_nac" />
       <main>
         <HeaderPage nomeOpcao="Cotações NAC" />
         <div className="main-content">

@@ -19,7 +19,7 @@ type InformacoesPedido = {
   shipment_id: string;
 };
 
-const ButtonBooking = (props: InformacoesPedido) => {
+const ButtonBooking = (props: InformacoesPedido, response) => {
   let navigate = useNavigate();
 
   const routeChange = () => {

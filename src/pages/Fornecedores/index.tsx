@@ -40,7 +40,7 @@ const Fornecedores = () => {
 
   return (
     <div className="flex-dashboard">
-      <Sidebar elementoAtivo="nac"/>
+      <Sidebar elementoAtivo="cotacoes_nac"/>
       <main>
         <HeaderPage nomeOpcao="Fornecedores"/>
         <div className="main-content">
