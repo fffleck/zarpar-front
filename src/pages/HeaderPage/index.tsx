@@ -12,6 +12,7 @@ const HeaderPage = (props) => {
   function logout(){
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("user_email");
+    sessionStorage.removeItem("table");
     refreshPage()
     // window.location.reload(); //recarrega a página assim que o token é retirado da sessão
   }

@@ -66,9 +66,16 @@ type informacoesEnviarEmail = {
 
 type ResponseAPI = Array<ResponseItem> | ResponseError;
 
-function returnTableorNot(response: ResponseAPI, searchClicked: boolean) {
+function returnTableorNot(response: ResponseAPI, searchClicked: boolean, btnSearchDisabled) {
+
   if (response && Array.isArray(response) && response.length > 0) {
     return <TabelaResultados response={response} />;
+  } else if (response && Array.isArray(response) && response.length <= 0 && btnSearchDisabled===true) {
+    return (
+      <Alert key={"secondary"} variant={"secondary"}>
+        Nenhum frete foi encontrado.
+      </Alert>
+    );
   } else if (searchClicked && (response as ResponseError).message) {
     return (
       <Alert key={"secondary"} variant={"secondary"}>
@@ -111,10 +118,13 @@ const Cotacoes = () => {
     if (
       sessionStorage.getItem("table")
     ) {
-      setResponse(JSON.parse(sessionStorage.getItem("table")));
+      const result = JSON.parse(sessionStorage.getItem("table"))
+
+      setResponse(result);
       setBtnSearchDisabled(false);
       setBtnLoading(false);
-      returnTableorNot(response, true)
+      
+      returnTableorNot(result, true, btnSearchDisabled)
     }
 
 
@@ -197,7 +207,9 @@ const Cotacoes = () => {
         res.data = [];
       } else {
 
-        res.data.forEach((linha) => linha.total = linha.base_freight+linha.bunker+linha.isps)
+        res.data.forEach((linha) => {
+          linha.total = linha.base_freight+linha.bunker+linha.isps
+        })
         res.data.sort((a,b) => ((parseFloat(a.total) < parseFloat(b.total)) && (a.base_freight!=="No space available")) ? -1 : 1)
         
         api.post("/user/add_search", { email }).then((resp) => { console.log(resp.data.message) });
@@ -412,7 +424,7 @@ const Cotacoes = () => {
               </button>
             </div>
           </form>
-          {returnTableorNot(response, searchClicked)}
+          {returnTableorNot(response, searchClicked, btnSearchDisabled)}
         </div>
       </main>
     </div>

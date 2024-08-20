@@ -67,8 +67,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           <th scope="col">ETA/POD</th>
         </tr>
       </thead>
-      <tbody>
-        
+      <tbody> 
         {props.response.map((resultado) => (
           <Resultado
             armador={resultado.armador}
