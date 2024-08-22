@@ -66,16 +66,10 @@ type informacoesEnviarEmail = {
 
 type ResponseAPI = Array<ResponseItem> | ResponseError;
 
-function returnTableorNot(response: ResponseAPI, searchClicked: boolean, btnSearchDisabled) {
+function returnTableorNot(response: ResponseAPI, searchClicked: boolean) {
 
   if (response && Array.isArray(response) && response.length > 0) {
     return <TabelaResultados response={response} />;
-  } else if (response && Array.isArray(response) && response.length <= 0 && btnSearchDisabled===true) {
-    return (
-      <Alert key={"secondary"} variant={"secondary"}>
-        Nenhum frete foi encontrado.
-      </Alert>
-    );
   } else if (searchClicked && (response as ResponseError).message) {
     return (
       <Alert key={"secondary"} variant={"secondary"}>
@@ -124,7 +118,7 @@ const Cotacoes = () => {
       setBtnSearchDisabled(false);
       setBtnLoading(false);
       
-      returnTableorNot(result, true, btnSearchDisabled)
+      returnTableorNot(result, true)
     }
 
 
@@ -424,7 +418,7 @@ const Cotacoes = () => {
               </button>
             </div>
           </form>
-          {returnTableorNot(response, searchClicked, btnSearchDisabled)}
+          {returnTableorNot(response, searchClicked)}
         </div>
       </main>
     </div>

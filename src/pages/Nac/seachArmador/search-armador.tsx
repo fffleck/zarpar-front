@@ -54,6 +54,7 @@ function SearchArmador({ value = [], onChange = () => {}, inputValue, onInputCha
           multiple
           value={Array.isArray(value) ? value : []}
           onChange={handleChange}
+          className="selecao"
           input={<OutlinedInput id="select-multiple-checkbox" name='Armadores' label="Armador" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>

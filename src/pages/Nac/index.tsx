@@ -36,13 +36,15 @@ const CotacoesNAC = () => {
   const [portosDescarga, setPortosDescarga] = useState<PortoSelect[]>([]);
   const [mercadoria] = useState('');
   const [formData, setFormData] = useState<Dayjs | null>(null);
-  const [valueTipoContainer, setValueTipoContainer] = useState(null);
-  const [inputValueTipoContainer, setInputValueTipoContainer] = useState("");
   const email = sessionStorage.getItem("user_email");
   const [selectedArmadores, setSelectedArmadores] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [cordaFonte, setcordaFonte] = useState('');
   const [tipodaFonte, settipodaFonte] = useState('');
+  const [selectedContainerType, setSelectedContainerType] = useState('');
+  const [selectedIMO, setSelectedIMO] = useState('');
+
+
 
   let navigate = useNavigate();
 
@@ -164,22 +166,24 @@ const CotacoesNAC = () => {
           <form className="row g-3 formulario" onSubmit={sendRequestNAC}>
             <div className='row'>
               <div className="col-md-3">
-                <Form.Label htmlFor="shipper"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Shipper *</span> </Form.Label>
+                <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Shipper *</span>
                 <Form.Control
                   type="text"
                   id="shipper"
                   name="shipper"
+                  className="selecao"
                   aria-required="true"
                   aria-describedby="shipper"
                 />
                 <Form.Text id="shipper"></Form.Text>
               </div>    
               <div className="col-md-3">
-                <Form.Label htmlFor="consignee"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Consignee *</span> </Form.Label>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Consignee *</span>
                 <Form.Control
                   type="text"
                   id="consignee"
                   name="consignee"
+                  className="selecao"
                   aria-required="true"
                   aria-describedby="consignee"          
                 />
@@ -236,24 +240,30 @@ const CotacoesNAC = () => {
               </div>
               <div className="col-md-3">
                 <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Tipo Container *</span>
-                <Autocomplete
-                  value={valueTipoContainer}
-                  onChange={(event, newValue) => {
-                    setValueTipoContainer(newValue);
-                  }}
-                  inputValue={inputValueTipoContainer}
-                  onInputChange={(event, newInputValue) => {
-                    setInputValueTipoContainer(newInputValue);
-                  }}
-                  className="selecao"
-                  disablePortal
-                  id="combo-box-demo"
-                  options={listaTiposContainer}
-                  isOptionEqualToValue={(option, value) => option.id === value.id}
-                  renderInput={(params) => (
-                    <TextField {...params} name="tipoContainer" required />
-                  )}
-                />
+                <Form.Select 
+                    id="tipoContainer" 
+                    name="tipoContainer" 
+                    aria-label="Default select" 
+                    className="selecao"
+                    value={selectedContainerType}
+                    onChange={(event) => setSelectedContainerType(event.target.value)}
+                  >
+                  <option value="">Selecione</option>
+                  <option value="ST20">20' Standard</option>
+                  <option value="ST40">40' Standard</option>
+                  <option value="HQ40">40' High Cube</option>                  
+                  <option value="40RE">40' Reefer</option>
+                  <option value="20RE">20' Reefer</option>
+                  <option value="40NOR">40' Non Operation Reefer</option>
+                  <option value="20FT">20' Flat Rack</option>
+                  <option value="40FT">40' Flat Rack</option>
+                  <option value="20OT">20' Open Top</option>
+                  <option value="40OT">40' Open Top</option>
+                  <option value="20PL">20' Platform</option>
+                  <option value="40PL">40' Platform</option>
+                  <option value="20TK">20' Isotank</option>
+                  <option value="40TK">40' Isotank</option>
+                </Form.Select>
               </div>
               <div className="col-md-3">
                 <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Data Embarque *</span>
@@ -280,39 +290,41 @@ const CotacoesNAC = () => {
             <p></p>
             <div className='row'>
               <div className="col-md-3">
-                <Form.Label htmlFor="Incoterm" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Incoterm *</Form.Label>
-                <Form.Select id="Incoterm" name="Incoterm" aria-label="Default select">
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Incoterm *</span>
+                <Form.Select id="Incoterm" name="Incoterm" aria-label="Default select" className="selecao">
                   <option value="" selected>Selecion</option>
-                  <option value="C&F">C & F</option>
-                  <option value="CIF">C I F</option>
+                  <option value="C&F">C&F</option>
+                  <option value="CIF">CIF</option>
                   <option value="FOB">FOB</option>                  
                 </Form.Select>
               </div>
               <div className="col-md-3">
-                <Form.Label htmlFor="freetimeOrigem"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Origem *</span> </Form.Label>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Origem *</span>
                 <Form.Control
                   type="text"
                   id="freetimeOrigem"
                   name="freetimeOrigem"
+                  className="selecao"
                   aria-required="true"
                   aria-describedby="freetimeOrigem"
                 />
                 <Form.Text id="freetimeOrigem"></Form.Text>
               </div>  
               <div className="col-md-3">
-                <Form.Label htmlFor="freetimeDestino"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Destino *</span> </Form.Label>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Free Time Destino *</span>
                 <Form.Control
                   type="text"
                   id="freetimeDestino"
                   name="freetimeDestino"
+                  className="selecao"
                   aria-required="true"
                   aria-describedby="freetimeDestino"
                 />
                 <Form.Text id="freetimeDestino"></Form.Text>
               </div>  
               <div className="col-md-3">
-                <Form.Label htmlFor="agenteDeCarga" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Agente de Carga *</Form.Label>
-                <Form.Select id="agenteDeCarga" name="agenteDeCarga" aria-label="Default select">
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Agente de Carga *</span>
+                <Form.Select id="agenteDeCarga" name="agenteDeCarga" aria-label="Default select" className="selecao">
                   <option value="nao" selected>Não</option>
                   <option value="sim">Sim</option>
                 </Form.Select>
@@ -322,18 +334,26 @@ const CotacoesNAC = () => {
             <p></p>
             <div className='row'>
               <div className="col-md-3">
-                <Form.Label htmlFor="CargaEspecial" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Carga Especial *</Form.Label>
-                <Form.Select id="CargaEspecial" name="CargaEspecial" aria-label="Default select">
-                  <option value="nao_imo" selected>Não IMO</option>
-                  <option value="imo">IMO</option>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Carga Especial *</span>
+                <Form.Select 
+                    id="CargaEspecial" 
+                    name="CargaEspecial" 
+                    aria-label="Default select" 
+                    className="selecao"
+                    value={selectedIMO}
+                    onChange={(event) => setSelectedIMO(event.target.value)}
+                  >
+                  <option value="nao" selected>Não IMO</option>
+                  <option value="sim">IMO</option>
                 </Form.Select>
               </div>
               <div className="col-md-3">
-                <Form.Label htmlFor="qtdContainers"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Quantidade de Containers *</span> </Form.Label>
+              <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Quantidade de Containers *</span>
                 <Form.Control
                   type="number"
                   min={1}
                   id="qtdContainers"
+                  className="selecao"
                   name="qtdContainers"
                   aria-required="true"
                   aria-describedby="qtdContainers"
@@ -343,19 +363,20 @@ const CotacoesNAC = () => {
               <div className="col-md-6">
                 <div className="row">
                   <div className="col-md-3">
-                    <Form.Label htmlFor="Currency" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Currency *</Form.Label>
-                    <Form.Select id="Currency" name="Currency" aria-label="Default select">
-                      <option value="real" selected>BRL - R$</option>
-                      <option value="dolar">USD - US$</option>
+                  <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Currency *</span>
+                    <Form.Select id="Currency" name="Currency" aria-label="Default select" className="selecao">
+                      <option value="dolar"  selected>USD - US$</option>
+                      <option value="real">BRL - R$</option>
                       <option value="euro">EUR - € </option>
                     </Form.Select>
                   </div>
                   <div className="col-md-7">
-                    <Form.Label htmlFor="targetOceanFreight"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Target Ocean Freight *</span> </Form.Label>
+                  <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Target Ocean Freight *</span>
                     <Form.Control
                       type="text"
                       id="targetOceanFreight"
                       name="targetOceanFreight"
+                      className="selecao"
                       aria-required="true"
                       aria-describedby="targetOceanFreight"
                     />
@@ -363,6 +384,101 @@ const CotacoesNAC = () => {
                   </div>
                 </div>
               </div> 
+            </div>
+            <div className='row'>
+              <div className="col-md-3">
+                <span>
+                  <Form.Check 
+                    type="checkbox" 
+                    id="conteinerSelf" 
+                    name="conteinerSelf"
+                    label="I wish to use shipper’s"
+                    value="sim"
+                    style={{ marginLeft: '30px' }}
+                  />
+                  </span>
+              </div>  
+            </div>
+            <p></p>
+            <div className="row">
+                <p></p>
+                <span style={{textAlign: "center"}}><h4>Campos Adicionais</h4></span>
+                <hr></hr>
+                <p></p>
+                    {(selectedIMO ==='sim') && (
+                      <div className="col-md-5">
+                      <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Descrição Imo *</span>
+                      <Form.Control
+                        type="text"
+                        id="imo"
+                        name="imo"
+                        className="selecao"
+                        aria-required="true"
+                        aria-describedby="imo"
+                      />
+                      <Form.Text id="imo"></Form.Text>
+                    </div>
+                    )}
+                    {(selectedContainerType === '20OT' || selectedContainerType === '40OT' || selectedContainerType === '20PL' || selectedContainerType === '40PL' || selectedContainerType === '20TK' || selectedContainerType === '40TK') && (
+                      <div className="col-md-5">
+                        <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Dimensões Container*</span>
+                        <Form.Control
+                          type="text"
+                          id="dimensoes"
+                          name="dimensoes"
+                          className="selecao"
+                          aria-required="true"
+                          aria-describedby="dimensoes"
+                        />
+                        <Form.Text id="dimensoes"></Form.Text>
+                      </div>
+                    )}
+
+                  {(selectedContainerType === '40RE' || selectedContainerType === '20RE') && (
+                      <div className="col-md-5">
+                        <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Temperatura Container *</span>
+                        <Form.Control
+                          type="text"
+                          id="temperatura"
+                          name="temperatura"
+                          className="selecao"
+                          aria-required="true"
+                          aria-describedby="temperatura"
+                        />
+                        <Form.Text id="temperatura"></Form.Text>
+                      </div>
+                    )}
+                  {(selectedContainerType === '40RE' || selectedContainerType === '20RE') && (
+                    <div className="col-md-5">
+                      <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Refrigerado *</span>
+                      <table width="30%">
+                        <tr>
+                          <td width="10%">
+                          </td>
+                          <td width="20%">
+                            <Form.Check 
+                              type="radio" 
+                              id="refrigeradoSim" 
+                              name="refrigerado"
+                              label="Sim"
+                              value="sim"
+                            />
+                          </td>
+                          <td width="60%">
+                          </td>
+                          <td width="20%">
+                            <Form.Check 
+                              type="radio" 
+                              id="refrigeradoNao" 
+                              name="refrigerado"
+                              label="Não"
+                              value="nao"
+                            />
+                          </td>
+                        </tr>
+                        </table>
+                    </div>
+                  )}
             </div>
             <p></p>
             <div className='row'>
