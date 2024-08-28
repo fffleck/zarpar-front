@@ -55,26 +55,6 @@ const Sidebar = (props) => {
             <img src="/imagens/menu/booking.svg" style={{ "width": "25px","height": "25px"}} alt=""/>
             <Link to="/bookings">Bookings</Link>
           </li>
-          <li className={active.tracking}>
-            <img src="/imagens/menu/tracking.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/tracking">Tracking</Link>
-          </li>
-          <li className={active.pagamentos}>
-            <img src="/imagens/menu/pagamentos.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/pagamentos">Pagamentos</Link>
-          </li>
-          <li className={active.demandas}>
-            <img src="/imagens/menu/demandas.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/demandas">Trade</Link>
-          </li>
-          <li className={active.negociacoes}>
-            <img src="/imagens/menu/negociacoes.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/negociacoes">Negociações</Link>
-          </li>
-          <li className={active.impulsionar}>
-            <img src="/imagens/menu/impulsionar.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/impulsionar">Impulsionar Vendas</Link>
-          </li>
           {/* Renderiza o link de Upload apenas se o menu estiver aberto e o email for válido */}
           {(email === "ffleck@gmail.com" || email === "alvaro@karavel.com.br") && (
             <li className={active.upload}>

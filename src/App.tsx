@@ -27,6 +27,7 @@ import ConsolidateBooking from "./pages/Consolida";
 import Fornecedores from "./pages/Fornecedores";
 import AddFornecedores from "./pages/Fornecedores/list";
 import ConsolidaNac from "./pages/EditNAC";
+import AddBooking from "./pages/BookingAdd";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -100,6 +101,14 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <AddFornecedores />
+            </Protected>
+          }>
+        </Route>
+
+        <Route path="/bookingAdd"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddBooking />
             </Protected>
           }>
         </Route>

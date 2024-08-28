@@ -79,7 +79,7 @@ const ConsolidaNac = () => {
   };
 
   const validateFormData = (data) => {
-    // Adicione sua lógica de validação aqui
+    // Adicionar lógica de validação aqui
     return data.someField !== '';
   };
 
@@ -149,7 +149,7 @@ const ConsolidaNac = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                    <Link to="/admin">
+                    <Link to="/dashboard">
                       <Button type="button" className="botao btn-primary">Voltar</Button>
                     </Link>
                     &nbsp;&nbsp;

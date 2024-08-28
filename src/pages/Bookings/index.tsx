@@ -4,6 +4,7 @@ import HeaderPage from "../HeaderPage";
 import "./styles.css";
 import api from '../../services/api';
 import TabelaResultados from "./Tabela/tabela";
+import { useNavigate } from "react-router-dom";
 
 interface ResponseItem {
   id: string;
@@ -21,9 +22,22 @@ interface ResponseItem {
   email: string;
 }
 
+
 const Bookings = () => {
   const email = sessionStorage.getItem("user_email");
   const [response, setResponse] = useState<ResponseItem[]>([]);
+
+  let navigate = useNavigate();
+
+  const routeNewBooking = () =>{ 
+    const path = "/bookingAdd";
+    navigate(path);
+  }
+
+  const onAddBooking = async (event) => {
+    event.preventDefault()
+    routeNewBooking()
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +61,7 @@ const Bookings = () => {
         <div className="main-content">
           <div className="main-content-title">
             <h2>Bookings</h2>
+            <button onClick={onAddBooking} className="fornecedores">New Booking</button>
             <p></p>
             <TabelaResultados response={response}/>
           </div>

@@ -156,7 +156,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <br></br>
-                {/* {((email !== "ffleck@gmail.com") && (email !== "alvaro@karavel.com.br")) && (                  
+                {((email !== "ffleck@gmail.com") && (email !== "alvaro@karavel.com.br")) && (                  
                   <table width="95%">
                   <tr>
                     <td>
@@ -170,7 +170,7 @@ const Dashboard = () => {
                   </tr>
                 </table>
                 
-              )}  */}
+              )} 
                 
                 </div>
             </div>
