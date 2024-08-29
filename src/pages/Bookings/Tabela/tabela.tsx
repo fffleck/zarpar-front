@@ -5,11 +5,8 @@ import ResultadoBooking from "../Resultado";
 
 type ResultadoProps = {
   id: string;
-  booking: string;
-  booking_id: string;
-  bl_number: string;
   armador: string;
-  navio: string;
+  cliente: string;
   data_embarque: string;
   embarcador_email: string;
   porto_embarque: string;
@@ -17,7 +14,7 @@ type ResultadoProps = {
   selectMercadoria: string;
   tipo_container: string;
   quantidade_containers: string;
-  valor: string;
+  email: string;
   status: string;
 };
 
@@ -34,10 +31,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
             <tr>
               <th scope="col">#Order</th>
               <th scope="col">Client</th>
-              <th scope="col">#Booking</th>
-              <th scope="col">#B/L</th>
-              <th scope="col">Armador</th>
-              <th scope="col">Navio</th>
+              <th scope="col">Armador</th> 
+              <th scope="col">Qtd Containers</th> 
               <th scope="col">ETS</th>
               <th scope="col">POL</th>
               <th scope="col">POD</th>
@@ -49,16 +44,15 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           {props.response.map((resultado) => (
             <ResultadoBooking
               id={resultado._id}
-              booking={resultado.bl_number}
-              blnumber={resultado.booking_id}
+              cliente={resultado.email}
               armador={resultado.armador}
-              navio={resultado.navio}
+              quantidade_containers={resultado.qtdContainers}
               data_embarque={resultado.data_embarque}
               porto_embarque={resultado.porto_embarque}
               porto_descarga={resultado.porto_descarga}
               status={resultado.status}
               email={email}
-              client={resultado.embarcador_email}
+              
             />
           ))}
         </tbody>
@@ -70,10 +64,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           <thead>
             <tr>
               <th scope="col">#Order</th>
-              <th scope="col">#Booking</th>
-              <th scope="col">#B/L</th>
-              <th scope="col">Armador</th>
-              <th scope="col">Navio</th>
+              <th scope="col">Armador</th> 
+              <th scope="col">Qtd Containers</th> 
               <th scope="col">ETS</th>
               <th scope="col">POL</th>
               <th scope="col">POD</th>
@@ -85,10 +77,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           {props.response.map((resultado) => (
             <ResultadoBooking
               id={resultado._id}
-              booking=""
-              blnumber=""
               armador={resultado.armador}
-              navio={resultado.navio}
+              quantidade_containers={resultado.qtdContainers}
               data_embarque={resultado.data_embarque}
               porto_embarque={resultado.porto_embarque}
               porto_descarga={resultado.porto_descarga}

@@ -100,6 +100,13 @@ const AddBooking = () => {
     id: tipoContainer.idItem,
   }));
 
+  const sendEmailNewBooking = async(event, dataToSend) => {
+    event.preventDefault();
+    await api.post('/booking/send_email', dataToSend).then((res) => {
+      console.log('Email Enviado para ADM');
+    })
+  }
+
   const saveBooking = async (event, dataToSend) => {
     event.preventDefault();
     await api.post('/booking/new', dataToSend)
@@ -140,6 +147,7 @@ const AddBooking = () => {
     } else {
       try {
         saveBooking(event, dataToSend);
+        sendEmailNewBooking(event, dataToSend)
         routeChange();
       } catch (error) {
           console.error("Ocorreu um problema ao reservar o booking:", error);
