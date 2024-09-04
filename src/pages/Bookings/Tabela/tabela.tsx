@@ -16,6 +16,9 @@ type ResultadoProps = {
   quantidade_containers: string;
   email: string;
   status: string;
+  oceanFreigth: string;
+  bookingFile: string;
+  blFile: string;
 };
 
 type TabelaResultadosProps = {
@@ -37,6 +40,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               <th scope="col">POL</th>
               <th scope="col">POD</th>
               <th scope="col">Status</th>
+              <th scope="col">File BK</th>
+              <th scope="col">File BL</th>
               <th scope="col"> # </th>
             </tr>
           </thead>
@@ -52,6 +57,9 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               porto_descarga={resultado.porto_descarga}
               status={resultado.status}
               email={email}
+              bookingFile={resultado.bookingFile}
+              blFile={resultado.blFile}
+              oceanFreigth={resultado.oceanFreigth}
               
             />
           ))}
@@ -70,6 +78,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               <th scope="col">POL</th>
               <th scope="col">POD</th>
               <th scope="col">Status</th>
+              <th scope="col">File BK</th>
+              <th scope="col">File BL</th>
               <th scope="col"> # </th>
             </tr>
           </thead>
@@ -84,6 +94,9 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               porto_descarga={resultado.porto_descarga}
               status={resultado.status}
               email={email}
+              bookingFile={resultado.bookingFile}
+              blFile={resultado.blFile}
+              oceanFreigth={resultado.oceanFreigth}
             />
           ))}
         </tbody>

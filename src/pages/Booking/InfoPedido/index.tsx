@@ -580,7 +580,7 @@ return (
             </div>
             <hr></hr>
             <div style={{"textAlign": "center"}}>
-              <h2 className="titulo-secao">Taxas por Container</h2>
+              <h2 className="titulo-secao">Ocean Freight</h2>
             </div>
             <table className='table'>
               <tr>
@@ -602,7 +602,7 @@ return (
             </table>
             <hr></hr>
             <div style={{"textAlign": "center"}}>
-              <h2 className="titulo-secao">Taxas de Embarque</h2> 
+              <h2 className="titulo-secao">Taxas Locais</h2> 
             </div>
             <table className='table'>
                 {taxs.map(tax => {

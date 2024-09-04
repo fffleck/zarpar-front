@@ -58,11 +58,11 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">Armador</th>
+          <th scope="col">Carrier</th>
           <th scope="col">ETS</th>
           <th scope="col">POL</th>
           <th scope="col">POD</th>
-          <th scope="col">Valor</th>
+          <th scope="col">All-In</th>
           <th scope="col">T/T</th>
           <th scope="col">ETA/POD</th>
         </tr>

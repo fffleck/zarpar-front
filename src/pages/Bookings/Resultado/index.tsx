@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import api from "../../../services/api";
 
 
 type ResultadoProps = {
@@ -15,9 +16,15 @@ type ResultadoProps = {
     valor: string;
     status: string;
     email: string;
+    bookingFile: string;
+    blFile: string;
+    oceanFreigth: string;
 };
 
 const ResultadoBooking = (props: ResultadoProps) => {
+
+  // const hostBackEnd = "http://localhost:3334";
+  const hostBackEnd = "https://zarpar-services-3a7856d27138.herokuapp.com/";
 
   const classButton = (status) => {
     let classReturn = "";
@@ -45,6 +52,30 @@ const ResultadoBooking = (props: ResultadoProps) => {
     return nome
   }
 
+  const getLinkBooking = (fileBooking) => {
+    if (fileBooking && fileBooking!== "") {
+      return (
+        <a target="_blank" href={hostBackEnd+'/'+fileBooking}>
+              <i className="fa-solid fa-download"></i>
+            </a>
+      )
+    } else {
+      return ( "" )
+    }
+  }
+
+  const getLinkBlFile = (fileBL) => {
+    if (fileBL && fileBL!== "") {
+      return (
+        <a target="_blank" href={hostBackEnd+'/'+fileBL}>
+              <i className="fa-solid fa-download"></i>
+            </a>
+      )
+    } else {
+      return ( "" )
+    }
+  }
+
 
   if (props.email==="ffleck@gmail.com" || props.email==="alvaro@karavel.com.br") {
     if (props.status !== "Canceled") {
@@ -60,6 +91,8 @@ const ResultadoBooking = (props: ResultadoProps) => {
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
+          <td>{getLinkBooking(props.bookingFile)}</td>
+          <td>{getLinkBlFile(props.blFile)}</td>
           <td>
           <Link to={`/edit/${props.id}`}>Edit</Link>
           </td>
@@ -78,6 +111,8 @@ const ResultadoBooking = (props: ResultadoProps) => {
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
+          <td>{getLinkBooking(props.bookingFile)}</td>
+          <td>{getLinkBlFile(props.blFile)}</td>
           <td></td>
         </tr>
       );
@@ -95,6 +130,8 @@ const ResultadoBooking = (props: ResultadoProps) => {
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
+          <td>{getLinkBooking(props.bookingFile)}</td>
+          <td>{getLinkBlFile(props.blFile)}</td>
         <td></td>
       </tr>
     );
