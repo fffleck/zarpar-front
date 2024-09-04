@@ -24,7 +24,7 @@ type ResultadoProps = {
 const ResultadoBooking = (props: ResultadoProps) => {
 
   // const hostBackEnd = "http://localhost:3334";
-  const hostBackEnd = "https://zarpar-services-3a7856d27138.herokuapp.com/";
+  const hostBackEnd = "https://zarpar-services-3a7856d27138.herokuapp.com";
 
   const classButton = (status) => {
     let classReturn = "";
