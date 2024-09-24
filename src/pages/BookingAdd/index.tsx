@@ -136,7 +136,6 @@ const AddBooking = () => {
 
     };
 
-    console.log("DADOS DO FORMULARIO", dataToSend)
   
     if (!dataToSend.armador || !dataToSend.contractNumber || !dataToSend.porto_embarque || !dataToSend.porto_descarga || 
       !dataToSend.data_embarque || !dataToSend.data_chegada || !dataToSend.qtdContainers || !dataToSend.tipo_container || 
@@ -527,7 +526,7 @@ const AddBooking = () => {
                     </Accordion> 
                     <div className="row">
                       <div className="col-md-6">
-                        <Button type="button" onClick={routeBack} className="btn btn-secondary botao">Voltar</Button>
+                        <Button type="button" onClick={routeBack} className="btn btn-danger botao">Cancelar</Button>
                       </div>
                       <div className="col-md-6">
                         <Button type="submit" className="botao">Salvar</Button>

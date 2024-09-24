@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 
@@ -14,6 +15,7 @@ type ResultadoProps = {
     tipo_container: string;
     data_embarque: string;
     armador: string;
+    status: string;
 };
 
 const ResultadoQuotationNAC = (props: ResultadoProps) => {
@@ -31,7 +33,18 @@ const ResultadoQuotationNAC = (props: ResultadoProps) => {
           <td>{props.tipo_container}</td>
           <td>{props.data_embarque}</td>
           <td>
-          <Link to={`/consolida/${props.id}`} className="btn btn-info botao" > + Infos </Link>
+          {(props.status == "Selected" || props.status == "Discarted" ) ? (
+            " - "
+          ) : (
+            (props.status == "Quoted") ? (
+              <Button className="btn btn-sucess botao" > Cotado </Button>
+            ) : (
+              <Link to={`/consolida/${props.id}`} className="btn btn-info botao" > Cotar </Link>
+            )
+          )
+          }
+          
+          
           </td>
         </tr>
       );

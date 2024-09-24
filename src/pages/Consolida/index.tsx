@@ -7,6 +7,7 @@ import { Button, Form } from "react-bootstrap";
 
 interface ResponseItem {
   _id: string;
+  quotationId: string;
   shipper: string;
   consignee: string;
   selectPortoEmbarque: string;
@@ -18,14 +19,18 @@ interface ResponseItem {
   armador: string;
   embarcador_email: string;
   embarcador_nome: string;
+  targetOceanFreight?: string;
+  valorCotado?: string;
   Incoterm: string;
 }
 
 const ConsolidateBooking = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [valorCotado, setValorCotado] = useState('');
   const [response, setResponse] = useState<ResponseItem>({
     _id: '',
+    quotationId: '',
     shipper: '',
     consignee: '',
     selectPortoEmbarque: '',
@@ -43,7 +48,7 @@ const ConsolidateBooking = () => {
   const sendBookingReserva = async (event) => {
     event.preventDefault();
 
-    const dataToSend = { ...extractFormData() };
+    const dataToSend = { ...extractFormData(), quotationPai: response.quotationId };
     console.log('DATATOSEND', dataToSend);
     // eslint-disable-next-line no-restricted-globals
     const userConfirmed = confirm('Esta ação irá remover esta cotação da lista. Deseja continuar?');
@@ -66,11 +71,11 @@ const ConsolidateBooking = () => {
   };
 
   const routeChange = () => { 
-    navigate("/admin");
+    navigate("/dashboard");
   };
 
   const extractFormData = () => {
-    const formElements = document.querySelectorAll('input, select, textarea');
+    const formElements = document.querySelectorAll('input, select, textarea, text, hidden');
     const formData = {};
     formElements.forEach((element: any) => {
       formData[element.name] = element.value || null;
@@ -125,14 +130,27 @@ const ConsolidateBooking = () => {
                   <FormElement label="Incoterm" value={response.Incoterm} id="Incoterm" />
                   <FormElement label="Consignee" value={response.consignee} id="consignee" />
                   <FormElement label="Mercadoria" value={response.selectMercadoria} id="mercadoria" />
+                  <FormElementDisabled label="Ocean Freight" value={response.targetOceanFreight} id="targetOceanFreigth"/>
+                </div>
+                <div className='row'>
+                  <div className="col-md-4">
+                    <Form.Label htmlFor="Valor">Valor Cotado Armador</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="valorCotado"
+                      name="valorCotado"
+                      value={valorCotado}
+                      onChange={(e) => setValorCotado(e.target.value)}
+                    />
+                  </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
                     <Link to="/admin">
-                      <Button type="button" className="botao btn-primary">Voltar</Button>
+                      <Button type="button" className="botao btn-info">Voltar</Button>
                     </Link>
                     &nbsp;&nbsp;
-                    <Button type="submit" className="botao btn-danger">Finalizar</Button>
+                    <Button type="submit" className="botao btn-primary">Salvar</Button>
                   </div>
                 </div>
               </section>
@@ -144,11 +162,17 @@ const ConsolidateBooking = () => {
   );
 };
 
-const FormElement = ({ label, value, id }) => (
+const FormElementDisabled = ({ label, value, id }) => (
   <div className="col-md-4">
     <Form.Label htmlFor={id}>{label}</Form.Label>
     <Form.Control type="text" id={id} value={value} aria-disabled="true" disabled={true} />
   </div>
 );
 
+const FormElement = ({ label, value, id }) => (
+  <div className="col-md-4">
+    <Form.Label htmlFor={id}>{label}</Form.Label>
+    <Form.Control type="text" id={id} value={value} disabled={false} />
+  </div>
+); 
 export default ConsolidateBooking;

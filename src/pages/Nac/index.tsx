@@ -129,7 +129,7 @@ const CotacoesNAC = () => {
     } else {
       try {
         // Envia Email para ADMIN
-        await api.post('/email/send_quotationnac', dataToSend);
+        // await api.post('/email/send_quotationnac', dataToSend);
         await api.post('booking/save_quotation', dataToSend);
         routeChange();
       } catch (error) {

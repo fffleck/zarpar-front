@@ -28,6 +28,7 @@ import Fornecedores from "./pages/Fornecedores";
 import AddFornecedores from "./pages/Fornecedores/list";
 import ConsolidaNac from "./pages/EditNAC";
 import AddBooking from "./pages/BookingAdd";
+import ListNac from "./pages/ListNac";
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
@@ -135,15 +136,6 @@ function App() {
             </Protected>
           }
         ></Route>
-
-        <Route path="/nac/:id"
-          element={
-            <Protected isLoggedIn={tokenIsValid}>
-              <ConsolidaNac />
-            </Protected>
-          }
-        ></Route>
-
         <Route path="/cotacoes"
           element={
             <Protected isLoggedIn={tokenIsValid}>
@@ -233,6 +225,22 @@ function App() {
           }
         >
         </Route>
+
+        <Route path="/nac/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <ConsolidaNac />
+            </Protected>
+          }
+        ></Route>
+
+        <Route path="/list/nac/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <ListNac />
+            </Protected>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

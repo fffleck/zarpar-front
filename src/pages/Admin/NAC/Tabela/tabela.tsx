@@ -15,6 +15,7 @@ type ResultadoProps = {
   armador: string;
   embarcador_email: string;
   embarcador_nome: string;
+  status: string;
   
 };
 
@@ -44,19 +45,22 @@ const TabelaResultadosNAC = (props: TabelaResultadosProps) => {
           </thead>
         <tbody>
           {props.response.map((resultado) => (
-            <ResultadoQuotationNAC
-              id={resultado._id}
-              cliente={resultado.embarcador_email}
-              shipper={resultado.shipper}
-              consignee={resultado.consignee}
-              porto_embarque={resultado.selectPortoEmbarque.split(' - ')[1]}
-              porto_descarga={resultado.selectPortoDescarga.split(' - ')[1]}
-              mercadoria={resultado.selectMercadoria.split(' - ')[1].replaceAll('-','')}
-              quantidade_containers={resultado.qtdContainers}
-              tipo_container={resultado.tipoContainer}
-              data_embarque={resultado.data_embarque}
-              armador={resultado.armador}
-            />
+            
+                <ResultadoQuotationNAC
+                  id={resultado._id}
+                  cliente={resultado.embarcador_email}
+                  shipper={resultado.shipper}
+                  consignee={resultado.consignee}
+                  porto_embarque={resultado.selectPortoEmbarque.split(' - ')[0]}
+                  porto_descarga={resultado.selectPortoDescarga.split(' - ')[0]}
+                  mercadoria={resultado.selectMercadoria.split(' - ')[1].replaceAll('-','')}
+                  quantidade_containers={resultado.qtdContainers}
+                  tipo_container={resultado.tipoContainer}
+                  data_embarque={resultado.data_embarque}
+                  armador={resultado.armador}
+                  status={resultado.status}
+                />
+            
           ))}
         </tbody>
       </Table>
