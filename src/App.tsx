@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./pages/Login";
@@ -29,6 +30,8 @@ import AddFornecedores from "./pages/Fornecedores/list";
 import ConsolidaNac from "./pages/EditNAC";
 import AddBooking from "./pages/BookingAdd";
 import ListNac from "./pages/ListNac";
+
+
 
 function App() {
   const [tokenIsValid, setTokenIsValid] = useState(false);

@@ -292,7 +292,7 @@ const CotacoesNAC = () => {
               <div className="col-md-3">
               <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Incoterm *</span>
                 <Form.Select id="Incoterm" name="Incoterm" aria-label="Default select" className="selecao">
-                  <option value="" selected>Selecion</option>
+                  <option value="" selected>Selecione</option>
                   <option value="C&F">C&F</option>
                   <option value="CIF">CIF</option>
                   <option value="FOB">FOB</option>                  
@@ -419,7 +419,7 @@ const CotacoesNAC = () => {
                       <Form.Text id="imo"></Form.Text>
                     </div>
                     )}
-                    {(selectedContainerType === '20OT' || selectedContainerType === '40OT' || selectedContainerType === '20PL' || selectedContainerType === '40PL' || selectedContainerType === '20TK' || selectedContainerType === '40TK') && (
+                    {(selectedContainerType === '20OT' || selectedContainerType === '40OT' || selectedContainerType === '20PL' || selectedContainerType === '40PL') && (
                       <div className="col-md-5">
                         <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Dimensões Container*</span>
                         <Form.Control
