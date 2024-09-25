@@ -30,6 +30,7 @@ import AddFornecedores from "./pages/Fornecedores/list";
 import ConsolidaNac from "./pages/EditNAC";
 import AddBooking from "./pages/BookingAdd";
 import ListNac from "./pages/ListNac";
+import Armadores from "./pages/Armadores";
 
 
 
@@ -165,7 +166,14 @@ function App() {
           } 
         >
         </Route>
-
+        <Route path="/armadores"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Armadores />
+            </Protected>
+          }
+        >
+        </Route>
         <Route path="/pagamentos"
           element={
             <Protected isLoggedIn={tokenIsValid}>

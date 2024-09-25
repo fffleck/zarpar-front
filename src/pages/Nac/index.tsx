@@ -419,7 +419,7 @@ const CotacoesNAC = () => {
                       <Form.Text id="imo"></Form.Text>
                     </div>
                     )}
-                    {(selectedContainerType === '20OT' || selectedContainerType === '40OT' || selectedContainerType === '20PL' || selectedContainerType === '40PL') && (
+                    {(selectedContainerType === '20OT' || selectedContainerType === '40OT' || selectedContainerType === '20PL' || selectedContainerType === '40PL' ||  selectedContainerType === '20FT' ||  selectedContainerType === '40FT' ) && (
                       <div className="col-md-5">
                         <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Dimensões Container*</span>
                         <Form.Control

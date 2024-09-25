@@ -6,6 +6,7 @@ import logo from "../../assets/imagens/logo+white.png";
 const Sidebar = (props) => {
   const [menuOpen] = useState(false); // Estado para controlar se o menu está aberto ou fechado
   const active = {
+    armadors: "",
     dashboard: "",
     admin: "",
     cotacoes: "",
@@ -43,6 +44,12 @@ const Sidebar = (props) => {
             <img src="/imagens/menu/home.svg" style={{ "width": "25px","height": "25px"}} alt="" />
             <Link to="/dashboard">Dashboard</Link>
           </li>
+          
+          <li className={active.armadors}>
+            <img src="/imagens/menu/tracking.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/armadores">Armadores</Link>
+          </li>
+
           <li className={active.cotacoes}>
             <img src="/imagens/menu/cotacao.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
             <Link to="/cotacoes">Cotação - SPOT</Link>
