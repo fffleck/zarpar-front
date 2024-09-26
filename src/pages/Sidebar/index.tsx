@@ -44,12 +44,6 @@ const Sidebar = (props) => {
             <img src="/imagens/menu/home.svg" style={{ "width": "25px","height": "25px"}} alt="" />
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          
-          <li className={active.armadors}>
-            <img src="/imagens/menu/tracking.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
-            <Link to="/armadores">Armadores</Link>
-          </li>
-
           <li className={active.cotacoes}>
             <img src="/imagens/menu/cotacao.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
             <Link to="/cotacoes">Cotação - SPOT</Link>
@@ -61,6 +55,10 @@ const Sidebar = (props) => {
           <li className={active.bookings}>
             <img src="/imagens/menu/booking.svg" style={{ "width": "25px","height": "25px"}} alt=""/>
             <Link to="/bookings">Bookings</Link>
+          </li>
+          <li className={active.armadors}>
+            <img src="/imagens/menu/tracking.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+            <Link to="/armadores">Armadores</Link>
           </li>
           {/* Renderiza o link de Upload apenas se o menu estiver aberto e o email for válido */}
           {(email === "ffleck@gmail.com" || email === "alvaro@karavel.com.br") && (

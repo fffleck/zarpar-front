@@ -7,10 +7,18 @@ import api from "../../services/api";
 const Armadores = () => {
   // State para controlar login, senha, status e se foi salvo
   const [armadoresData, setArmadoresData] = useState([
-    { nome_armador: "Maersk", login: "", password: "", status: false, isSaved: true },
-    { nome_armador: "MSC", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "CmaCgm", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Cosco", login: "", password: "", status: false, isSaved: true },
     { nome_armador: "Evergreen", login: "", password: "", status: false, isSaved: true },
-    { nome_armador: "Zim", login: "", password: "", status: false, isSaved: true }
+    { nome_armador: "Hapag", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Hmm", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Maersk", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Msc", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "One", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Pil", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Yangming", login: "", password: "", status: false, isSaved: true },
+    { nome_armador: "Zim", login: "", password: "", status: false, isSaved: true },
+
   ]);
 
   // State para controlar o modal
@@ -117,9 +125,9 @@ const Armadores = () => {
                   <tr key={armador.nome_armador}>
                     <td>
                       <img
-                        src={`/imagens/armador_${armador.nome_armador}.png`}
-                        width="100px"
-                        height="100px"
+                        src={`/imagens/armadores/${armador.nome_armador}.png`}
+                        width="110px"
+                        height="90px"
                         alt={`Armador ${armador.nome_armador}`}
                       />
                     </td>
