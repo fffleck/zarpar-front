@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Button , Form } from 'react-bootstrap';
+import { Button , Form, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import Accordion from 'react-bootstrap/Accordion';
@@ -39,6 +39,16 @@ const [cordaFonte, setcordaFonte] = useState('');
 const [tipodaFonte, settipodaFonte] = useState('');
 const email = sessionStorage.getItem("user_email");
 const [taxs, setTaxs] = useState([]);
+const [showModal, setShowModal] = useState(false);
+const [modalMessage, setModalMessage] = useState("");
+const [modalTitle, setModalTitle] = useState("");
+
+const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setShowModal(true);
+  };
 
 let navigate = useNavigate();
 
@@ -173,8 +183,10 @@ const handleSave = async (event) => {
     alert('Preencha todos os campos obrigatórios')
   } else {
     setTipoMercadoria(dataToSend.nomeMercadoria)
+    
     try {
       await api.post('/booking/save_booking', dataToSend);
+      handleShowModal("Sucesso", `Seu registro ficará Salvo por 24 horas, caso não seja confirmado dentro desse prazo. Será cancelado automaticamente pelo sistema`);
       routeChange();
     } catch (error) {
         console.error("Ocorreu um problema ao salvar o booking:", error);
@@ -222,7 +234,8 @@ const extractFormData = () => {
   return formData;
 };
 
-return (  
+return ( 
+  <div className='flex-dashboard'>
   <form className="form">
     <div className="col-md-9">
       <section className="pedido-reserva">
@@ -640,6 +653,18 @@ return (
       </section>
     </div>
   </form>
+  <Modal show={showModal} onHide={handleCloseModal}>
+    <Modal.Header closeButton>
+      <Modal.Title>{modalTitle}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>{modalMessage}</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleCloseModal}>
+        Fechar
+      </Button>
+    </Modal.Footer>
+  </Modal>
+  </div> 
 )
 }
 
