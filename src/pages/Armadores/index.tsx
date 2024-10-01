@@ -82,23 +82,27 @@ const Armadores = () => {
     const { nome_armador, login, password, status } = armadoresData[index];
     const email = sessionStorage.getItem("user_email");
     
-    try {
-      await api.post("/armadores/save", {
-        nome_armador,
-        email,
-        login,
-        password,
-        status
-      });
-
-      const newArmadoresData = [...armadoresData];
-      newArmadoresData[index].isSaved = true;
-      setArmadoresData(newArmadoresData);
-
-      handleShowModal("Sucesso", `Dados do armador ${nome_armador} salvos com sucesso!`);
-    } catch (error) {
-      console.error("Erro ao salvar os dados:", error);
-      handleShowModal("Erro", `Erro ao salvar os dados do armador ${nome_armador}.`);
+    if (!login || !password) {
+      handleShowModal("Erro", `Erro ao salvar os dados do armador ${nome_armador}. Os campos Login e senha são de preenchimento obrigatório`);
+    } else {
+      try {
+        await api.post("/armadores/save", {
+          nome_armador,
+          email,
+          login,
+          password,
+          status
+        });
+  
+        const newArmadoresData = [...armadoresData];
+        newArmadoresData[index].isSaved = true;
+        setArmadoresData(newArmadoresData);
+  
+        handleShowModal("Sucesso", `Dados do armador ${nome_armador} salvos com sucesso!`);
+      } catch (error) {
+        console.error("Erro ao salvar os dados:", error);
+        handleShowModal("Erro", `Erro ao salvar os dados do armador ${nome_armador}.`);
+      }
     }
   };
 
