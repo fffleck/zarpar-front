@@ -27,3 +27,14 @@
     border: 1px solid #ced4da;
     font-size: 14px;
 }
+
+.search-input {
+    max-width: 15%;
+    float: right;
+  }
+  
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }

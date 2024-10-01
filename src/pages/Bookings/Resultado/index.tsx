@@ -24,6 +24,8 @@ type ResultadoProps = {
 
 const ResultadoBooking = (props: ResultadoProps) => {
 
+  console.log("DADOS", props)
+
   // const hostBackEnd = "http://localhost:3334";
   const hostBackEnd = "http://18.222.233.16:3000";
 
@@ -69,7 +71,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
     if (props.status !== "Canceled") {
       return (
         <tr key={props.id}>
-          <td>{props.id.substring(props.id.length - 6 )}</td>
+          <td>{props?.id?.substring(props.id.length - 6 )}</td>
           <td>{props.cliente}</td>
           <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
@@ -92,7 +94,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
     } else {
       return (
         <tr key={props.id}>
-          <td>{props.id.substring(props.id.length - 6 )}</td>
+          <td>{props?.id?.substring(props.id.length - 6 )}</td>
           <td>{props.cliente}</td>
           <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
@@ -115,7 +117,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
   } else {
     return (
       <tr>
-        <td>{props.id.substring(props.id.length - 6 )}</td>
+        <td>{props?.id?.substring(props.id.length - 6 )}</td>
           <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
           <td>{props.data_embarque}</td>
