@@ -52,7 +52,6 @@ const AddFornecedores = () => {
     dataToSend.email = sessionStorage.getItem("user_email");
   
     api.post('/fornecedor/add', dataToSend).then((response) => {
-      console.log(response)
       if (response.data.success == true) {
         routeChange();
       } else {

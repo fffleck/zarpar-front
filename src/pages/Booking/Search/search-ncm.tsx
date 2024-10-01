@@ -43,7 +43,7 @@ function SearchNcm({ value, onChange, inputValue, onInputChange }) {
       inputValue={inputValue}
       onInputChange={handleInputChange}
       options={options}
-      renderInput={(params) => <TextField {...params} name="selectMercadoria" label="Hs Code" />}
+      renderInput={(params) => <TextField {...params} name="nomeMercadoria" label="Code/Name Mercadoria" />}
     />
     </div>
   );

@@ -4,8 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { Button, Form } from "react-bootstrap";
-import moment from "moment";
 import './style.css'
+
 
 interface ResponseItem {
     id: string;
@@ -37,23 +37,23 @@ interface ResponseItem {
     created_at: string;
     bookingNumber: string;
     booking_file: string;
+    oceanFreigth: string;
     blId: string;
     bl_file: string;
   }
 
-const EditBooking = () => {
+const ShowBooking = () => {
     const {id} = useParams();
     let navigate = useNavigate();
     const [response, setResponse] = useState<ResponseItem>({});
     const [cordaFonte, setcordaFonte] = useState('');
     const [tipodaFonte, settipodaFonte] = useState('');
-    const [file, setFile] = useState(null);
-    const [fileBl, setFileBl] = useState(null);
-
     
     const sendBookingReserva = async (event) => {
 
         event.preventDefault()
+
+        
         const extractFormData = () => {
             const formElements = document.querySelectorAll('input, select, textarea, file, datepicker');
             const formData = {};
@@ -96,39 +96,18 @@ const EditBooking = () => {
         formData.append('bookingNumber', document.getElementById('bookingNumber').value )
         formData.append('oceanFreigth', document.getElementById('oceanFreigth').value )
         formData.append('blId', document.getElementById('blId').value )
-        formData.append('file', file )
-        formData.append('fileBl', fileBl )
-      
 
         try {
-            if (file || fileBl) {
-                // await fetch('http://localhost:3334/upload/bookings', {
-                await fetch('http://18.222.233.16:3334/upload/bookings', {
-                method: 'POST',
-                body: formData
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-            } else {
-                api.post('/booking/update', dataToSend)
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-            }
+            api.post('/booking/update', dataToSend)
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+
             routeChange();
         } catch (error) {
             console.error("Ocorreu um problema ao editar o booking:", error);
         }
     }
-
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-    };
-
-    const handleFileChangeBl = (e) => {
-        setFileBl(e.target.files[0]);
-    };
-    
+ 
     const routeChange = () =>{ 
         const path = "/bookings";
         navigate(path);
@@ -139,7 +118,7 @@ const EditBooking = () => {
             setResponse(response.data.list);
         });
 
-    }, []);
+    }, [id]);
 
     
 
@@ -211,6 +190,7 @@ const EditBooking = () => {
                     aria-describedby="contractNumber"
                     value={response.contractNumber}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="contractNumber"></Form.Text>
                 </div>
@@ -225,6 +205,7 @@ const EditBooking = () => {
                     aria-describedby="bookingOffice"
                     value={response.bookingOffice}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="bookingOffice"></Form.Text>
                 </div>
@@ -241,6 +222,7 @@ const EditBooking = () => {
                     aria-describedby="shipper"
                     value={response.shipper}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="shipper"></Form.Text>
                 </div>
@@ -255,6 +237,7 @@ const EditBooking = () => {
                     aria-describedby="forwarder"
                     value={response.forwarder}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="forwarder"></Form.Text>
                 </div>
@@ -269,6 +252,7 @@ const EditBooking = () => {
                     aria-describedby="consignee"
                     value={response.consignee}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="consignee"></Form.Text>
                 </div>
@@ -283,6 +267,7 @@ const EditBooking = () => {
                     aria-describedby="shipperRefNumber"
                     value={response.shipperRefNumber}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="shipperRefNumber"></Form.Text>
                 </div>
@@ -299,6 +284,7 @@ const EditBooking = () => {
                     aria-describedby="forward_ref_number"
                     value={response.forward_ref_number}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="forward_ref_number"></Form.Text>
                 </div>
@@ -313,6 +299,7 @@ const EditBooking = () => {
                     aria-describedby="purchaseOrderNumber"
                     value={response.purchaseOrderNumber}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="purchaseOrderNumber"></Form.Text>
                 </div>
@@ -327,6 +314,7 @@ const EditBooking = () => {
                     aria-describedby="moveType"
                     value={response.moveType}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="moveType"></Form.Text>
                 </div>
@@ -343,8 +331,9 @@ const EditBooking = () => {
                     aria-describedby="data_embarque"
                     value={response.data_embarque}
                     aria-disabled="true"
+                    disabled={true}
                     />
-                    <Form.Text id="data_embarque">format(dd/mm/yyyy)</Form.Text>
+                    <Form.Text id="data_embarque"></Form.Text>
                 </div>
                 <div className="col-md-3 right">
                     <Form.Label htmlFor="POL"> Place Carrier Receipt </Form.Label>
@@ -357,6 +346,7 @@ const EditBooking = () => {
                     aria-describedby="POL"
                     value={response.porto_embarque}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="POL"></Form.Text>
                 </div>
@@ -371,6 +361,7 @@ const EditBooking = () => {
                     aria-describedby="POD"
                     value={response.porto_descarga}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="POD"></Form.Text>
                 </div>
@@ -383,10 +374,11 @@ const EditBooking = () => {
                     aria-required="true"
                     className="selecao"
                     aria-describedby="data_chegada"
-                    value={moment(response.data_chegada).format('DD/MM/YYYY')}
+                    value={response.data_chegada}
                     aria-disabled="true"
+                    disabled={true}
                     />
-                    <Form.Text id="data_chegada">format (dd/mm/yyyy)</Form.Text>
+                    <Form.Text id="data_chegada"></Form.Text>
                 </div>
             </div><p></p>
             <div className='row'>
@@ -400,6 +392,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="qtdContainers"
                         value={response.qtdContainers}
+                        disabled={true}
                     />
                     <Form.Text id="qtdContainers"></Form.Text>
                 </div>
@@ -414,6 +407,7 @@ const EditBooking = () => {
                     aria-describedby="POL"
                     value={response.tipo_container}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="tipo_container"></Form.Text>
                 </div>
@@ -428,6 +422,7 @@ const EditBooking = () => {
                     aria-describedby="nomeMercadoria"
                     value={response.nomeMercadoria}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="nomeMercadoria"></Form.Text>
                 </div>
@@ -442,6 +437,7 @@ const EditBooking = () => {
                     aria-describedby="payer"
                     value={response.payer}
                     aria-disabled="true"
+                    disabled={true}
                     />
                     <Form.Text id="payer"></Form.Text>
                 </div>
@@ -455,6 +451,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="paymentTerm"
                         value={response.paymentTerm}
+                        disabled={true}
                     />
                     <Form.Text id="paymentTerm"></Form.Text>
                 </div>
@@ -470,6 +467,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="paymentChargeType"
                         value={response.paymentChargeType}
+                        disabled={true}
                     />
                     <Form.Text id="paymentChargeType"></Form.Text>
                 </div>
@@ -483,6 +481,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="paymentLocation"
                         value={response.paymentLocation}
+                        disabled={true}
                     />
                     <Form.Text id="paymentLocation"></Form.Text>
                 </div>
@@ -496,6 +495,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="customerComment"
                         value={response.customerComment}
+                        disabled={true}
                     />
                     <Form.Text id="customerComment"></Form.Text>
                 </div>
@@ -509,6 +509,7 @@ const EditBooking = () => {
                         className="selecao"
                         aria-describedby="emailnotifications"
                         value={response.emailnotifications}
+                        disabled={true}
                     />
                     <Form.Text id="emailnotifications"></Form.Text>
                 </div>
@@ -518,11 +519,16 @@ const EditBooking = () => {
             <div className='row'>
                 <div className="col-md-2 formLeft">
                     <Form.Label htmlFor="status"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Status </span></Form.Label>
-                    <Form.Select id="status" name="status" aria-label="Default select">
-                    {["Pending", "Confirmed", "Canceled", "Saved", "Loaded"].map((option) => (
-                        <option key={option} value={option} selected={response.status === option}>{option}</option>
-                    ))}
-                    </Form.Select>
+                    <Form.Control
+                    type="text"
+                    id="status"
+                    name="status"
+                    aria-required="true"
+                    className="selecao"
+                    value={response.status}
+                    aria-describedby="status"
+                    disabled={true}
+                    />
                 </div>
                 <div className="col-md-2 formLeft">
                     <Form.Label  htmlFor="bookingNumber"> <span className="formLeft" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Booking Number</span></Form.Label>
@@ -534,6 +540,7 @@ const EditBooking = () => {
                     className="selecao"
                     value={response.bookingNumber}
                     aria-describedby="bookingNumber"
+                    disabled={true}
                     />
                     <Form.Text id="bookingNumber"></Form.Text>
                 </div>
@@ -547,6 +554,7 @@ const EditBooking = () => {
                     className="selecao"
                     value={response.blId}
                     aria-describedby="blId"
+                    disabled={true}
                     />
                     <Form.Text id="blId"></Form.Text>
                 </div>
@@ -560,37 +568,9 @@ const EditBooking = () => {
                     aria-required="true"
                     value={response.oceanFreigth}
                     aria-describedby="oceanFreigth"
+                    disabled={true}
                     />
                     <Form.Text id="oceanFreigth"></Form.Text>
-                </div>
-            </div>
-            <p></p>
-            <div className="row">
-                <div className="col-md-4 formLeft">
-                    <Form.Label  htmlFor="inputBookingFile"> <span className="formLeft" style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Booking File</span></Form.Label>
-                    <Form.Control
-                    type="file"
-                    id="inputBookingFile"
-                    name="inputBookingFile"
-                    aria-required="true"
-                    value={response.booking_file}
-                    onChange={handleFileChange}
-                    aria-describedby="inputBookingFile"
-                    />
-                    <Form.Text id="inputBookingFile">(somente arquivos .pdf ou images)</Form.Text>
-                </div>
-                <div className="col-md-4 formLeft">
-                    <Form.Label htmlFor="inputBlFile"><span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>B/L</span></Form.Label>
-                    <Form.Control
-                    type="file"
-                    id="inputBlFile"
-                    name="inputBlFile"
-                    aria-required="true"
-                    value={response.bl_file}
-                    onChange={handleFileChangeBl}
-                    aria-describedby="inputBlFile"
-                    />
-                    <Form.Text id="inputBlFile">(Somente arquivo .pdf ou images)</Form.Text>
                 </div>
             </div>
             <p></p>
@@ -598,7 +578,9 @@ const EditBooking = () => {
               <div className="col-md-12">
                 &nbsp;&nbsp; 
                 <Link to="/bookings"><Button type="submit" className="botao btn-secondary">Voltar</Button></Link>&nbsp;&nbsp;
-                <Button type="submit" className="botao">Salvar</Button>
+                {((response.status === "Saved")) && (  
+                  <Button type="submit" className="botao">Confirmar</Button>
+                )}
               </div>
             </div>
         </section>
@@ -611,4 +593,4 @@ const EditBooking = () => {
   );
 };
 
-export default EditBooking;
+export default ShowBooking;

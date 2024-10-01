@@ -51,7 +51,7 @@ const Bookings = () => {
     };
 
     fetchData();
-  }, [email]); // Executa apenas uma vez, após o componente ser montado
+  }, [email]);
 
   return (
     <div className="flex-dashboard">
@@ -60,7 +60,7 @@ const Bookings = () => {
         <HeaderPage nomeOpcao="Bookings"/>
         <div className="main-content">
           <div className="main-content-title">
-            <h2>Bookings</h2>
+            <h2>My Bookings</h2>
             <button onClick={onAddBooking} className="fornecedores">New Booking</button>
             <p></p>
             <TabelaResultados response={response}/>

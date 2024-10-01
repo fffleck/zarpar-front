@@ -39,6 +39,9 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               <th scope="col">ETS</th>
               <th scope="col">POL</th>
               <th scope="col">POD</th>
+              <th scope="col">Data Criação</th>
+              <th scope="col">Moeda</th>
+              <th scope="col">Valor</th>
               <th scope="col">Status</th>
               <th scope="col">File BK</th>
               <th scope="col">File BL</th>
@@ -77,6 +80,9 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               <th scope="col">ETS</th>
               <th scope="col">POL</th>
               <th scope="col">POD</th>
+              <th scope="col">Data Criação</th>
+              <th scope="col">Moeda</th>
+              <th scope="col">Valor</th>
               <th scope="col">Status</th>
               <th scope="col">File BK</th>
               <th scope="col">File BL</th>

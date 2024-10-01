@@ -31,6 +31,7 @@ import ConsolidaNac from "./pages/EditNAC";
 import AddBooking from "./pages/BookingAdd";
 import ListNac from "./pages/ListNac";
 import Armadores from "./pages/Armadores";
+import ShowBooking from "./pages/Edit/show";
 
 
 
@@ -130,6 +131,13 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <EditBooking />
+            </Protected>
+          }
+        ></Route>
+        <Route path="/showBooking/:id"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <ShowBooking />
             </Protected>
           }
         ></Route>

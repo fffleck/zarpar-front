@@ -44,7 +44,6 @@ const ConsolidaNac = () => {
     event.preventDefault();
 
     const dataToSend = { ...extractFormData() };
-    console.log('DATATOSEND', dataToSend);
     // eslint-disable-next-line no-restricted-globals
     const userConfirmed = confirm('Esta ação irá remover esta cotação da lista. Deseja continuar?');
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import api from "../../../services/api";
+import moment from "moment";
 
 
 type ResultadoProps = {
@@ -19,12 +19,13 @@ type ResultadoProps = {
     bookingFile: string;
     blFile: string;
     oceanFreigth: string;
+    created_at: string;
 };
 
 const ResultadoBooking = (props: ResultadoProps) => {
 
   // const hostBackEnd = "http://localhost:3334";
-  const hostBackEnd = "https://zarpar-services-3a7856d27138.herokuapp.com";
+  const hostBackEnd = "http://18.222.233.16:3000";
 
   const classButton = (status) => {
     let classReturn = "";
@@ -38,24 +39,11 @@ const ResultadoBooking = (props: ResultadoProps) => {
     return classReturn;
   };
 
-  const getArmador = (armador) => {
-    let nome = "ND"
-    if (armador === "1") { nome = "MAERSK" }
-    if (armador === "2") { nome = "CGA_CGM" }
-    if (armador === "3") { nome = "MSC" }
-    if (armador === "4") { nome = "EXALOG" }
-    if (armador === "5") { nome = "COSCO" }
-    if (armador === "6") { nome = "HAPAG" }
-    if (armador === "7") { nome = "ONE" }
-    if (armador === "8") { nome = "HMM" }
-    
-    return nome
-  }
 
   const getLinkBooking = (fileBooking) => {
     if (fileBooking && fileBooking!== "") {
       return (
-        <a target="_blank" href={hostBackEnd+'/'+fileBooking}>
+        <a target="_blank" rel="noreferrer" href={hostBackEnd+'/'+fileBooking}>
               <i className="fa-solid fa-download"></i>
             </a>
       )
@@ -67,7 +55,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
   const getLinkBlFile = (fileBL) => {
     if (fileBL && fileBL!== "") {
       return (
-        <a target="_blank" href={hostBackEnd+'/'+fileBL}>
+        <a target="_blank" rel="noreferrer" href={hostBackEnd+'/'+fileBL}>
               <i className="fa-solid fa-download"></i>
             </a>
       )
@@ -83,11 +71,14 @@ const ResultadoBooking = (props: ResultadoProps) => {
         <tr key={props.id}>
           <td>{props.id.substring(props.id.length - 6 )}</td>
           <td>{props.cliente}</td>
-          <td>{getArmador(props.armador)}</td>
+          <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
           <td>{props.data_embarque}</td>
           <td>{props.porto_embarque}</td>
           <td>{props.porto_descarga}</td>
+          <td>{moment(props.created_at).format('DD/MM/YYYY')}</td>
+          <td>USD</td>
+          <td> - </td>
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
@@ -103,11 +94,14 @@ const ResultadoBooking = (props: ResultadoProps) => {
         <tr key={props.id}>
           <td>{props.id.substring(props.id.length - 6 )}</td>
           <td>{props.cliente}</td>
-          <td>{getArmador(props.armador)}</td>
+          <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
           <td>{props.data_embarque}</td>
           <td>{props.porto_embarque}</td>
           <td>{props.porto_descarga}</td>
+          <td>{moment(props.created_at).format('DD/MM/YYYY')}</td>
+          <td>USD</td>
+          <td> - </td>
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
@@ -122,17 +116,20 @@ const ResultadoBooking = (props: ResultadoProps) => {
     return (
       <tr>
         <td>{props.id.substring(props.id.length - 6 )}</td>
-          <td>{getArmador(props.armador)}</td>
+          <td>{props.armador}</td>
           <td>{props.quantidade_containers}</td>
           <td>{props.data_embarque}</td>
           <td>{props.porto_embarque}</td>
           <td>{props.porto_descarga}</td>
+          <td>{moment(props.created_at).format('DD/MM/YYYY')}</td>
+          <td>USD</td>
+          <td> - </td>
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
           <td>{getLinkBooking(props.bookingFile)}</td>
           <td>{getLinkBlFile(props.blFile)}</td>
-        <td></td>
+          <td><Link to={`/showBooking/${props.id}`}>Show</Link></td>
       </tr>
     );
   }

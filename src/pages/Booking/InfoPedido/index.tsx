@@ -29,6 +29,7 @@ const InfoPedido = (props) => {
 const [formData] = useState<Dayjs | null>(null);
 const [qtdContainers, setQtdContainers] = useState<number>(1);
 const [nomeEmbarcador, setNomeEmbarcador] = useState('');
+const [empresaEmbarcador, setEmpresaEmbarcador] = useState('');
 const [enderecoEmbarcador, setEnderecoEmbarcador] = useState('');
 const [cnpjEmbarcador, setCnpjEmbarcador] = useState('');
 const [telefoneEmbarcador, setTelefoneEmbarcador] = useState('');
@@ -49,6 +50,7 @@ let dadosPedido = {
   quantidade_containers: qtdContainers,
   embarcador_email: email,
   embarcador_nome: nomeEmbarcador,
+  embarcador_empresa: empresaEmbarcador ?? null,
   embarcador_endereco: enderecoEmbarcador,
   embarcador_cnpj: cnpjEmbarcador,
   embarcador_telefone: telefoneEmbarcador,
@@ -71,7 +73,6 @@ const routeBack = () =>{
   navigate(path);
 }
 
-
 function handleInputContainers(event: ChangeEvent<HTMLInputElement>){
   const quantidade = Number(event.target.value);
   
@@ -89,6 +90,7 @@ useEffect(() => {
   api.post('/user/find_user', {email})
   .then(resp=>{
     setNomeEmbarcador(resp.data.user.name);
+    setEmpresaEmbarcador(resp.data.user.enterpriseName)
     setEnderecoEmbarcador(resp.data.user.address);
     setCnpjEmbarcador(resp.data.user.cnpj);
     setTelefoneEmbarcador(resp.data.user.telefone);
@@ -96,13 +98,13 @@ useEffect(() => {
   .catch(err =>{
     console.error(err);
   })
-}, []);
+}, [email, props]);
 
 
-var precoPorBase = dadosPedido.frete_base;
-var precoPorBuner = dadosPedido.frete_bunker;
-var precoPorIsps = dadosPedido.frete_isps;
-var precoTotalTaxas = 0;
+const precoPorBase = dadosPedido.frete_base;
+const precoPorBuner = dadosPedido.frete_bunker;
+const precoPorIsps = dadosPedido.frete_isps;
+let precoTotalTaxas = 0;
 
 const informacoesEnviarEmail:informacoesEnviarEmail = {
   armador: props.armador,
@@ -153,80 +155,66 @@ const sendEmailClient = async (event) => {
   })
 }
 
-const saveBooking = async (event, dataToSend) => {
-  event.preventDefault();
-  informacoesEnviarEmail.tipo_mercadoria = dataToSend.selectMercadoria.split('-')[0]
-  informacoesEnviarEmail.mercadoria = dataToSend.selectMercadoria.split('-')[1]
-  await api.post('/booking/save_booking', informacoesEnviarEmail)
-  .then((res) => {
-    console.log("Booking salvo");
-  })
-  .catch(err => {
-    console.log("Ocorreu um problema ao salvar o booking no banco de dados");
-  })
-}
-
-const sendBookingReserva = async (event) => {
-
+const handleSave = async (event) => {
   event.preventDefault()
-
   const dataToSend = {
-      ...dadosPedido,
-      formData: formData?.format('YYYY-MM-DD') ?? null,
-      qtdContainers,
-      mercadoria,
-      tipoMercadoria,
-      ...extractFormData()
-  };
-
-  if (!dataToSend.selectMercadoria || !dataToSend.inputContracNumber || !dataToSend.selectPaymentChargeType || !dataToSend.selectPaymentTerm || !dataToSend.selectPayer) {
-    setcordaFonte("red")
-    settipodaFonte("bold")
-    alert('Preencha todos os campos obrigatórios')
-  } else {
-    setTipoMercadoria(dataToSend.selectMercadoria)
-    try {
-      await api.post('/booking/reservas', dataToSend);
-      await api.post('booking/send_email', dataToSend);
-      sendEmailAnalisys(event);
-      sendEmailClient(event);
-      saveBooking(event, dataToSend);
-      routeChange();
-    } catch (error) {
-        console.error("Ocorreu um problema ao reservar o booking:", error);
-    }
+    ...dadosPedido,
+    status: 'Saved',
+    formData: formData?.format('YYYY-MM-DD') ?? null,
+    qtdContainers,
+    mercadoria,
+    tipoMercadoria,
+    ...extractFormData()
   }
-}
 
-const onSaveBooking = async (event) => {
-  event.preventDefault()
-
-  const dataToSend = {
-      ...dadosPedido,
-      formData: formData?.format('YYYY-MM-DD') ?? null,
-      qtdContainers,
-      mercadoria,
-      tipoMercadoria,
-      ...extractFormData()
-  };
-
-  if (!dataToSend.selectMercadoria || !dataToSend.inputContracNumber || !dataToSend.selectPaymentChargeType || !dataToSend.selectPaymentTerm || !dataToSend.selectPayer) {
+  if (!dataToSend.nomeMercadoria || !dataToSend.paymentChargeType || !dataToSend.paymentTerm || !dataToSend.payer) {
     setcordaFonte("red")
     settipodaFonte("bold")
     alert('Preencha todos os campos obrigatórios')
   } else {
+    setTipoMercadoria(dataToSend.nomeMercadoria)
     try {
-      await api.post('/booking/reservas', dataToSend);
-      saveBooking(event);
+      await api.post('/booking/save_booking', dataToSend);
       routeChange();
     } catch (error) {
         console.error("Ocorreu um problema ao salvar o booking:", error);
     }
   }
-}
+};
+
+const handleConfirm = async (event) => {
+  event.preventDefault()
+
+  const dataToSend = {
+      ...dadosPedido,
+      status: 'Pending',
+      formData: formData?.format('YYYY-MM-DD') ?? null,
+      qtdContainers,
+      mercadoria,
+      tipoMercadoria,
+      ...extractFormData()
+  };
+
+  if (!dataToSend.nomeMercadoria || !dataToSend.contractNumber || !dataToSend.paymentChargeType || !dataToSend.paymentTerm || !dataToSend.payer) {
+    setcordaFonte("red")
+    settipodaFonte("bold")
+    alert('Preencha todos os campos obrigatórios')
+  } else {
+    setTipoMercadoria(dataToSend.nomeMercadoria)
+    try {
+      await api.post('/booking/save_booking', dataToSend);
+      await api.post('booking/send_email', dataToSend);
+      sendEmailAnalisys(event);
+      sendEmailClient(event);
+      routeChange();
+    } catch (error) {
+        console.error("Ocorreu um problema ao reservar o booking:", error);
+    }
+  }
+};
 
 const extractFormData = () => {
-  const formElements = document.querySelectorAll('input, select, textarea');
+  const formElements = document.querySelectorAll('input, select, textarea, text');
   const formData = {};
   formElements.forEach((element: any) => {
       formData[element.name] = element.value || null;
@@ -234,9 +222,8 @@ const extractFormData = () => {
   return formData;
 };
 
-
 return (  
-  <form className="form"  onSubmit={sendBookingReserva}>
+  <form className="form">
     <div className="col-md-9">
       <section className="pedido-reserva">
         <div className="topo">
@@ -248,33 +235,33 @@ return (
                 <Accordion.Body>
                     <div className='row'>
                         <div className="col-md-4">
-                        <Form.Label htmlFor="selectCarrier"> Carrier / NVOCC / Booking Agent </Form.Label>
-                        <Form.Select id="selectCarrier" name='selectCarrier' aria-label="Default select example" disabled>
+                        <Form.Label htmlFor="carrier"> Carrier / NVOCC / Booking Agent </Form.Label>
+                        <Form.Select id="carrier" name='carrier' aria-label="Default select example" disabled>
                           <option>Select ...</option>
                           <option value={dadosPedido.armador} selected>{dadosPedido.armador}</option>
                         </Form.Select>
                         </div>
                         <div className="col-md-4">
-                        <Form.Label htmlFor="inputContracNumber"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Contract Number*</span> </Form.Label>
+                        <Form.Label htmlFor="contractNumber"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Contract Number*</span> </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputContracNumber"
-                          name="inputContracNumber"
+                          id="contractNumber"
+                          name="contractNumber"
                           aria-required="true"
-                          aria-describedby="inputContracNumber"
+                          aria-describedby="contractNumber"
                         />
-                        <Form.Text id="inputContracNumber"></Form.Text>
+                        <Form.Text id="contractNumber"></Form.Text>
                         </div>
                         <div className="col-md-4 right">
-                        <Form.Label htmlFor="inputContracNumber"> Booking Office </Form.Label>
+                        <Form.Label htmlFor="bookingOffice"> Booking Office </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputBookingOffice"
-                          name="inputBookingOffice"
+                          id="bookingOffice"
+                          name="bookingOffice"
                           aria-required="true"
-                          aria-describedby="inputBookingOffice"
+                          aria-describedby="bookingOffice"
                         />
-                        <Form.Text id="inputBookingOffice"></Form.Text>
+                        <Form.Text id="bookingOffice"></Form.Text>
                         </div>
                       </div>
                 </Accordion.Body>
@@ -285,44 +272,42 @@ return (
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputShipper"> Shipper </Form.Label>
+                      <Form.Label htmlFor="shipper"> Shipper </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputShipper"
-                          name="inputShipper"
+                          id="shipper"
+                          name="shipper"
                           aria-required="true"
-                          aria-describedby="inputShipper"
-                          disabled="true"
-                          value={dadosPedido.embarcador_nome}
+                          aria-describedby="shipper"
                         />
-                        <Form.Text id="inputShipper"></Form.Text>
+                        <Form.Text id="shipper"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputForwarder"> Forwarder </Form.Label>
+                      <Form.Label htmlFor="forwarder"> Forwarder </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputForwarder"
-                          name="inputForwarder"
+                          id="forwarder"
+                          name="forwarder"
                           aria-required="true"
-                          aria-describedby="inputForwarder"
+                          aria-describedby="forwarder"
                           disabled="true"
-                          value={"Zarpar Trade"}
+                          value={dadosPedido.embarcador_empresa}
                         />
-                        <Form.Text id="inputForwarder"></Form.Text>
+                        <Form.Text id="forwarder"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
 
-                      <Form.Label htmlFor="inputConsignee"> Consignee </Form.Label>
+                      <Form.Label htmlFor="consignee"> Consignee </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputConsignee"
-                          name="inputConsignee"
+                          id="consignee"
+                          name="consignee"
                           aria-required="true"
-                          aria-describedby="inputConsignee"
+                          aria-describedby="consignee"
                         />
-                        <Form.Text id="inputConsignee"></Form.Text>
+                        <Form.Text id="consignee"></Form.Text>
                       </div>
                     </div>
                 </Accordion.Body>
@@ -333,39 +318,39 @@ return (
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputshipperRefNumber"> Shipper Reference Number </Form.Label>
+                      <Form.Label htmlFor="shipperRefNumber"> Shipper Reference Number </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputshipperRefNumber"
-                          name="inputshipperRefNumber"
+                          id="shipperRefNumber"
+                          name="shipperRefNumber"
                           aria-required="true"
-                          aria-describedby="inputshipperRefNumber"
+                          aria-describedby="shipperRefNumber"
                         />
-                        <Form.Text id="inputshipperRefNumber"></Form.Text>
+                        <Form.Text id="shipperRefNumber"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputforwardRefNumber"> Forwarder's Reference Number </Form.Label>
+                      <Form.Label htmlFor="forward_ref_number"> Forwarder's Reference Number </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputforwardRefNumber"
-                          name="inputforwardRefNumber"
+                          id="forward_ref_number"
+                          name="forward_ref_number"
                           aria-required="true"
-                          aria-describedby="inputforwardRefNumber"
+                          aria-describedby="forward_ref_number"
                         />
-                        <Form.Text id="inputforwardRefNumber"></Form.Text>
+                        <Form.Text id="forward_ref_number"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputpurchaseOrderNumber">Purchase Order Number</Form.Label>
+                      <Form.Label htmlFor="purchaseOrderNumber">Purchase Order Number</Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputpurchaseOrderNumber"
-                          name="inputpurchaseOrderNumber"
+                          id="purchaseOrderNumber"
+                          name="purchaseOrderNumber"
                           aria-required="true"
-                          aria-describedby="inputpurchaseOrderNumber"
+                          aria-describedby="purchaseOrderNumber"
                         />
-                        <Form.Text id="inputpurchaseOrderNumber"></Form.Text>
+                        <Form.Text id="purchaseOrderNumber"></Form.Text>
                       </div>
                     </div>
                 </Accordion.Body>
@@ -376,8 +361,8 @@ return (
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-4">
-                      <Form.Label htmlFor="selectMoveType"> Move Type</Form.Label>
-                        <Form.Select id="selectMoveType" name="selectMoveType" aria-label="Default select">
+                      <Form.Label htmlFor="moveType"> Move Type</Form.Label>
+                        <Form.Select id="moveType" name="moveType" aria-label="Default select">
                           <option value="PortToPort" selected>Port, Ramp, or CY to Port, Ramp, or CY</option>
                           <option value="DoorToPort">Door to port, Ramp, or Cy </option>
                           <option value="DoorToDoor">Door to Door</option>
@@ -386,21 +371,21 @@ return (
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputplacecarrierreceipt"> Place of Carrier Receipt </Form.Label>
+                      <Form.Label htmlFor="placecarrierreceipt"> Place of Carrier Receipt </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputplacecarrierreceipt"
-                          name="inputplacecarrierreceipt"
+                          id="placecarrierreceipt"
+                          name="placecarrierreceipt"
                           value={props.porto_embarque}
                           aria-required="true"
                           disabled
-                          aria-describedby="inputplacecarrierreceipt"
+                          aria-describedby="placecarrierreceipt"
                         />
-                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
+                        <Form.Text id="placecarrierreceipt"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputplacecarrierreceipt"> Early Departure Date </Form.Label>
+                      <Form.Label htmlFor="earlyDepartureDate"> Early Departure Date </Form.Label>
                         <Form.Control
                           type="text"
                           id="dateDepartureEarly"
@@ -408,9 +393,9 @@ return (
                           value={formataData(props.data_embarque)}
                           aria-required="true"
                           disabled
-                          aria-describedby="inputplacecarrierreceipt"
+                          aria-describedby="earlyDepartureDate"
                         />
-                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
+                        <Form.Text id="earlyDepartureDate"></Form.Text>
                       </div>
                   </div>
                   <p></p>
@@ -418,21 +403,21 @@ return (
                       <div className="col-md-4">
                       </div>
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputplacecarrierreceipt"> Place of Carrier Delivery</Form.Label>
+                      <Form.Label htmlFor="placeCarrierDelivery"> Place of Carrier Delivery</Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputplacecarrierreceipt"
-                          name="inputplacecarrierreceipt"
+                          id="placeCarrierDelivery"
+                          name="placeCarrierDelivery"
                           value={props.porto_descarga}
                           aria-required="true"
                           disabled
-                          aria-describedby="inputplacecarrierreceipt"
+                          aria-describedby="placeCarrierDelivery"
                         />
-                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
+                        <Form.Text id="placeCarrierDelivery"></Form.Text>
                       </div>
 
                       <div className="col-md-4">
-                      <Form.Label htmlFor="inputplacecarrierreceipt"> Latest Delivery Date </Form.Label>
+                      <Form.Label htmlFor="latestDeliveryDate"> Latest Delivery Date </Form.Label>
                         <Form.Control
                           type="text"
                           id="dateDeliveryLatest"
@@ -440,9 +425,9 @@ return (
                           value={formataData(props.data_chegada)}
                           aria-required="true"
                           disabled
-                          aria-describedby="inputplacecarrierreceipt"
+                          aria-describedby="latestDeliveryDate"
                         />
-                        <Form.Text id="inputplacecarrierreceipt"></Form.Text>
+                        <Form.Text id="latestDeliveryDate"></Form.Text>
                       </div>
                   </div>
                 </Accordion.Body>
@@ -483,8 +468,8 @@ return (
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-4">
-                        <Form.Label htmlFor="selectPaymentChargeType"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Charge Type* </span></Form.Label>
-                        <Form.Select id="selectPaymentChargeType"  name="selectPaymentChargeType" aria-label="Default select example">
+                        <Form.Label htmlFor="paymentChargeType"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Charge Type* </span></Form.Label>
+                        <Form.Select id="paymentChargeType"  name="paymentChargeType" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Additional">Additional Charges</option>
                           <option value="OceanFreight">Basic Freight</option>
@@ -495,8 +480,8 @@ return (
                         </Form.Select>
                       </div>
                       <div className="col-md-2">
-                        <Form.Label htmlFor="selectPaymentTerm">  <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Payment Term* </span></Form.Label>
-                        <Form.Select id="selectPaymentTerm" name="selectPaymentTerm" aria-label="Default select example">
+                        <Form.Label htmlFor="paymentTerm">  <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}>Payment Term* </span></Form.Label>
+                        <Form.Select id="paymentTerm" name="paymentTerm" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Prepaid">Pre-paid</option>
                           <option value="Collect">Collect</option>
@@ -505,8 +490,8 @@ return (
                       </div>
 
                       <div className="col-md-3">
-                        <Form.Label htmlFor="selectPayer"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Payer* </span> </Form.Label>
-                        <Form.Select id="selectPayer" name="selectPayer" aria-label="Default select example">
+                        <Form.Label htmlFor="payer"> <span style={{color: `${cordaFonte}`, fontWeight: `${tipodaFonte}`}}> Payer* </span> </Form.Label>
+                        <Form.Select id="payer" name="payer" aria-label="Default select example">
                           <option>Select ...</option>
                           <option value="Booker">Booker</option>
                           <option value="Consignee">Consignee</option>
@@ -520,15 +505,15 @@ return (
                       </div>
 
                       <div className="col-md-3">
-                      <Form.Label htmlFor="inputPaymentLocation"> Payment Location </Form.Label>
+                      <Form.Label htmlFor="paymentLocation"> Payment Location </Form.Label>
                         <Form.Control
                           type="text"
-                          id="inputPaymentLocation"
-                          name="inputPaymentLocation"
+                          id="paymentLocation"
+                          name="paymentLocation"
                           aria-required="true"
-                          aria-describedby="inputPaymentLocation"
+                          aria-describedby="paymentLocation"
                         />
-                        <Form.Text id="inputPaymentLocation"></Form.Text>
+                        <Form.Text id="paymentLocation"></Form.Text>
                       </div>
                     </div>
                 </Accordion.Body>
@@ -539,24 +524,24 @@ return (
                 <Accordion.Body>
                   <div className='row'>
                       <div className="col-md-12">
-                      <Form.Label htmlFor="inputCustomerComment"> Customer Comments </Form.Label>
+                      <Form.Label htmlFor="customerComment"> Customer Comments </Form.Label>
                         <Form.Control
                           as="textarea"
-                          id="inputCustomerComment"
+                          id="customerComment"
                           name="textAreaCustomerComment"
                           rows={3}
-                          aria-describedby="inputCustomerComment"
+                          aria-describedby="customerComment"
                         />
 
                       </div>
 
                       <div className="col-md-12">
-                      <Form.Label htmlFor="inputPartnerEmailNotifications"> Partner Email Notifications </Form.Label>
+                      <Form.Label htmlFor="emailnotifications"> Partner Email Notifications </Form.Label>
                         <Form.Control
                           type="email"
-                          id="inputPartnerEmailNotifications"
-                          name="inputPartnerEmailNotifications"
-                          aria-describedby="inputCustomerComment"
+                          id="emailnotifications"
+                          name="emailnotifications"
+                          aria-describedby="customerComment"
                         />
                       </div>
                     </div>
@@ -568,7 +553,7 @@ return (
                 <Button type="button" onClick={routeBack} className="btn btn-secondary botao">Voltar</Button>
               </div>
               <div className="col-md-6">
-                <Button type="submit" className="botao">Reservar</Button>
+                <Button onClick={handleSave} className="botao">Salvar</Button>
               </div>
             </div>
       </section>
@@ -650,7 +635,7 @@ return (
             <span className='item-ajuste__titulo' style={{"textAlign": "center"}}> (+ taxas)</span>
           </div>
           <div style={{"textAlign": "center"}}>
-            <Button type="submit" className="botao">Reservar</Button>
+            <Button onClick={handleConfirm} className="botao">Confirmar</Button>
           </div>
       </section>
     </div>

@@ -137,7 +137,7 @@ const AddBooking = () => {
     };
 
   
-    if (!dataToSend.armador || !dataToSend.contractNumber || !dataToSend.porto_embarque || !dataToSend.porto_descarga || 
+    if (!dataToSend.armador || !dataToSend.porto_embarque || !dataToSend.porto_descarga || 
       !dataToSend.data_embarque || !dataToSend.data_chegada || !dataToSend.qtdContainers || !dataToSend.tipo_container || 
       !dataToSend.nomeMercadoria || !dataToSend.paymentChargeType || !dataToSend.paymentTerm || !dataToSend.payer) {
       setcordaFonte("red")
