@@ -54,7 +54,7 @@ type TabelaResultadosProps = {
 
 const TabelaResultados = (props: TabelaResultadosProps) => {
   return (
-    <Table striped bordered hover>
+    <Table striped hover>
       <thead>
         <tr>
           <th scope="col"></th>
@@ -65,6 +65,8 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
           <th scope="col">All-In</th>
           <th scope="col">T/T</th>
           <th scope="col">ETA/POD</th>
+          <th scope="col"></th>
+          
         </tr>
       </thead>
       <tbody> 
