@@ -23,9 +23,6 @@ type ResultadoProps = {
 };
 
 const ResultadoBooking = (props: ResultadoProps) => {
-
-  console.log("DADOS", props)
-
   // const hostBackEnd = "http://localhost:3334";
   const hostBackEnd = "http://18.222.233.16:3000";
 
@@ -103,7 +100,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
           <td>{props.porto_descarga}</td>
           <td>{moment(props.created_at).format('DD/MM/YYYY')}</td>
           <td>USD</td>
-          <td> - </td>
+          <td>{props.valor}</td>
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>
@@ -125,7 +122,7 @@ const ResultadoBooking = (props: ResultadoProps) => {
           <td>{props.porto_descarga}</td>
           <td>{moment(props.created_at).format('DD/MM/YYYY')}</td>
           <td>USD</td>
-          <td> - </td>
+          <td>{props.valor}</td>
           <td>
             <button className={classButton(props.status)}>{props.status[0].toUpperCase() + props.status.substring(1)}</button>&nbsp;&nbsp; 
           </td>

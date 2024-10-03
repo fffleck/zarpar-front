@@ -17,6 +17,7 @@ type ResultadoProps = {
   qtdContainers: string;
   email: string;
   status: string;
+  valor: string;
   oceanFreigth: string;
   created_at: string;
   bookingFile: string;
@@ -114,7 +115,7 @@ const TabelaResultados = (props: TabelaResultadosProps) => {
               oceanFreigth={resultado.oceanFreigth} 
               tipo_mercadoria={""} 
               tipo_container={""} 
-              valor={""} 
+              valor={resultado.valor} 
               created_at={resultado.created_at}            
             />
           ))}

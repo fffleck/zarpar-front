@@ -2,6 +2,8 @@ import Sidebar from "../Sidebar";
 import HeaderPage from "../HeaderPage";
 import InfoPedido from "../Booking/InfoPedido";
 import { useSearchParams } from "react-router-dom";
+import "./styles.css";
+
 
 const Booking = () => {
 

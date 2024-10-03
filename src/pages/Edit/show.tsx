@@ -3,7 +3,7 @@ import HeaderPage from "../HeaderPage";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import './style.css'
 
 
@@ -38,6 +38,8 @@ interface ResponseItem {
     bookingNumber: string;
     booking_file: string;
     oceanFreigth: string;
+    valor: string;
+    taxas: [];
     blId: string;
     bl_file: string;
   }
@@ -48,7 +50,18 @@ const ShowBooking = () => {
     const [response, setResponse] = useState<ResponseItem>({});
     const [cordaFonte, setcordaFonte] = useState('');
     const [tipodaFonte, settipodaFonte] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [modalTitle, setModalTitle] = useState("");
     
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setShowModal(true);
+    };
+
     const sendBookingReserva = async (event) => {
 
         event.preventDefault()
@@ -63,48 +76,20 @@ const ShowBooking = () => {
             return formData;
         };
 
-        const dataToSend = { ...extractFormData(), armador: response.armador };
-
-
-        const formData = new FormData()
-        formData.append('armador', response.armador )
-        formData.append('id', id )
-        formData.append('qtdContainers', document.getElementById('qtdContainers').value )
-        formData.append('contractNumber', document.getElementById('contractNumber').value )
-        formData.append('bookingOffice', document.getElementById('bookingOffice').value )
-        formData.append('shipper', document.getElementById('shipper').value )
-        formData.append('forwarder', document.getElementById('forwarder').value )
-        formData.append('consignee', document.getElementById('consignee').value )
-        formData.append('shipperRefNumber', document.getElementById('shipperRefNumber').value )
-        formData.append('forward_ref_number', document.getElementById('forward_ref_number').value )
-        formData.append('purchaseOrderNumber', document.getElementById('purchaseOrderNumber').value )
-        formData.append('moveType', document.getElementById('moveType').value )
-        formData.append('porto_embarque', document.getElementById('POL').value )
-        formData.append('porto_descarga', document.getElementById('POD').value )
-        formData.append('data_embarque', document.getElementById('data_embarque').value)
-        formData.append('data_chegada', document.getElementById('data_chegada').value)
-        formData.append('tipo_container', document.getElementById('tipo_container').value )
-        formData.append('nomeMercadoria', document.getElementById('nomeMercadoria').value )
-        formData.append('paymentChargeType', document.getElementById('paymentChargeType').value )
-        formData.append('paymentTerm', document.getElementById('paymentTerm').value )
-        formData.append('payer', document.getElementById('payer').value )
-        formData.append('paymentLocation', document.getElementById('paymentLocation').value )
-        formData.append('customerComment', document.getElementById('customerComment').value )
-        formData.append('emailnotifications', document.getElementById('emailnotifications').value )
-        formData.append('email', document.getElementById('client').value )
-        formData.append('status', document.getElementById('status').value )
-        formData.append('bookingNumber', document.getElementById('bookingNumber').value )
-        formData.append('oceanFreigth', document.getElementById('oceanFreigth').value )
-        formData.append('blId', document.getElementById('blId').value )
+        const dataToSend = { ...extractFormData(), armador: response.armador, status: 'Pending' };
 
         try {
-            api.post('/booking/update', dataToSend)
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+            const data = await api.post('/booking/update', dataToSend);
 
-            routeChange();
+            if (data.data.success === true) {
+                console.log("ENTROU AQUI")
+                handleShowModal("Sucesso", "Booking Confirmado com sucesso!");
+                routeChange();
+            } else {
+                handleShowModal("Erro", "Ocorreu um problema, tente novamente mais tarde!");
+            }
         } catch (error) {
-            console.error("Ocorreu um problema ao editar o booking:", error);
+            handleShowModal("Erro", "Ocorreu um problema, tente novamente mais tarde!");
         }
     }
  
@@ -129,7 +114,7 @@ const ShowBooking = () => {
         <HeaderPage nomeOpcao="Booking"/>
         <div className="main-content">
 
-        <form className="form formulario" name="formulario" encType="multipart/form-data"  onSubmit={sendBookingReserva}>
+        <form className="form formulario" name="formulario" encType="multipart/form-data">
         <div className="col-md-12">
         <section className="pedido-reserva">
             <div className="topo">
@@ -566,20 +551,43 @@ const ShowBooking = () => {
                     name="oceanFreigth"
                     className="selecao"
                     aria-required="true"
-                    value={response.oceanFreigth}
+                    value={"USD " + response.valor}
                     aria-describedby="oceanFreigth"
                     disabled={true}
                     />
-                    <Form.Text id="oceanFreigth"></Form.Text>
+                    <Form.Text id="oceanFreigth">+ taxas </Form.Text>
+                </div>
+                <div className="col-md-3 formLeft">
+                    
+                    <table className="table" width="90%">
+                        <thead>
+                            <th colSpan={3}><strong>Taxas</strong></th>
+                        </thead>
+                        <thead>
+                            <th scope="row">Name</th>
+                            <th scope="row">Currency</th>
+                            <th scope="row">Value</th>
+                        </thead>
+                        <tbody>
+                        {response.taxas?.map((taxa) => (
+                            <tr>
+                                <td>{taxa.taxname}</td>
+                                <td>{taxa.currency}</td>
+                                <td>{taxa.taxValue}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <p></p>
             <div className="row">
               <div className="col-md-12">
                 &nbsp;&nbsp; 
-                <Link to="/bookings"><Button type="submit" className="botao btn-secondary">Voltar</Button></Link>&nbsp;&nbsp;
+                <Link to="/bookings"><Button type="button" className="botao btn-secondary">Voltar</Button></Link>&nbsp;&nbsp;
                 {((response.status === "Saved")) && (  
-                  <Button type="submit" className="botao">Confirmar</Button>
+                  <Button type="button" className="botao" onClick={sendBookingReserva}>Confirmar</Button>
+
                 )}
               </div>
             </div>
@@ -588,6 +596,18 @@ const ShowBooking = () => {
         </form>
         </div>
       </main> 
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{modalTitle}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
     
   );

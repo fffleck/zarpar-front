@@ -235,7 +235,7 @@ const extractFormData = () => {
 };
 
 return ( 
-  <div className='flex-dashboard'>
+  <div className="fixed-height-container">
   <form className="form">
     <div className="col-md-9">
       <section className="pedido-reserva">
@@ -560,15 +560,15 @@ return (
                     </div>
                 </Accordion.Body>
               </Accordion.Item>
-            </Accordion> 
-            <div className="row">
-              <div className="col-md-6">
-                <Button type="button" onClick={routeBack} className="btn btn-secondary botao">Voltar</Button>
-              </div>
-              <div className="col-md-6">
-                <Button onClick={handleSave} className="botao">Salvar</Button>
-              </div>
-            </div>
+        </Accordion> 
+        <div className="row">
+          <div className="col-md-6">
+            <Button type="button" onClick={routeBack} className="btn btn-secondary botao">Voltar</Button>
+          </div>
+          <div className="col-md-6">
+            <Button onClick={handleSave} className="botao">Salvar</Button>
+          </div>
+        </div>
       </section>
     </div>
     <div className="col-md-3">
