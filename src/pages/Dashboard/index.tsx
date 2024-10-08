@@ -86,9 +86,9 @@ const Dashboard = () => {
                   />
                   <div className="card-body row m-1">
                     <h4 className="col-8 card-subtitle" style={{"padding": 0}}>{nameUser} </h4>
-                    <button className="col-4 btn btn-primary btn-sm">
+                    <span className='col-4'><button className="btn btn-primary">
                       <Link to="/conta" style={{color: "white"}}> Conta  </Link>
-                    </button>
+                    </button></span>
                   </div>
                 </div>
                 <div className="card border-light col-xl-2 col-lg-3 col-md-4 col-sm-12 card-dash">
