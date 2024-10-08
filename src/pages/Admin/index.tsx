@@ -74,7 +74,7 @@ const Admin = () => {
         <div className="main-content-title">
           <h2>Painel Administrativo</h2>
         </div>
-          <div className="card" style={{ flex: 1, padding: '20px', width: '90%', overflow: 'auto' }}>
+          <div className="card" style={{ flex: 1, padding: '20px', width: '99%', overflow: 'auto' }}>
             <div className="card-header">
               <ul className="nav nav-tabs card-header-tabs justify-content-start">
                 <li className="nav-item">
