@@ -25,7 +25,7 @@ type TabelaResultadosProps = {
 
 const TabelaResultadosNAC = (props: TabelaResultadosProps) => {
     return (
-      <Table striped bordered>
+      <Table striped bordered width="99%">
           <thead>
             <tr>
               <th scope="col">ID</th>
