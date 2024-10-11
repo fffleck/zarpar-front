@@ -29,9 +29,12 @@ import Fornecedores from "./pages/Fornecedores";
 import AddFornecedores from "./pages/Fornecedores/list";
 import ConsolidaNac from "./pages/EditNAC";
 import AddBooking from "./pages/BookingAdd";
+import AddTaxes from "./pages/TaxesAdd";
 import ListNac from "./pages/ListNac";
 import Armadores from "./pages/Armadores";
 import ShowBooking from "./pages/Edit/show";
+import Cadastros from "./pages/Cadastros";
+import AddFretes from "./pages/FretesAdd";
 
 
 
@@ -118,6 +121,22 @@ function App() {
             </Protected>
           }>
         </Route>
+
+        <Route path="/taxesAdd"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddTaxes />
+            </Protected>
+          }>
+        </Route>
+
+        <Route path="/fretesAdd"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddFretes />
+            </Protected>
+          }>
+        </Route>
         
         <Route path="/upload"
           element={
@@ -195,6 +214,15 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <Admin />
+            </Protected>
+          }
+        >
+        </Route>
+
+        <Route path="/cadastros"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <Cadastros />
             </Protected>
           }
         >

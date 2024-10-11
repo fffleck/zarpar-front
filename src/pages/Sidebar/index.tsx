@@ -9,6 +9,7 @@ const Sidebar = (props) => {
     armadors: "",
     dashboard: "",
     admin: "",
+    cadastros: "",
     cotacoes: "",
     cotacoes_nac: "",
     bookings: "",
@@ -38,6 +39,13 @@ const Sidebar = (props) => {
             <li className={active.admin}>
               <img src="/imagens/menu/gear.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
               <Link to="/admin"><strong>Painel de Controle</strong></Link>
+            </li>
+          )}
+
+          {(email === "ffleck@gmail.com" || email === "alvaro@karavel.com.br") && (        
+            <li className={active.cadastros}>
+              <img src="/imagens/menu/impulsionar.svg" style={{ "width": "25px","height": "25px"}}  alt=""/>
+              <Link to="/cadastros"><strong>Cadastros</strong></Link>
             </li>
           )}
           <li className={active.dashboard}>
