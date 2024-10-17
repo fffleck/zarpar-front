@@ -1,0 +1,12 @@
+.btnNewFrete {
+  border-radius: 10px;
+  color: white;
+  margin-left: 90%;
+  margin-bottom: 10px;
+  height: 40%;
+  display:flex;
+  align-items: center;
+  background-color:#0044FF;
+
+  justify-content: right;
+}

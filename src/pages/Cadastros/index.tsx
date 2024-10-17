@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import HeaderPage from "../HeaderPage";
 import Sidebar from "../Sidebar";
 import api from '../../services/api';
-import { useNavigate } from "react-router-dom";
 import TabelaResultadosFretes from "./Fretes/tabela";
 import TabelaResultadosTaxas from "./Taxas/tabela";
+import TabelaResultadosPortos from "./Portos/tabela";
+import TabelaResultadosContainers from "./Containers/tabela";
 
 
 interface ResponseItemTaxes {
@@ -37,21 +38,46 @@ interface ResponseItemFreight {
   transbordo: string;
 }
 
+interface ResponsePortos {
+  port_name: string;
+  port_code: string;
+  country: string;
+  lat: string;
+  lon: string;
+  lat_float: Float32List;
+  lon_float: Float32List;
+  port_id: string;
+}
+
+interface ResponseContainers {
+  idItem: string;
+  name: string;
+  weight: string;
+}
+
 const Cadastros = () => {
   const email = sessionStorage.getItem("user_email");
   const [listTaxes, setListTaxes] = useState<ResponseItemTaxes[]>([]);
   const [listFreight, setListFreight] = useState<ResponseItemFreight[]>([]);
+  const [listPortos, setListPortos] = useState<ResponsePortos[]>([]);
+  const [listContainers, setListContainers] = useState<ResponseContainers[]>([]);
   const [activeTab, setActiveTab] = useState("fretes"); // Gerenciar abas
 
-  let navigate = useNavigate();
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get('fretes/list');
         setListFreight(res.data.list);
+
         const list = await api.get('taxes/list');
         setListTaxes(list.data.list);
+
+        const respCont = await api.get('containers/list');
+        setListContainers(respCont.data.list);
+
+        const respPortos = await api.get('portos/list');
+        setListPortos(respPortos.data.list);
+        
       } catch (error) {
         console.error('Error fetching quotations data:', error);
       }
@@ -67,6 +93,10 @@ const Cadastros = () => {
        return <TabelaResultadosFretes response={listFreight} />;
       case "taxas":
         return <TabelaResultadosTaxas response={listTaxes} />;
+      case "portos":
+        return <TabelaResultadosPortos response={listPortos} />;
+      case "containers":
+        return <TabelaResultadosContainers response={listContainers} />;
       default:
         return <TabelaResultadosFretes response={listFreight} />;
     }
@@ -97,6 +127,7 @@ const Cadastros = () => {
                       Fretes
                   </a>
                 </li>
+                &nbsp;&nbsp;&nbsp;
                 <li className="nav-item">
                   <a 
                     className="nav-link"
@@ -107,6 +138,32 @@ const Cadastros = () => {
                       color: 'white'
                     }}>
                       Taxas
+                  </a>
+                </li>
+                &nbsp;&nbsp;&nbsp;
+                <li className="nav-item">
+                  <a 
+                    className="nav-link"
+                    onClick={() => setActiveTab("portos")}
+                    style={{ 
+                      cursor: 'pointer',
+                      backgroundColor: activeTab === "portos" ? 'blue' : 'gray',
+                      color: 'white'
+                    }}>
+                      Portos
+                  </a>
+                </li>
+                &nbsp;&nbsp;&nbsp;
+                <li className="nav-item">
+                  <a 
+                    className="nav-link"
+                    onClick={() => setActiveTab("containers")}
+                    style={{ 
+                      cursor: 'pointer',
+                      backgroundColor: activeTab === "containers" ? 'blue' : 'gray',
+                      color: 'white'
+                    }}>
+                      Containers
                   </a>
                 </li>
               </ul>

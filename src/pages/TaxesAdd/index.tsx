@@ -111,7 +111,7 @@ const AddTaxes = () => {
 
   return (
     <div className="flex-dashboard">
-      <Sidebar elementoAtivo="bookings"/>
+      <Sidebar elementoAtivo="cadastros"/>
       <main>
         <HeaderPage nomeOpcao="Booking"/>
         <div className="main-content">

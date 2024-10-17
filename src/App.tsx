@@ -35,6 +35,8 @@ import Armadores from "./pages/Armadores";
 import ShowBooking from "./pages/Edit/show";
 import Cadastros from "./pages/Cadastros";
 import AddFretes from "./pages/FretesAdd";
+import AddPortos from "./pages/PortosAdd";
+import AddContainers from "./pages/ContainersAdd";
 
 
 
@@ -126,6 +128,22 @@ function App() {
           element={
             <Protected isLoggedIn={tokenIsValid}>
               <AddTaxes />
+            </Protected>
+          }>
+        </Route>
+
+        <Route path="/portosAdd"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddPortos />
+            </Protected>
+          }>
+        </Route>
+
+        <Route path="/containersAdd"
+          element={
+            <Protected isLoggedIn={tokenIsValid}>
+              <AddContainers />
             </Protected>
           }>
         </Route>

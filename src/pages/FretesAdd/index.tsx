@@ -144,7 +144,6 @@ const AddFretes = () => {
 
     };
   
-    console.log("DADOS", JSON.stringify(dataToSend))
 
     if (!dataToSend.mercadoria || !dataToSend.container || !dataToSend.armador || 
       !dataToSend.porto_embarque || !dataToSend.porto_descarga || !dataToSend.navio || !dataToSend.data_embarque || 
@@ -154,9 +153,6 @@ const AddFretes = () => {
       alert('Preencha todos os campos obrigatórios')
     } else {
       try {
-
-        console.log("DADOS", dataToSend)
-
         saveFretes(event, dataToSend);
         routeChange();
       } catch (error) {

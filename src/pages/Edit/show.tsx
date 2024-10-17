@@ -82,7 +82,6 @@ const ShowBooking = () => {
             const data = await api.post('/booking/update', dataToSend);
 
             if (data.data.success === true) {
-                console.log("ENTROU AQUI")
                 handleShowModal("Sucesso", "Booking Confirmado com sucesso!");
                 routeChange();
             } else {
